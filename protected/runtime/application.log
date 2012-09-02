@@ -1,0 +1,418 @@
+2012/09/01 22:18:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested view "contact" was not found.' in /srv/http/git/yii/framework/web/actions/CViewAction.php:113
+Stack trace:
+#0 /srv/http/git/yii/framework/web/actions/CViewAction.php(124): CViewAction->resolveView('contact')
+#1 /srv/http/git/yii/framework/web/actions/CAction.php(75): CViewAction->run()
+#2 /srv/http/git/yii/framework/web/CController.php(309): CAction->runWithParams(Array)
+#3 /srv/http/git/yii/framework/web/CController.php(287): CController->runAction(Object(CViewAction))
+#4 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CViewAction), Array)
+#5 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('page')
+#6 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('site/page')
+#7 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#8 /srv/http/zbd/index-test.php(15): CApplication->run()
+#9 {main}
+REQUEST_URI=/index-test.php?r=site/page&view=contact
+---
+2012/09/02 01:29:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin".' in /srv/http/git/yii/framework/web/CWebApplication.php:287
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin')
+#1 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /srv/http/zbd/index-test.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/index-test.php?r=admin
+---
+2012/09/02 01:29:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/index".' in /srv/http/git/yii/framework/web/CWebApplication.php:287
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin/index')
+#1 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /srv/http/zbd/index-test.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/index-test.php?r=admin/index
+---
+2012/09/02 01:32:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/tag/index".' in /srv/http/git/yii/framework/web/CWebApplication.php:287
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin/tag/index')
+#1 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /srv/http/zbd/index-test.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/index-test.php?r=admin/tag/index
+---
+2012/09/02 01:33:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin".' in /srv/http/git/yii/framework/web/CWebApplication.php:287
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin')
+#1 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /srv/http/zbd/index-test.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/index-test.php?r=admin
+---
+2012/09/02 02:12:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "xxx".' in /srv/http/git/yii/framework/web/CWebApplication.php:287
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('xxx')
+#1 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /srv/http/zbd/index-test.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/index-test.php?r=xxx
+---
+2012/09/02 02:25:25 [error] [exception.CException] exception 'CException' with message 'The layout path "/srv/http/zbd/protected/modules/admin/views/layouts/layout.php" is not a valid directory.' in /srv/http/git/yii/framework/web/CWebModule.php:162
+Stack trace:
+#0 /srv/http/zbd/protected/modules/admin/AdminModule.php(9): CWebModule->setLayoutPath('/srv/http/zbd/p...')
+#1 /srv/http/git/yii/framework/base/CModule.php(91): AdminModule->init()
+#2 /srv/http/git/yii/framework/YiiBase.php(208): CModule->__construct('admin', NULL, Array)
+#3 /srv/http/git/yii/framework/base/CModule.php(283): YiiBase::createComponent('admin.AdminModu...', 'admin', NULL, Array)
+#4 /srv/http/git/yii/framework/web/CWebApplication.php(338): CModule->getModule('admin')
+#5 /srv/http/git/yii/framework/web/CWebApplication.php(277): CWebApplication->createController('admin')
+#6 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin')
+#7 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#8 /srv/http/zbd/index-test.php(15): CApplication->run()
+#9 {main}
+REQUEST_URI=/index-test.php?r=admin
+---
+2012/09/02 02:25:50 [error] [exception.CException] exception 'CException' with message 'The layout path "/srv/http/zbd/protected/modules/admin/views/layouts/main.php" is not a valid directory.' in /srv/http/git/yii/framework/web/CWebModule.php:162
+Stack trace:
+#0 /srv/http/zbd/protected/modules/admin/AdminModule.php(9): CWebModule->setLayoutPath('/srv/http/zbd/p...')
+#1 /srv/http/git/yii/framework/base/CModule.php(91): AdminModule->init()
+#2 /srv/http/git/yii/framework/YiiBase.php(208): CModule->__construct('admin', NULL, Array)
+#3 /srv/http/git/yii/framework/base/CModule.php(283): YiiBase::createComponent('admin.AdminModu...', 'admin', NULL, Array)
+#4 /srv/http/git/yii/framework/web/CWebApplication.php(338): CModule->getModule('admin')
+#5 /srv/http/git/yii/framework/web/CWebApplication.php(277): CWebApplication->createController('admin')
+#6 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin')
+#7 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#8 /srv/http/zbd/index-test.php(15): CApplication->run()
+#9 {main}
+REQUEST_URI=/index-test.php?r=admin
+---
+2012/09/02 02:28:34 [error] [exception.CException] exception 'CException' with message 'Property "AdminModule._layoutPath" is not defined.' in /srv/http/git/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /srv/http/git/yii/framework/base/CModule.php(106): CComponent->__get('_layoutPath')
+#1 /srv/http/zbd/protected/modules/admin/AdminModule.php(9): CModule->__get('_layoutPath')
+#2 /srv/http/git/yii/framework/base/CModule.php(91): AdminModule->init()
+#3 /srv/http/git/yii/framework/YiiBase.php(208): CModule->__construct('admin', NULL, Array)
+#4 /srv/http/git/yii/framework/base/CModule.php(283): YiiBase::createComponent('admin.AdminModu...', 'admin', NULL, Array)
+#5 /srv/http/git/yii/framework/web/CWebApplication.php(338): CModule->getModule('admin')
+#6 /srv/http/git/yii/framework/web/CWebApplication.php(277): CWebApplication->createController('admin')
+#7 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin')
+#8 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#9 /srv/http/zbd/index-test.php(15): CApplication->run()
+#10 {main}
+REQUEST_URI=/index-test.php?r=admin
+---
+2012/09/02 02:43:10 [error] [php] Trying to get property of non-object (/srv/http/zbd/protected/modules/admin/AdminModule.php:11)
+Stack trace:
+#0 /srv/http/git/yii/framework/base/CModule.php(283): createComponent()
+#1 /srv/http/git/yii/framework/web/CWebApplication.php(338): CWebApplication->getModule()
+#2 /srv/http/git/yii/framework/web/CWebApplication.php(277): CWebApplication->createController()
+#3 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController()
+#4 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#5 /srv/http/zbd/index-test.php(15): CWebApplication->run()
+REQUEST_URI=/index-test.php?r=admin/Default/index
+2012/09/02 13:05:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/module/tag".' in /srv/http/git/yii/framework/web/CWebApplication.php:287
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin/module/ta...')
+#1 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /srv/http/zbd/index-test.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/index-test.php?r=admin/module/tag
+---
+2012/09/02 13:18:58 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'zhuangbeidian.Tag' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `Tag`.
+2012/09/02 13:18:58 [error] [exception.CDbException] exception 'CDbException' with message 'The table "Tag" for active record class "Tag" cannot be found in the database.' in /srv/http/git/yii/framework/db/ar/CActiveRecord.php:2312
+Stack trace:
+#0 /srv/http/git/yii/framework/db/ar/CActiveRecord.php(388): CActiveRecordMetaData->__construct(Object(Tag))
+#1 /srv/http/git/yii/framework/web/CActiveDataProvider.php(75): CActiveRecord::model('Tag')
+#2 /srv/http/zbd/protected/modules/admin/controllers/TagController.php(132): CActiveDataProvider->__construct('Tag')
+#3 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#4 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /srv/http/git/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#13 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin/tag')
+#14 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /srv/http/zbd/index-test.php(15): CApplication->run()
+#16 {main}
+REQUEST_URI=/index-test.php?r=admin/tag
+---
+2012/09/02 13:19:08 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'zhuangbeidian.Tag' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `Tag`.
+2012/09/02 13:19:08 [error] [exception.CDbException] exception 'CDbException' with message 'The table "Tag" for active record class "Tag" cannot be found in the database.' in /srv/http/git/yii/framework/db/ar/CActiveRecord.php:2312
+Stack trace:
+#0 /srv/http/git/yii/framework/db/ar/CActiveRecord.php(388): CActiveRecordMetaData->__construct(Object(Tag))
+#1 /srv/http/git/yii/framework/web/CActiveDataProvider.php(75): CActiveRecord::model('Tag')
+#2 /srv/http/zbd/protected/modules/admin/controllers/TagController.php(132): CActiveDataProvider->__construct('Tag')
+#3 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#4 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /srv/http/git/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#13 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin/Tag')
+#14 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /srv/http/zbd/index-test.php(15): CApplication->run()
+#16 {main}
+REQUEST_URI=/index-test.php?r=admin/Tag
+---
+2012/09/02 13:30:48 [error] [exception.CException] exception 'CException' with message 'Alias "admin.AdminModule" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /srv/http/git/yii/framework/YiiBase.php:318
+Stack trace:
+#0 /srv/http/git/yii/framework/YiiBase.php(198): YiiBase::import('admin.AdminModu...', true)
+#1 /srv/http/git/yii/framework/base/CModule.php(283): YiiBase::createComponent('admin.AdminModu...', 'admin', NULL, Array)
+#2 /srv/http/git/yii/framework/web/CWebApplication.php(338): CModule->getModule('admin')
+#3 /srv/http/git/yii/framework/web/CWebApplication.php(277): CWebApplication->createController('admin')
+#4 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin')
+#5 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#6 /srv/http/zbd/index-test.php(15): CApplication->run()
+#7 {main}
+REQUEST_URI=/index-test.php?r=admin
+---
+2012/09/02 13:32:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin".' in /srv/http/git/yii/framework/web/CWebApplication.php:287
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('admin')
+#1 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /srv/http/zbd/index-test.php(15): CApplication->run()
+#3 {main}
+REQUEST_URI=/index-test.php?r=admin
+---
+2012/09/02 13:32:19 [error] [php] include(Tag.php): failed to open stream: No such file or directory (/srv/http/git/yii/framework/YiiBase.php:423)
+Stack trace:
+#0 /srv/http/git/yii/framework/db/ar/CActiveRecord.php(387): spl_autoload_call()
+#1 /srv/http/git/yii/framework/web/CActiveDataProvider.php(75): model()
+#2 /srv/http/zbd/protected/controllers/TagController.php(132): CActiveDataProvider->__construct()
+#3 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#4 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#5 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): TagController->runAction()
+#6 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /srv/http/git/yii/framework/web/CController.php(1146): CAccessControlFilter->filter()
+#8 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): TagController->filterAccessControl()
+#9 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#10 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /srv/http/git/yii/framework/web/CController.php(266): TagController->runActionWithFilters()
+#12 /srv/http/git/yii/framework/web/CWebApplication.php(283): TagController->run()
+#13 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController()
+#14 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /srv/http/zbd/index-test.php(15): CWebApplication->run()
+REQUEST_URI=/index-test.php?r=tag
+2012/09/02 23:04:25 [error] [exception.CException] exception 'CException' with message 'Property "CDetailView.dataProvider" is not defined.' in /srv/http/git/yii/framework/base/CComponent.php:174
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWidgetFactory.php(162): CComponent->__set('dataProvider', Object(CActiveDataProvider))
+#1 /srv/http/git/yii/framework/web/CBaseController.php(147): CWidgetFactory->createWidget(Object(TagController), 'zii.widgets.CDe...', Array)
+#2 /srv/http/git/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#3 /srv/http/zbd/protected/views/tag/index.php(17): CBaseController->widget('zii.widgets.CDe...', Array)
+#4 /srv/http/git/yii/framework/web/CBaseController.php(127): require('/srv/http/zbd/p...')
+#5 /srv/http/git/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/srv/http/zbd/p...', Array, true)
+#6 /srv/http/git/yii/framework/web/CController.php(870): CBaseController->renderFile('/srv/http/zbd/p...', Array, true)
+#7 /srv/http/git/yii/framework/web/CController.php(783): CController->renderPartial('index', Array, true)
+#8 /srv/http/zbd/protected/controllers/TagController.php(135): CController->render('index', Array)
+#9 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#10 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#11 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#13 /srv/http/git/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#14 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#15 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#17 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#19 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('tag')
+#20 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /srv/http/zbd/index-test.php(15): CApplication->run()
+#22 {main}
+REQUEST_URI=/index-test.php?r=tag
+---
+2012/09/02 23:05:05 [error] [exception.CException] exception 'CException' with message 'Property "CDetailView.itemView" is not defined.' in /srv/http/git/yii/framework/base/CComponent.php:174
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWidgetFactory.php(162): CComponent->__set('itemView', '_view')
+#1 /srv/http/git/yii/framework/web/CBaseController.php(147): CWidgetFactory->createWidget(Object(TagController), 'zii.widgets.CDe...', Array)
+#2 /srv/http/git/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#3 /srv/http/zbd/protected/views/tag/index.php(17): CBaseController->widget('zii.widgets.CDe...', Array)
+#4 /srv/http/git/yii/framework/web/CBaseController.php(127): require('/srv/http/zbd/p...')
+#5 /srv/http/git/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/srv/http/zbd/p...', Array, true)
+#6 /srv/http/git/yii/framework/web/CController.php(870): CBaseController->renderFile('/srv/http/zbd/p...', Array, true)
+#7 /srv/http/git/yii/framework/web/CController.php(783): CController->renderPartial('index', Array, true)
+#8 /srv/http/zbd/protected/controllers/TagController.php(135): CController->render('index', Array)
+#9 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#10 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#11 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#13 /srv/http/git/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#14 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#15 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#17 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#19 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('tag')
+#20 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /srv/http/zbd/index-test.php(15): CApplication->run()
+#22 {main}
+REQUEST_URI=/index-test.php?r=tag
+---
+2012/09/02 23:05:06 [error] [exception.CException] exception 'CException' with message 'Property "CDetailView.itemView" is not defined.' in /srv/http/git/yii/framework/base/CComponent.php:174
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWidgetFactory.php(162): CComponent->__set('itemView', '_view')
+#1 /srv/http/git/yii/framework/web/CBaseController.php(147): CWidgetFactory->createWidget(Object(TagController), 'zii.widgets.CDe...', Array)
+#2 /srv/http/git/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#3 /srv/http/zbd/protected/views/tag/index.php(17): CBaseController->widget('zii.widgets.CDe...', Array)
+#4 /srv/http/git/yii/framework/web/CBaseController.php(127): require('/srv/http/zbd/p...')
+#5 /srv/http/git/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/srv/http/zbd/p...', Array, true)
+#6 /srv/http/git/yii/framework/web/CController.php(870): CBaseController->renderFile('/srv/http/zbd/p...', Array, true)
+#7 /srv/http/git/yii/framework/web/CController.php(783): CController->renderPartial('index', Array, true)
+#8 /srv/http/zbd/protected/controllers/TagController.php(135): CController->render('index', Array)
+#9 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#10 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#11 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#13 /srv/http/git/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#14 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#15 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#17 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#19 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('tag')
+#20 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /srv/http/zbd/index-test.php(15): CApplication->run()
+#22 {main}
+REQUEST_URI=/index-test.php?r=tag
+---
+2012/09/02 23:49:25 [error] [exception.CException] exception 'CException' with message 'Property "CDetailView.dataProvider" is not defined.' in /srv/http/git/yii/framework/base/CComponent.php:174
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWidgetFactory.php(162): CComponent->__set('dataProvider', Object(CActiveDataProvider))
+#1 /srv/http/git/yii/framework/web/CBaseController.php(147): CWidgetFactory->createWidget(Object(TagController), 'zii.widgets.CDe...', Array)
+#2 /srv/http/git/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#3 /srv/http/zbd/protected/views/tag/index.php(17): CBaseController->widget('zii.widgets.CDe...', Array)
+#4 /srv/http/git/yii/framework/web/CBaseController.php(127): require('/srv/http/zbd/p...')
+#5 /srv/http/git/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/srv/http/zbd/p...', Array, true)
+#6 /srv/http/git/yii/framework/web/CController.php(870): CBaseController->renderFile('/srv/http/zbd/p...', Array, true)
+#7 /srv/http/git/yii/framework/web/CController.php(783): CController->renderPartial('index', Array, true)
+#8 /srv/http/zbd/protected/controllers/TagController.php(135): CController->render('index', Array)
+#9 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#10 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#11 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#13 /srv/http/git/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#14 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#15 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#17 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#19 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('tag')
+#20 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /srv/http/zbd/index-test.php(15): CApplication->run()
+#22 {main}
+REQUEST_URI=/index-test.php?r=tag
+---
+2012/09/02 23:49:27 [error] [exception.CException] exception 'CException' with message 'Property "CDetailView.dataProvider" is not defined.' in /srv/http/git/yii/framework/base/CComponent.php:174
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWidgetFactory.php(162): CComponent->__set('dataProvider', Object(CActiveDataProvider))
+#1 /srv/http/git/yii/framework/web/CBaseController.php(147): CWidgetFactory->createWidget(Object(TagController), 'zii.widgets.CDe...', Array)
+#2 /srv/http/git/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#3 /srv/http/zbd/protected/views/tag/index.php(17): CBaseController->widget('zii.widgets.CDe...', Array)
+#4 /srv/http/git/yii/framework/web/CBaseController.php(127): require('/srv/http/zbd/p...')
+#5 /srv/http/git/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/srv/http/zbd/p...', Array, true)
+#6 /srv/http/git/yii/framework/web/CController.php(870): CBaseController->renderFile('/srv/http/zbd/p...', Array, true)
+#7 /srv/http/git/yii/framework/web/CController.php(783): CController->renderPartial('index', Array, true)
+#8 /srv/http/zbd/protected/controllers/TagController.php(135): CController->render('index', Array)
+#9 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#10 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#11 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#13 /srv/http/git/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#14 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#15 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#17 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#19 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('tag')
+#20 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /srv/http/zbd/index-test.php(15): CApplication->run()
+#22 {main}
+REQUEST_URI=/index-test.php?r=tag
+---
+2012/09/02 23:49:28 [error] [exception.CException] exception 'CException' with message 'Property "CDetailView.dataProvider" is not defined.' in /srv/http/git/yii/framework/base/CComponent.php:174
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWidgetFactory.php(162): CComponent->__set('dataProvider', Object(CActiveDataProvider))
+#1 /srv/http/git/yii/framework/web/CBaseController.php(147): CWidgetFactory->createWidget(Object(TagController), 'zii.widgets.CDe...', Array)
+#2 /srv/http/git/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#3 /srv/http/zbd/protected/views/tag/index.php(17): CBaseController->widget('zii.widgets.CDe...', Array)
+#4 /srv/http/git/yii/framework/web/CBaseController.php(127): require('/srv/http/zbd/p...')
+#5 /srv/http/git/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/srv/http/zbd/p...', Array, true)
+#6 /srv/http/git/yii/framework/web/CController.php(870): CBaseController->renderFile('/srv/http/zbd/p...', Array, true)
+#7 /srv/http/git/yii/framework/web/CController.php(783): CController->renderPartial('index', Array, true)
+#8 /srv/http/zbd/protected/controllers/TagController.php(135): CController->render('index', Array)
+#9 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): TagController->actionIndex()
+#10 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#11 /srv/http/git/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 /srv/http/git/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#13 /srv/http/git/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#14 /srv/http/git/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#15 /srv/http/git/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 /srv/http/git/yii/framework/web/CController.php(292): CFilterChain->run()
+#17 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#19 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('tag')
+#20 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /srv/http/zbd/index-test.php(15): CApplication->run()
+#22 {main}
+REQUEST_URI=/index-test.php?r=tag
+---
+2012/09/03 00:12:53 [error] [php] Undefined variable: game (/srv/http/zbd/protected/views/layouts/main.php:46)
+Stack trace:
+#0 /srv/http/git/yii/framework/web/widgets/CContentDecorator.php(77): SiteController->renderFile()
+#1 /srv/http/git/yii/framework/web/widgets/CContentDecorator.php(55): CContentDecorator->decorate()
+#2 /srv/http/git/yii/framework/web/widgets/COutputProcessor.php(45): CContentDecorator->processOutput()
+#3 /srv/http/git/yii/framework/web/CBaseController.php(207): CContentDecorator->run()
+#4 /srv/http/git/yii/framework/web/CBaseController.php(301): SiteController->endWidget()
+#5 /srv/http/zbd/protected/views/layouts/column1.php(6): SiteController->endContent()
+#6 /srv/http/git/yii/framework/web/CBaseController.php(127): require()
+#7 /srv/http/git/yii/framework/web/CBaseController.php(96): SiteController->renderInternal()
+#8 /srv/http/git/yii/framework/web/CController.php(785): SiteController->renderFile()
+#9 /srv/http/zbd/protected/controllers/SiteController.php(33): SiteController->render()
+#10 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): SiteController->actionIndex()
+#11 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#12 /srv/http/git/yii/framework/web/CController.php(287): SiteController->runAction()
+#13 /srv/http/git/yii/framework/web/CController.php(266): SiteController->runActionWithFilters()
+#14 /srv/http/git/yii/framework/web/CWebApplication.php(283): SiteController->run()
+#15 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController()
+#16 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#17 /srv/http/zbd/index.php(13): CWebApplication->run()
+REQUEST_URI=/
+in /srv/http/zbd/protected/views/layouts/main.php (46)
+in /srv/http/zbd/protected/views/layouts/column1.php (6)
+in /srv/http/zbd/protected/controllers/SiteController.php (33)
+2012/09/03 00:14:13 [error] [exception.CException] exception 'CException' with message 'Property "SiteController.game" is not defined.' in /srv/http/git/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /srv/http/zbd/protected/views/layouts/main.php(46): CComponent->__get('game')
+#1 /srv/http/git/yii/framework/web/CBaseController.php(127): require('/srv/http/zbd/p...')
+#2 /srv/http/git/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/srv/http/zbd/p...', Array, true)
+#3 /srv/http/git/yii/framework/web/widgets/CContentDecorator.php(77): CBaseController->renderFile('/srv/http/zbd/p...', Array, true)
+#4 /srv/http/git/yii/framework/web/widgets/CContentDecorator.php(55): CContentDecorator->decorate('<div id="conten...')
+#5 /srv/http/git/yii/framework/web/widgets/COutputProcessor.php(45): CContentDecorator->processOutput('<div id="conten...')
+#6 /srv/http/git/yii/framework/web/CBaseController.php(207): COutputProcessor->run()
+#7 /srv/http/git/yii/framework/web/CBaseController.php(301): CBaseController->endWidget('CContentDecorat...')
+#8 /srv/http/zbd/protected/views/layouts/column1.php(6): CBaseController->endContent()
+#9 /srv/http/git/yii/framework/web/CBaseController.php(127): require('/srv/http/zbd/p...')
+#10 /srv/http/git/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/srv/http/zbd/p...', Array, true)
+#11 /srv/http/git/yii/framework/web/CController.php(785): CBaseController->renderFile('/srv/http/zbd/p...', Array, true)
+#12 /srv/http/zbd/protected/controllers/SiteController.php(33): CController->render('index')
+#13 /srv/http/git/yii/framework/web/actions/CInlineAction.php(50): SiteController->actionIndex()
+#14 /srv/http/git/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#15 /srv/http/git/yii/framework/web/CController.php(287): CController->runAction(Object(CInlineAction))
+#16 /srv/http/git/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /srv/http/git/yii/framework/web/CWebApplication.php(283): CController->run('')
+#18 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('')
+#19 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /srv/http/zbd/index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/
+---
+2012/09/03 00:23:24 [error] [php] Missing argument 1 for CController::__construct(), called in /srv/http/zbd/protected/controllers/SiteController.php on line 10 and defined (/srv/http/git/yii/framework/web/CController.php:111)
+Stack trace:
+#0 /srv/http/git/yii/framework/web/CWebApplication.php(277): CWebApplication->createController()
+#1 /srv/http/git/yii/framework/web/CWebApplication.php(142): CWebApplication->runController()
+#2 /srv/http/git/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#3 /srv/http/zbd/index.php(13): CWebApplication->run()
+REQUEST_URI=/
+in /srv/http/zbd/protected/controllers/SiteController.php (10)
+in /srv/http/zbd/index.php (13)
