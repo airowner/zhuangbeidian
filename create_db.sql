@@ -1,6 +1,25 @@
 
 set names utf8;
 
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password CHAR(40) NOT NULL,
+    group_id INT(11) NOT NULL,
+    created DATETIME,
+    modified DATETIME
+);
+
+
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE `groups` (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    created DATETIME,
+    modified DATETIME
+);
+
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item`
 (
@@ -68,7 +87,7 @@ CREATE TABLE `tag`
 insert into `tag` (`tag`, `pid`, `display_html`) value \
 
 ('#game', 0, 0), \
-('#official', 0, 0), \
+('#product', 0, 0), \
 ('#user', 0, 0), \
 
 ('服装', 2, 1), \
@@ -82,7 +101,6 @@ insert into `tag` (`tag`, `pid`, `display_html`) value \
 ('裤子', 4, 1), \
 ('鞋', 4, 1), \
 ('帽子', 4, 1), \
-
 
 ('手表', 5, 1), \
 ('钥匙链', 5, 1), \
@@ -101,6 +119,15 @@ insert into `tag` (`tag`, `pid`, `display_html`) value \
 ('U盘', 7, 1), \
 ('鼠标垫', 7, 1), \
 
+('#price', 0, 0), \
+('100以下', 28, 1), \
+('100~200', 28, 1), \
+('200~500', 28, 1), \
+('500~1000', 28, 1), \
+('1000~2000', 28, 1), \
+('2000~5000', 28, 1), \
+('5000以上', 28, 1), \
+
 ('穿越火线', 1, 1), \
 ('英雄联盟', 1, 1), \
 ('梦幻西游', 1, 1), \
@@ -113,42 +140,58 @@ DROP TABLE IF EXISTS `item_tag`;
 CREATE TABLE `item_tag`
 (
     `id` int(11) unsigned not null auto_increment,
-    `itemid` int(11) unsigned not null,
-    `tagid` int(11) unsigned not null,
+    `item_id` int(11) unsigned not null,
+    `tag_id` int(11) unsigned not null,
     PRIMARY KEY `id` (`id`),
-    KEY `tagid` (`tagid`),
-    KEY `itemid` (`itemid`)
+    KEY `tag_id` (`tag_id`),
+    KEY `item_id` (`item_id`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
---请求列表
---DROP TABLE IF EXISTS `item_get_before`;
---CREATE TABLE `item_tag`
---(
---    `id` int(11) unsigned not null auto_increment,
---    `url` varchar(255) not null comment 'http://xx.taobao.com/item?mid=xxxxx',
---    `tags` varchar(255) not null,
---    PRIMARY KEY `id` (`id`),
---) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+DROP TABLE IF EXISTS `ad`;
+CREATE TABLE `ad`
+(
+    `id` int(11) unsigned not null auto_increment,
+    `name` varchar(255) not null,
+    `type` enum('text','img','flash') not null comment '广告类型 text,flash,img',
+    `url` varchar(255) not null,
+    `img` varchar(255) not null,
+    `txt` varchar(255) not null,
+    `width` tinyint(3) unsigned not null,
+    `height` tinyint(3) unsigned not null,
+    `other` varchar(255) not null,
+    PRIMARY KEY `id` (`id`),
+    KEY `type` (`type`)
+) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
---热门店铺
---DROP TABLE IF EXISTS `shop`;
---CREATE TABLE `shop`
---(
---    `id` int(11) unsigned not null auto_increment,
---    `name` varchar(255) not null,
---    PRIMARY KEY `id` (`id`),
---) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
---
---DROP TABLE IF EXISTS `shop_tag`;
---CREATE TABLE `shop_tag`
---(
---    `id` int(11) unsigned not null auto_increment,
---    `shopid` int(11) unsigned not null comment 'http://xx.taobao.com/item?mid=xxxxx',
---    `tags` varchar(255) unsigned not null,
---    PRIMARY KEY `id` (`id`),
---    KEY `tagid` (`tagid`),
---    KEY `itemid` (`itemid`)
---) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
---
+-- 请求列表
+-- DROP TABLE IF EXISTS `item_get_before`;
+-- CREATE TABLE `item_tag`
+-- (
+--     `id` int(11) unsigned not null auto_increment,
+--     `url` varchar(255) not null comment 'http://xx.taobao.com/item?mid=xxxxx',
+--     `tags` varchar(255) not null,
+--     PRIMARY KEY `id` (`id`),
+-- ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- 热门店铺
+-- DROP TABLE IF EXISTS `shop`;
+-- CREATE TABLE `shop`
+-- (
+--     `id` int(11) unsigned not null auto_increment,
+--     `name` varchar(255) not null,
+--     PRIMARY KEY `id` (`id`),
+-- ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+-- 
+-- DROP TABLE IF EXISTS `shop_tag`;
+-- CREATE TABLE `shop_tag`
+-- (
+--     `id` int(11) unsigned not null auto_increment,
+--     `shopid` int(11) unsigned not null comment 'http://xx.taobao.com/item?mid=xxxxx',
+--     `tags` varchar(255) unsigned not null,
+--     PRIMARY KEY `id` (`id`),
+--     KEY `tagid` (`tagid`),
+--     KEY `itemid` (`itemid`)
+-- ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+-- 
