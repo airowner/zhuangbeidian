@@ -1,0 +1,248 @@
+	<a href=""><img class="poster" src="temp/ad1.jpg"/></a>
+
+	<div class="body product clearfix">
+	  <div class="lside">
+        <?php echo $this->element('leftnav'); ?>
+		<a class="productPoster" href="">
+		  <img src="temp/product_l.jpg"/>
+		  <span class="posterInfo">
+		    <b class="price">￥<em>268</em></b>
+		    <span class="opacity">
+		      <b class="name">真皮斜挎包</b>
+			  <span class="sold"><em>已售</em>&nbsp;564</span>
+		    </span>
+		  </span>
+		</a>
+		<a class="productPoster" href="">
+		  <img src="temp/product_l.jpg"/>
+		  <span class="posterInfo">
+		    <b class="price">￥<em>138</em></b>
+		    <span class="opacity">
+		      <b class="name">休闲单肩包</b>
+			  <span class="sold"><em>已售</em>&nbsp;146</span>
+		    </span>
+		  </span>
+		</a>
+		<a class="productPoster" href="">
+		  <img src="temp/product_l.jpg"/>
+		  <span class="posterInfo">
+		    <b class="price">￥<em>95</em></b>
+		    <span class="opacity">
+		      <b class="name">潮流帆布包</b>
+			  <span class="sold"><em>已售</em>&nbsp;207</span>
+		    </span>
+		  </span>
+		</a>
+	  </div>
+	  <div class="rside">
+          <?php 
+          if($item){
+              echo $this->element('item', array('item'=>$item));
+          } 
+          ?>
+
+          <ul class="filter"<?php if(!$item){echo " style=\"margin:0\"";} ?>>
+
+          <li><b>商品分类：</b>
+          <a<?php if(!$product_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $product_active);?>">全部</a>
+          <?php 
+          foreach($product as $p): ?>
+          <a<?php if($p['id']==$product_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $product_active, $p['id']);?>"><?php echo $p['tag']; ?></a>
+          <?php endforeach; ?>
+          </li>
+          <li><b>所属游戏：</b>
+          <a<?php if(!$game_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $game_active);?>">全部</a>
+          <?php foreach($game as $p): ?>
+              <a<?php if($p['id']==$game_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $game_active, $p['id']);?>"><?php echo $p['tag']; ?></a>
+          <?php endforeach; ?>
+          </li>
+          <li><b>价格区间：</b>
+          <a<?php if(!$price_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $price_active);?>">全部</a>
+          <?php foreach($price as $p): ?>
+              <a<?php if($p['id']==$price_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $price_active, $p['id']);?>"><?php echo $p['tag']; ?></a>
+          <?php endforeach; ?>
+          </li>
+		</ul>
+		<div class="list">
+		  <div class="tit">
+		    <ul>
+			  <li><a class="cur" href="">价格<b class="icons up"></b></a></li>
+			  <li><a href="">销量<b class="icons down"></b></a></li>
+			  <li><a href="">信用<b class="icons down"></b></a></li>
+			  <li><a href="">时间<b class="icons up"></b></a></li>
+			</ul>
+			<div>共有&nbsp;133件商品</div>
+		  </div>
+		  <ul class="productCell clearfix">
+		    <li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+			<li>
+			  <div>
+			    <a href="">
+				  <img src="temp/img_product.jpg">
+			    </a>
+			  </div>
+			  <ul>
+			    <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
+			    <li class="price">装备店价：<b>￥2279.00</b></li>
+				<li class="sold">已售：<b>3235</b>&nbsp;件</li>
+				<li class="owner">掌柜：没约旗舰店</li>
+			  </ul>
+			  <a class="btn" href="">去店铺看看</a>
+			</li>
+		  </ul>
+		</div>
+	  </div>
+	</div>
