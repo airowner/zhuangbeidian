@@ -73,4 +73,61 @@ class AppHelper extends Helper {
 
         return "/tag/" . implode('_', $tags);
     }
+    
+    public function ad($data, $options=array())
+    {
+        if(!$data) return '';
+        $options += array(
+            'baseurl' => '',
+            'a_class' => '',
+            'a_style' => '',
+            'a_js' => '',
+            'img_class' => '',
+            'img_style' => '',
+            'before' => '',
+            'after' => '',
+        );
+        $data = array_merge($data, $options);
+
+        $type = $data['type'];
+        $ad = '';
+        switch($type){
+        case 'img':
+            $ad = sprintf("<a href='%s' %s%s%s>%s<img src='%s'%s%s%s%s%s />%s</a>", $data['url'],
+                ($data['a_class']?" class='{$data['a_class']}'":""), 
+                ($data['a_style']?" style='{$data['a_style']}'":""), 
+                $data['a_js'], $data['before'], $data['baseurl'].$data['img'],
+                ($data['txt']?" alt='{$data['txt']}'":""),
+                ($data['width']?" width='{$data['width']}'":""), 
+                ($data['height']?" height='{$data['height']}'":""), 
+                ($data['img_class']?" class='{$data['img_class']}'":""), 
+                ($data['img_style']?" style='{$data['img_style']}'":""),
+                $data['after']);
+            break;
+        case 'text':
+            $ad = sprintf("<a href='%s' %s%s%s>%s%s%s</a>", $data['url'],
+                ($data['a_class']?" class='{$data['a_class']}'":""), 
+                ($data['a_style']?" style='{$data['a_style']}'":""), 
+                $data['a_js'], $data['before'], $data['txt'], $data['after']);
+            break;
+        case 'javascript':
+            $ad = "<script type='text/javascript'>{$data['other']}</script>";
+            break;
+        case 'flash':
+            $ad = '';
+            break;
+        }
+        return $ad;
+    }
+    
+    public function item()
+    {
+        return '<span class="posterInfo">
+            <b class="price">￥<em>95</em></b>
+            <span class="opacity">
+              <b class="name">潮流帆布包</b>
+              <span class="sold"><em>已售</em>&nbsp;207</span>
+            </span>
+          </span>';
+    }
 }

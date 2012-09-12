@@ -73,7 +73,7 @@ CREATE TABLE `tag`
     `tag` varchar(255) not null,
     `pid` int(11) not null default 0,
     `display_html` tinyint(1) not null default 0 comment '是否显示在页面分类中',
-    `order` tinyint(3) not null default 0 comment '排序',
+    `order` smallint not null default 0 comment '排序',
     `validate` tinyint(1) not null default 1,
     `time` timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY `id` (`id`),
@@ -153,17 +153,30 @@ CREATE TABLE `ad`
 (
     `id` int(11) unsigned not null auto_increment,
     `name` varchar(255) not null,
-    `type` enum('text','img','flash') not null comment '广告类型 text,flash,img',
+    `type` enum('text','img','flash','javascript') not null comment '广告类型 text,flash,img',
     `url` varchar(255) not null,
     `img` varchar(255) not null,
     `txt` varchar(255) not null,
-    `width` tinyint(3) unsigned not null,
-    `height` tinyint(3) unsigned not null,
-    `other` varchar(255) not null,
+    `width` smallint unsigned not null,
+    `height` smallint unsigned not null,
+    `other` text(255) not null,
     PRIMARY KEY `id` (`id`),
     KEY `type` (`type`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
+insert into ad (name, type, url, img , txt, width, height) values \
+('首页导航横条','img','http://www.google.com','files/e/5/3b2468ac04caf05777a9d33c9c5c0de5.jpg','导航横条推荐','548','199'),\
+('首页导航右侧','img','http://www.baidu.com','files/f/c/4fb0a4cfa942e94003e0132a324bc1fc.jpg','导航右侧推荐','180','394'),\
+('首页导航左下1','img','http://www.baidu.com','files/5/b/d00ad374a35f49215b1b706644eef45b.jpg','导航左下1推荐','182','194'),\
+('首页导航左下2','img','http://www.google.com','files/7/c/2b7442c29d67262fdce234dae7d10b7c.jpg','导航左下2推荐','182','194'),\
+('首页导航左下3','img','http://www.google.com','files/e/6/7d3ec21552fbbac14ca3b72ffd6007e6.jpg','导航左下3推荐','182','194')\
+, ('首页左侧','img','http://www.google.com','files/2/2/618187e13fb5c838b0fd569e279b7f22.jpg','首页左侧','980','90')\
+, ('首页右侧1','img','http://www.google.com','files/0/4/28d5eea9376733495e4a3a61af53ae04.jpg','首页右侧','240','120')\
+, ('首页右侧2','img','http://www.google.com','files/0/4/28d5eea9376733495e4a3a61af53ae04.jpg','首页右侧','240','120')\
+, ('二级页首部','img','http://www.google.com','files/2/2/618187e13fb5c838b0fd569e279b7f22.jpg','二级页首部','980','90')\
+, ('二级页左侧1','img','http://www.google.com','files/c/b/50f50dba109f82522e13d943df195dcb.jpg','二级页左侧1','245','280')\
+, ('二级页左侧2','img','http://www.google.com','files/c/b/50f50dba109f82522e13d943df195dcb.jpg','二级页左侧2','245','280')\
+, ('二级页左侧3','img','http://www.google.com','files/c/b/50f50dba109f82522e13d943df195dcb.jpg','二级页左侧3','245','280')\
+;
 
 -- 请求列表
 -- DROP TABLE IF EXISTS `item_get_before`;

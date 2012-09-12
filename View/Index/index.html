@@ -4,26 +4,24 @@
         <div class="rec">
             <ul class="clearfix">
               <li>
-                <a href=""><img src="temp/img1_rec.jpg" width="548" height="199"/></a>
+                <?php echo $this->Html->ad($ads[1], array('baseurl'=>$baseurl)); ?>
               </li>
               <li class="fr">
-                <a href=""><img src="temp/img2_rec.jpg" width="180" height="394"/></a>
+                <?php echo $this->Html->ad($ads[2], array('baseurl'=>$baseurl)); ?>
               </li>
               <li>
-                <a href=""><img src="temp/img3_rec.jpg" width="182" height="194"/></a>
+                <?php echo $this->Html->ad($ads[3], array('baseurl'=>$baseurl)); ?>
               </li>
               <li>
-                <a href=""><img src="temp/img4_rec.jpg" width="182" height="194"/></a>
+                <?php echo $this->Html->ad($ads[4], array('baseurl'=>$baseurl)); ?>
               </li>
               <li>
-                <a href=""><img src="temp/img5_rec.jpg" width="182" height="194"/></a>
+                <?php echo $this->Html->ad($ads[5], array('baseurl'=>$baseurl)); ?>
               </li>
             </ul>
         </div>
       </div>
-      <a href="">
-        <img class="poster" src="temp/ad1.jpg"/>
-      </a>
+      <?php echo $this->Html->ad($ads[6], array('class'=>'poster', 'baseurl'=>$baseurl)); ?>
       <div class="list clearfix">
         <div class="imgList">
           <div class="section">
@@ -283,7 +281,7 @@
               </li>
             </ul>
           </div>
-          <a href=""><img src="temp/ad2.jpg"/></a>
+          <?php echo $this->Html->ad($ads[7], array('baseurl'=>$baseurl)); ?>
           <div class="section">
             <div class="tit">服装热门店铺</div>
             <ul class="con">
@@ -319,7 +317,7 @@
               </li>
             </ul>
           </div>
-          <a href=""><img src="temp/ad2.jpg"/></a>
+          <?php echo $this->Html->ad($ads[8], array('baseurl'=>$baseurl)); ?>
         </div>
       </div>
     </div>

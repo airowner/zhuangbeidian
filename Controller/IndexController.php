@@ -23,14 +23,34 @@ class IndexController extends AppController
     {
         parent::beforeFilter(); 
         $this->Auth->allowedActions = array('*');
+        $this->set('baseurl', '/');
     }
 
     public function index()
     {
+        $_ads = $this->Ad->find('all', array(
+            'condition' => array('id' => ' < 5'),
+        ));
+        $ads = array();
+        foreach($_ads as $ad){
+            $tmp = $ad['Ad'];
+            $ads[$tmp['id']] = $tmp;
+        }
+        $this->set('ads', $ads);
     }
 
     public function tag()
     {
+        $this->set('baseurl', '/');
+        $_ads = $this->Ad->find('all', array(
+            'condition' => array('id' => ' < 5'),
+        ));
+        $ads = array();
+        foreach($_ads as $ad){
+            $tmp = $ad['Ad'];
+            $ads[$tmp['id']] = $tmp;
+        }
+        $this->set('ads', $ads);
         /*
          * 含有推广itemid
          */

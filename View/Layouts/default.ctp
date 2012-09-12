@@ -35,6 +35,7 @@ $cakeDescription = __d('cake_dev', '管理后台');
         echo $this->fetch('css');
         echo $this->fetch('script');
     ?>
+    <script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
 </head>
 <body>
     <div id="container">
