@@ -35,6 +35,11 @@ class Tag extends AppModel
     {
         return $this->getDetailCate('#price');
     }
+    
+    public function getOther()
+    {
+        return $this->getDetailCate('#user');
+    }
 
     public function getDetailCate($rootTag)
     {

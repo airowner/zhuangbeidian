@@ -9,8 +9,97 @@ class SpiderController extends AppController
     public $name = 'Spider';
     //public $helper = array('Html');
 
-    public $uses = array('ItemGetBefore');
+    public $uses = array('ItemGetBefore', 'Tag');
+    
+    private $tags = array();
+    private $game = array();
+    private $cate = array();
+    private $ccate = array();
+    private $price = array();
 
+
+    public function __construct($id, $module=null)
+    {
+        parent::__construct($id, $module);
+        $this->game = $this->_setSelect($this->Tag->getGames());
+        list($this->cate, $this->ccate) = $this->_setCate($this->Tag->getTreeCategory());
+        $this->price = $this->_setSelect($this->Tag->getPrice());
+
+        $this->set('all_game', $this->game);
+        $this->set('all_cate', $this->cate);
+        $this->set('all_ccate', $this->ccate);
+        $this->set('all_price', $this->price);
+    }
+    
+    private function _setSelect($data)
+    {
+        $_data = array();
+        foreach($data as $d){
+            $_data[$d['id']] = $d['tag'];
+        }
+        $this->tags += $_data;
+        return $_data;
+    }
+    
+    private function _setCate($data)
+    {
+        $_data = array();
+        $_cdata = array();
+        foreach($data as $d){
+            $t = $d['data'];
+            $_data[$t['id']] = $t['tag'];
+            $_cdata[$t['id']] = array();
+            foreach($d['child'] as $_c){
+                $_cdata[$t['id']][$_c['id']] = $_c['tag'];
+            }
+            $this->tags += $_cdata;           
+        }
+        $this->tags += $_data;
+        
+        return array($_data, $_cdata);
+    }
+    
+    private function translate($tagid)
+    {
+        if(isset($this->tags[$tagid])){
+            return $this->tags[$tagid];
+        }
+        $t = $this->Tag->find('first', array('condition'=>array('id'=>$tagid)));
+        $this->tags[$t['Tag']['id']] = $t['Tag']['tag'];
+        
+        return $this->tags[$tagid];
+    }
+    
+    private function translateItem(&$item)
+    {
+        $tagsid = explode(',', $item['ItemGetBefore']['tags']);
+        $tagsname = array();
+        foreach($tagsid as $tagid){
+            $tagsname[] = $this->translate($tagid);
+        }
+        $item['ItemGetBefore']['tags'] = implode(',', $tagsname);
+    }
+    
+    private function setCateById($tags)
+    {
+        $tagsid = explode(',', $tags);
+        $other = array();
+        foreach($tagsid as $tagid){
+            if(isset($this->game[$tagid])){
+                $this->set('game', array($tagid => $this->translate($tagid)));
+            }elseif(isset($this->cate[$tagid])){
+                $this->set('cate', array($tagid => $this->translate($tagid)));
+            }elseif(isset($this->ccate[$tagid])){
+                $this->set('ccate', array($tagid => $this->translate($tagid)));
+            }elseif(isset($this->price[$tagid])){
+                $this->set('price', array($tagid => $this->translate($tagid)));
+            }else{
+                $other[$tagid] = $this->translate($tagid); 
+            }
+            $this->set('other', $other);
+        }
+    }
+    
 /**
  * index method
  *
@@ -18,7 +107,11 @@ class SpiderController extends AppController
  */
     public function index() {
         $this->ItemGetBefore->recursive = 0;
-        $this->set('spiders', $this->paginate());
+        $result = $this->paginate();
+        foreach($result as &$r){
+            $this->translateItem($r);
+        }
+        $this->set('spiders', $result);
     }
 
 /**
@@ -33,9 +126,15 @@ class SpiderController extends AppController
         if (!$this->ItemGetBefore->exists()) {
             throw new NotFoundException(__('Invalid spider'));
         }
-        $this->set('item', $this->ItemGetBefore->read(null, $id));
+        $item = $this->ItemGetBefore->read(null, $id);
+        $this->set('item', $item);
+        $this->setCateById($item['tags']);
     }
     
+    private function tagExists($tagname){
+        $result = $this->Tag->findByTag($tagname, 'id');
+        return $result?$result['Tag']['id']:false;
+    }
 /**
  * add method
  *
@@ -43,6 +142,22 @@ class SpiderController extends AppController
  */
     public function add() {
         if ($this->request->is('post')) {
+            $other = $this->request->data['Spider']['other'];
+            if($other){
+                $other_tagpid = $this->Tag->findByTag('#user', 'id'); 
+                $others = preg_split('/[\s,]+/', $other);
+                $_otherid = array();
+                foreach($other as $o){
+                    $id = $this->tagExists($o);
+                    if(!$id){
+                        $this->Tag->create(array('tag'=>$o, 'pid'=>$other_tagpid['Tag']['id']));
+                        $_otherid[] = $this->Tag->getInsertId();
+                    }else{
+                        $_otherid[] = $id;
+                    }
+                }
+                $this->request->data['Spider']['other'] = implode(',', $_otherid); 
+            }
             $this->ItemGetBefore->create();
             if ($this->ItemGetBefore->save($this->request->data)) {
                 $this->Session->setFlash(__('The spider has been saved'));
@@ -66,6 +181,22 @@ class SpiderController extends AppController
             throw new NotFoundException(__('Invalid ad'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
+            $other = $this->request->data['Spider']['other'];
+            if($other){
+                $other_tagpid = $this->Tag->findByTag('#user', 'id'); 
+                $others = preg_split('/[\s,]+/', $other);
+                $_otherid = array();
+                foreach($other as $o){
+                    $id = $this->tagExists($o);
+                    if(!$id){
+                        $this->Tag->create(array('tag'=>$o, 'pid'=>$other_tagpid['Tag']['id']));
+                        $_otherid[] = $this->Tag->getInsertId();
+                    }else{
+                        $_otherid[] = $id;
+                    }
+                }
+                $this->request->data['Spider']['other'] = implode(',', $_otherid); 
+            }
             if ($this->ItemGetBefore->save($this->request->data)) {
                 $this->Session->setFlash(__('The spider has been saved'));
                 $this->redirect(array('action' => 'index'));
@@ -73,7 +204,9 @@ class SpiderController extends AppController
                 $this->Session->setFlash(__('The spider could not be saved. Please, try again.'));
             }
         } else {
-            $this->request->data = $this->ItemGetBefore->read(null, $id);
+            $item = $this->ItemGetBefore->read(null, $id);
+            $this->setCateById($item['tags']);
+            $this->request->data = $item;
         }
     }
 
