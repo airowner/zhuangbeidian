@@ -71,20 +71,20 @@ CREATE TABLE `tag`
 (
     `id` int(11) not null auto_increment,
     `tag` varchar(255) not null,
-    `pid` int(11) not null default 0,
+    `parent_id` int(11) not null default 0,
     `display_html` tinyint(1) not null default 0 comment '是否显示在页面分类中',
     `order` smallint not null default 0 comment '排序',
     `validate` tinyint(1) not null default 1,
     `time` timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY `id` (`id`),
-    KEY `pid` (`pid`),
+    KEY `parent_id` (`parent_id`),
     UNIQUE KEY `tag` (`tag`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- game 游戏tag
 -- official 官方tag （用于官方分类，搜索)
 -- user 用户自定义tag (用户提交商品自定义tag， 如果不再收录的tag中， 则添加为此分类， 方便转入官方支持的tag）
-insert into `tag` (`tag`, `pid`, `display_html`) value \
+insert into `tag` (`tag`, `parent_id`, `display_html`) value \
 
 ('#game', 0, 0), \
 ('#product', 0, 0), \

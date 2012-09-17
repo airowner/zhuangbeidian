@@ -13,9 +13,13 @@ class IndexController extends AppController
     public function __construct($id, $module=null)
     {
         parent::__construct($id, $module);
-        $this->game = $this->Tag->getGames();
-        $this->cates = $this->Tag->getTreeCategory();
+        $game = $this->Tag->getCategory('#game');
+        $this->game = array();
+        foreach($game as $g){
+            $this->game[$g['id']] = $g;
+        }
         $this->set('game', $this->game);
+        $this->cates = $this->Tag->getCate(true);
         $this->set('cates', $this->cates);
     }
     
@@ -24,33 +28,20 @@ class IndexController extends AppController
         parent::beforeFilter(); 
         $this->Auth->allowedActions = array('*');
         $this->set('baseurl', '/');
+        
+        $_ads = $this->Ad->find('all', array(
+            //'conditions' => array('id' => '<5'),
+        ));
+        $this->set('ads', Hash::extract($_ads, '{n}.Ad'));
     }
 
     public function index()
     {
-        $_ads = $this->Ad->find('all', array(
-            'condition' => array('id' => ' < 5'),
-        ));
-        $ads = array();
-        foreach($_ads as $ad){
-            $tmp = $ad['Ad'];
-            $ads[$tmp['id']] = $tmp;
-        }
-        $this->set('ads', $ads);
+        
     }
 
     public function tag()
     {
-        $this->set('baseurl', '/');
-        $_ads = $this->Ad->find('all', array(
-            'condition' => array('id' => ' < 5'),
-        ));
-        $ads = array();
-        foreach($_ads as $ad){
-            $tmp = $ad['Ad'];
-            $ads[$tmp['id']] = $tmp;
-        }
-        $this->set('ads', $ads);
         /*
          * 含有推广itemid
          */
@@ -85,39 +76,72 @@ class IndexController extends AppController
     private function _tag($tags)
     {
         //总tag标记
-        $rootTag = $this->Tag->getRoot();
-        $root = array();
-        foreach($rootTag as $r){
-            $root[$r['tag']] = $r['id'];
-            $cate_ids[$r['id']] = array();
-        }
-        $this->set('root', $root);
+        $top = $this->Tag->getTop();
+        //$this->set('root', $this->top);
 
         //path
         $path = $this->Tag->getPath($tags);
-        $this->set('path', $path);
-        $this->set('cur_tags', array_keys($path));
-
-
-        //商品分类
-        $pids = array_keys($this->cates);
-        $product = array();
-        $product_active = '';
-        if(!$product_active){
-            foreach($path as $p){
-                $p_id = $p[0]['id'];
-                if(isset($this->cates[$p_id])){
+        $return_path = array();
+        foreach($path as $k => $p){
+            $tag = array_shift($p);
+            $tag = $tag['tag'];
+            $active = $p[count($p)-1]['id'];
+            $_styles = $this->Tag->getCategory($tag);
+            $_back = $_styles;
+            foreach($p as $_p){
+                if(!$_styles){
                     break;
                 }
+                foreach($_styles as $s){
+                    if($s['id'] == $_p['id']){
+                        $_back = $_styles;
+                        if(isset($_styles['children'])){
+                            $_styles = $_styles['children'];
+                        }else{
+                            $_styles = array();
+                        }
+                        break;
+                    }
+                    
+                }
             }
-            $product_active = $p[count($p)-1]['id'];
-            if(count($p)>1){
-                //进入子类
-                $product = $this->cates[$p_id]['child'];
-            }else{
-                //显示父类
-                foreach($this->cates as $cate){
-                    $product[] = $cate['data'];
+            $return_path[$tag] = array(
+                'active' => $k,
+                'content' => $_back,
+            );
+        }
+        foreach(array('#game', '#price', '#product') as $t){
+            if(isset($return_path[$t])){
+                continue;
+            }
+            $return_path[$t] = array(
+                'active' => null,
+                'content' => $this->Tag->getCategory($t),
+            );
+        }
+        $this->set('path', $return_path);
+        $this->set('cur_tags', array_keys($path));
+
+        //商品分类
+        $cate = $this->cates;
+        $product_active = '';
+        $product = $cate;
+        
+        foreach($path as $k => $p){
+            if($this->Tag->getCateTag($k)){
+                $product_active = $p[count($p)-1]['id'];
+                $path = $p;
+                break;
+            }
+        }
+        array_shift($path);//去掉 root 分类 #product
+        foreach($path as $p){
+            $p_id = $p['id'];
+            foreach($cate as $c){
+                if($c['id'] == $p_id){
+                    $product = $cate;
+                    $cate = isset($c['children']) ? $c['children'] : array();
+                    break;
                 }
             }
         }
@@ -126,8 +150,8 @@ class IndexController extends AppController
 
         //游戏分类
         $game_active = '';
-        foreach($this->game as $p){
-            if(isset($path[$p['id']])){
+        foreach($path as $p){
+            if(isset($this->game[$p['id']])){
                 $game_active = $p['id'];
                 break;
             }
@@ -135,10 +159,14 @@ class IndexController extends AppController
         $this->set('game_active', $game_active);
 
         //价格分类
-        $price = $this->Tag->getPrice();
+        $_price = $this->Tag->getCategory('#price');
+        $price = array();
+        foreach($_price as $p){
+            $price[$p['id']] = $p;
+        }
         $price_active = '';
-        foreach($price as $p){
-            if(isset($path[$p['id']])){
+        foreach($path as $p){
+            if(isset($price[$p['id']])){
                 $price_active = $p['id'];
             }
         }
@@ -156,36 +184,6 @@ class IndexController extends AppController
             }
         }
         return array_keys($tids);
-    }
-
-    private function getGenericClass($tagids)
-    {
-        $result = array();
-        $pids = array();
-        $tmp = array();
-
-        $rootid = array();
-        $root = $this->Tag->getRoot();
-        foreach($root as $rt){
-            $rootid[$rt['id']] = $rt['id'];
-        }
-
-        $parents = $this->Tag->getParents($tagids);
-        foreach($parents as $id => $parent){
-            $result[$id] = array($parent);
-            if($parent['pid'] && !isset($rootid[$parent['pid']])){
-                $pids[] = $parent['pid'];
-                $tmp[$parent['pid']] = $id;
-            }
-        }
-        if($pids){
-            $parents = $this->Tag->getParents($pids);
-            foreach($parents as $id => $parent){
-                $oid = $tmp[$id];
-                array_unshift($result[$oid], $parent);
-            }
-        }
-        return $result;
     }
 
 }

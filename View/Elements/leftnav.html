@@ -7,8 +7,8 @@
             <ul style="display:block;">
               <?php foreach($cates as $cate){ ?>
               <li>
-              <div><?php echo $cate['data']['tag']?></div>
-                <?php foreach($cate['child'] as $sub){ ?>
+              <div><?php echo $cate['tag']?></div>
+                <?php foreach($cate['children'] as $sub){ ?>
                 <a<?php
                     if (isset($product_active) && $product_active == $sub['id']):
                         echo " class=\"on\"";
@@ -21,8 +21,8 @@
             <ul>
               <?php foreach($cates as $cate){ ?>
               <li>
-              <div><?php echo $cate['data']['tag']?></div>
-                <?php foreach($cate['child'] as $sub){ ?>
+              <div><?php echo $cate['tag']?></div>
+                <?php foreach($cate['children'] as $sub){ ?>
                  <a href="/tag/<?php echo $sub['id']?>"><?php echo $sub['tag'] ?></a>
                 <?php } ?>
               </li>

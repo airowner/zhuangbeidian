@@ -39,9 +39,9 @@ class AppHelper extends Helper {
      * );
      *
      */
-    public function createLink($path, $key='', $tag_value=null)
+    public function createLink($path, $key=null, $tag_value=null)
     {
-        if($key===''&&$tag_value===null) return '';
+        if($key===null&&$tag_value===null) return '';
         $key = intval($key);
         $tag_value = intval($tag_value);
 
@@ -50,7 +50,7 @@ class AppHelper extends Helper {
         if(!$key) $append = true;
 
         foreach($path as $k => $p){
-            if($k === $key){
+            if($p['id'] === $key){
                 if(!$tag_value){ //全部
                     if(count($p)>1){
                         //移动到父tag

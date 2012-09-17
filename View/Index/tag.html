@@ -18,22 +18,22 @@
           <ul class="filter"<?php if(!$item){echo " style=\"margin:0\"";} ?>>
 
           <li><b>商品分类：</b>
-          <a<?php if(!$product_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $product_active);?>">全部</a>
+          <a<?php if(!$path['#product']['active']):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path['#product']['content'], $path['#product']['active']);?>">全部</a>
           <?php 
-          foreach($product as $p): ?>
-          <a<?php if($p['id']==$product_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $product_active, $p['id']);?>"><?php echo $p['tag']; ?></a>
+          foreach($path['#product']['content'] as $p): ?>
+          <a<?php if($p['id']==$path['#product']['active']):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path['#product']['content'], $path['#product']['active'], $p['id']);?>"><?php echo $p['tag']; ?></a>
           <?php endforeach; ?>
           </li>
           <li><b>所属游戏：</b>
-          <a<?php if(!$game_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $game_active);?>">全部</a>
-          <?php foreach($game as $p): ?>
-              <a<?php if($p['id']==$game_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $game_active, $p['id']);?>"><?php echo $p['tag']; ?></a>
+          <a<?php if(!$path['#game']['active']):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $path['#game']['active']);?>">全部</a>
+          <?php foreach($path['#game']['content'] as $p): ?>
+              <a<?php if($p['id']==$path['#game']['active']):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $path['#game']['active'], $p['id']);?>"><?php echo $p['tag']; ?></a>
           <?php endforeach; ?>
           </li>
           <li><b>价格区间：</b>
-          <a<?php if(!$price_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $price_active);?>">全部</a>
-          <?php foreach($price as $p): ?>
-              <a<?php if($p['id']==$price_active):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $price_active, $p['id']);?>"><?php echo $p['tag']; ?></a>
+          <a<?php if(!$path['#price']['active']):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $path['#price']['active']);?>">全部</a>
+          <?php foreach($path['#price']['content'] as $p): ?>
+              <a<?php if($p['id']==$path['#price']['active']):?> class="on"<?php endif; ?> href="<?php echo $this->Html->createLink($path, $path['#price']['active'], $p['id']);?>"><?php echo $p['tag']; ?></a>
           <?php endforeach; ?>
           </li>
         </ul>
