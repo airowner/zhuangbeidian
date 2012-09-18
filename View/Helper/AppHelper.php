@@ -32,48 +32,52 @@ App::uses('Helper', 'View');
  */
 class AppHelper extends Helper {
     /*
-     * path = array(
-     *  array(0=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx'), 1=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx')),
-     *  array(0=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx')),
+     * cur_path = array(
+     *  '#product' => array(0=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx'), 1=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx')),
+     *  '#price' => array(0=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx')),
      *  ...
      * );
      *
      */
-    public function createLink($path, $key=null, $tag_value=null)
+    public $root_path;
+    public function createLink($tag, array $path, array $active_path)
     {
-        if($key===null&&$tag_value===null) return '';
-        $key = intval($key);
-        $tag_value = intval($tag_value);
-
-        $tags = array();
-        $append = false;
-        if(!$key) $append = true;
-
-        foreach($path as $k => $p){
-            if($p['id'] === $key){
-                if(!$tag_value){ //全部
-                    if(count($p)>1){
-                        //移动到父tag
-                        $tags[] = $p[count($p)-2]['id'];
-                    }else{
-                        //取消此tag
-                    }
-                }else{
-                    $tags[] = intval($tag_value);
-                }
-            }else{
-                $tags[] = $p[count($p)-1]['id'];
+        $param = array();
+        $active = $active_path[$tag];
+        //获取其他不变量
+        foreach(array_keys($path) as $key){
+            if($key == $tag) continue;
+            if($active_path[$key]){
+                $param[] = $active_path[$key];
             }
         }
-
-        if($append){
-            $tags[] = $tag_value;
+        
+        $html = array();   
+        if($active){
+            $html[] = "<a href=\"" . $this->getLink($param) . "\">全部</a>";
+        }else{
+            // 激活全部
+            $html[] = "<a class=\"on\" href=\"" . $this->getLink($param) ."\">全部</a>";
         }
-        sort($tags);
-
-        return "/tag/" . implode('_', $tags);
+        foreach($path[$tag] as $p){
+            if($p['id'] == $active){
+                $html[] = "<a class=\"on\" href=\"" . $this->getLink($param, $p) ."\">{$p['tag']}</a>";
+            }else{
+                $html[] = "<a href=\"" . $this->getLink($param, $p) . "\">{$p['tag']}</a>";
+            }
+        }
+        return implode('', $html);
     }
     
+    private function getLink($params, $path=null)
+    {
+        if($path){
+            $params[] = $path['id'];
+        }
+        sort($params);
+        return "/tag/" . implode('_', $params);
+    }
+  
     public function ad($data, $options=array())
     {
         if(!$data) return '';

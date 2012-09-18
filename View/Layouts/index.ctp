@@ -6,19 +6,19 @@
 <!DOCTYPE>
 <html>
 <head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $title_for_layout; ?>-<?php echo $home ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
+    <?php echo $this->Html->charset(); ?>
+    <title>
+        <?php echo $title_for_layout; ?>-<?php echo $home ?>
+    </title>
+    <?php
+        echo $this->Html->meta('icon');
 
-		echo $this->Html->css('layout');
+        echo $this->Html->css('layout');
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+        echo $this->fetch('meta');
+        echo $this->fetch('css');
+        echo $this->fetch('script');
+    ?>
 </head>
 <body>
   <div class="wrap">
@@ -51,12 +51,12 @@
           </div>
           <ul class="main">
             
-          <li<?php if(!isset($game_active)):?> class="cur"<?php endif; ?>><a href="/"><span><em>首页</em></span></a></li>
+          <li<?php if(!isset($active['#game'])):?> class="cur"<?php endif; ?>><a href="/"><span><em>首页</em></span></a></li>
             <?php $i=0;
             foreach($game as $g){ 
                 if($i==5)break;
             ?>
-            <li<?php if(isset($game_active) && $game_active == $g['id']):?> class="cur"<?php endif; ?>><a href="/game/<?php echo $g['id']?>"><span><em><?php echo ($g['tag']); ?></em></span></a></li>
+            <li<?php if(isset($active['#game']) && $active['#game'] == $g['id']):?> class="cur"<?php endif; ?>><a href="/game/<?php echo $g['id']?>"><span><em><?php echo ($g['tag']); ?></em></span></a></li>
             <?php $i++; } ?>
           </ul>
           <div class="clear"></div>

@@ -51,10 +51,10 @@ class Tag extends AppModel
     
     public function getCategory($parent_Tags, $getItem=false)
     {
-        $this->getTop();
+        $top = $this->getTop();
         $parent_Tags = (array)$parent_Tags;
         foreach($parent_Tags as $key => $tag){
-            $parent_Tags[$key] = isset($this->top[$tag]) ? $this->top[$tag] : $tag;
+            $parent_Tags[$key] = isset($top[$tag]) ? $top[$tag] : $tag;
         }
         if(count($parent_Tags)==1){
             $parent_Tags = $parent_Tags[0];
