@@ -179,14 +179,14 @@ insert into ad (name, type, url, img , txt, width, height) values \
 ;
 
 -- 请求列表
-DROP TABLE IF EXISTS `item_get_before`;
-CREATE TABLE `item_get_before`
-(
-    `id` int(11) unsigned not null auto_increment,
-    `url` varchar(255) not null comment 'http://xx.taobao.com/item?mid=xxxxx',
-    `tags` varchar(255) not null,
-    PRIMARY KEY `id` (`id`),
-) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+-- DROP TABLE IF EXISTS `item_get_before`;
+-- CREATE TABLE `item_get_before`
+-- (
+--     `id` int(11) unsigned not null auto_increment,
+--     `url` varchar(255) not null comment 'http://xx.taobao.com/item?mid=xxxxx',
+--     `tags` varchar(255) not null,
+--     PRIMARY KEY `id` (`id`)
+-- ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- 热门店铺
 -- DROP TABLE IF EXISTS `shop`;
