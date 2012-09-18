@@ -159,7 +159,7 @@ CREATE TABLE `ad`
     `txt` varchar(255) not null,
     `width` smallint unsigned not null,
     `height` smallint unsigned not null,
-    `other` text(255) not null,
+    `other` text(255) not null default '',
     PRIMARY KEY `id` (`id`),
     KEY `type` (`type`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
