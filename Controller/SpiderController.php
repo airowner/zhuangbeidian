@@ -201,10 +201,10 @@ class SpiderController extends AppController
     {
         if($result->code){
             $error = '';
-            if($result->msg){
+            if(isset($result->msg)){
                 $error .= $result->msg;
             }
-            if($result->submsg){
+            if(isset($result->submsg)){
                 $error .= ' '. $result->submsg;
             }
             throw new Exception($error);

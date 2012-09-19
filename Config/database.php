@@ -64,7 +64,19 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
+		//'password' => 'wangjile123',
 		'password' => 'wangjile123',
+		'database' => 'zhuangbeidian',
+		'prefix' => '',
+		'encoding' => 'utf8',
+	);
+
+	public $develop = array(
+		'datasource' => 'Database/Mysql',
+		'persistent' => false,
+		'host' => 'localhost',
+		'login' => 'root',
+		'password' => '',
 		'database' => 'zhuangbeidian',
 		'prefix' => '',
 		'encoding' => 'utf8',
