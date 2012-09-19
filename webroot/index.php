@@ -1,4 +1,7 @@
 <?php
+if(!$_SERVER['REQUEST_URI']){
+    $_SERVER['REQUEST_URI'] = $_SERVER['HTTP_X_REWRITE_URI'];
+}
 /**
  * Index
  *
@@ -56,7 +59,11 @@ if (!defined('APP_DIR')) {
  *
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  */
-define('CAKE_CORE_INCLUDE_PATH', '/srv/http/git/cakephp' . DS . 'lib');
+if(PHP_OS == 'WINNT'){
+    define('CAKE_CORE_INCLUDE_PATH', 'E:' DS . 'cakephp' . DS . 'lib');
+}else{
+    define('CAKE_CORE_INCLUDE_PATH', '/srv/http/git/cakephp' . DS . 'lib');
+}
 
 /**
  * Editing below this line should NOT be necessary.
