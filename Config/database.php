@@ -58,22 +58,14 @@
  * For MySQL to connect via socket specify the `unix_socket` parameter instead of `host` and `port`
  */
 
-define("OS", PHP_OS);
 class DATABASE_CONFIG {
-
-    public static function setpass()
-    {
-        if( PHP_OS == "WINNT" ){
-            self::$default["password"] = "wangjile123";
-        }
-    }
 
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '',
+		'password' => 'wangjile123',
 		'database' => 'zhuangbeidian',
 		'prefix' => '',
 		'encoding' => 'utf8',
@@ -101,4 +93,3 @@ class DATABASE_CONFIG {
 		'encoding' => 'utf8',
 	);
 }
-DATABASE_CONFIG::setpass();
