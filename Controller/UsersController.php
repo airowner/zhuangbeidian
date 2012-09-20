@@ -12,7 +12,8 @@ class UsersController extends AppController {
     public function beforeFilter() 
     {
         parent::beforeFilter(); 
-        $this->Auth->allow('login');
+        $this->Auth->deny('initDB', 'build_acl');
+        $this->Auth->allow('login', 'logout');
     }
     
     public function login()
@@ -32,6 +33,12 @@ class UsersController extends AppController {
     public function logout()
     {
         $this->redirect($this->Auth->logout());
+    }
+
+    public function home()
+    {
+        echo "welcome {$this->Auth->User('name')}";
+        exit;
     }
 /**
  * index method
@@ -129,7 +136,7 @@ class UsersController extends AppController {
     
     //初始化权限
     function initDB() {
-        $group =& $this->User->Group;
+        $group = $this->User->Group;
         //Allow admins to everything
         $group->id = 1;     
         $this->Acl->allow($group, 'controllers');
@@ -137,7 +144,14 @@ class UsersController extends AppController {
         $group->id = 2;
         $this->Acl->deny($group, 'controllers');
         $this->Acl->allow($group, 'controllers/Index');
+
+        $group->id = 3;
+        $this->Acl->deny($group, 'controllers');
+        $this->Acl->allow($group, 'controllers/Ads');
+        $this->Acl->allow($group, 'controllers/Spider');
+        
         echo "init Done!";
+        exit;
     }
     
     //构建控制列表
@@ -172,6 +186,7 @@ class UsersController extends AppController {
 
         // look at each controller in app/controllers
         foreach ($Controllers as $ctrlName) {
+            $ctrlName = strtr($ctrlName, array('Controller' => ''));
             $methods = $this->_getClassMethods($this->_getPluginControllerPath($ctrlName));
 
             // Do all Plugins First

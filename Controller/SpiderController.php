@@ -39,6 +39,7 @@ class SpiderController extends AppController
             try{
                 $item = self::getItem($taobaoid);
             }catch(Exception $e){
+                var_dump($e->getMessage());
                 $this->Session->setFlash($e->getMessage());
                 exit();
             }
