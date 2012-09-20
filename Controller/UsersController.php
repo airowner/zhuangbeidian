@@ -8,13 +8,11 @@ App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 
     public $layout = 'default';
-    public $components = array('Session');
-    public $helper = array('Form');
     
     function beforeFilter() 
     {
         parent::beforeFilter(); 
-        $this->Auth->allowedAction = array('*');
+        $this->Auth->allow = array('*');
     }
     
     public function login()

@@ -9,8 +9,8 @@ App::uses('AuthComponent', 'Controller/Component');
 class User extends AppModel {
 
 
-    var $name = 'User';
-    var $actsAs = array('Acl' => array('type' => 'requester'));
+    public $name = 'User';
+    public $actsAs = array('Acl' => array('type' => 'requester'));
 
     public function beforeSave($options=array())
     {
@@ -22,22 +22,25 @@ class User extends AppModel {
      * In case we want simplified per-group only permissions, we need to implement bindNode() in User model.
      * This method will tell ACL to skip checking User Aro’s and to check only Group Aro’s.
      */
+     /*
     public function bindNode($user) {
         return array('model' => 'Group', 'foreign_key' => $user['User']['group_id']);
     }
+    */
     
-    private function parentNode() {
+    public function parentNode() {
         if (!$this->id && empty($this->data)) {
             return null;
         }
-        $data = $this->data;
-        if (empty($this->data)) {
-            $data = $this->read();
-        }
-        if (!$data['User']['group_id']) {
-            return null;
+        if (isset($this->data['User']['group_id'])) {
+            $groupId = $this->data['User']['group_id'];
         } else {
-            return array('Group' => array('id' => $data['User']['group_id']));
+            $groupId = $this->field('group_id');
+        }
+        if(!$groupId){
+            return null;
+        }else{
+            return array('Group'=>array('id'=>$groupId));
         }
     }
 /**    

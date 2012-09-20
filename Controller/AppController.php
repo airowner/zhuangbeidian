@@ -41,9 +41,13 @@ class AppController extends Controller {
     public $autoRender = true;
     public $autoLayout = true;
     
-    public $components = array('Session', 'Acl', 'Auth'=>array(
-        //'authorize' => array('actionPath' => 'controllers'),
-    ));
+    public $components = array(
+        'Session', 
+        'Acl', 
+        'Auth'=>array(
+            //'authorize' => array('actionPath' => 'controllers'),
+        ),
+    );
     public $helper = array('Session', 'Form', 'Html');
     
     function beforeFilter() {

@@ -7,10 +7,10 @@ App::uses('AppModel', 'Model');
  */
 class Group extends AppModel {
 
+    public $name = "Group";
+    public $actsAs = array('Acl' => array('type'=>'requester'));
 
-    var $actsAs = array('Acl' => array('requester'));
-
-    function parentNode() {
+    public function parentNode() {
         return null;
     }
 /**

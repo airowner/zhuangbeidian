@@ -10,6 +10,12 @@ class GroupsController extends AppController {
 
     public $layout = 'default';
     
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->Auth->allow('*');
+    }
+    
 /**
  * index method
  *
