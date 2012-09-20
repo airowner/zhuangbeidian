@@ -12,7 +12,7 @@ class UsersController extends AppController {
     public function beforeFilter() 
     {
         parent::beforeFilter(); 
-        $this->Auth->allow('*');
+        $this->Auth->allow('login');
     }
     
     public function login()
@@ -137,6 +137,7 @@ class UsersController extends AppController {
         $group->id = 2;
         $this->Acl->deny($group, 'controllers');
         $this->Acl->allow($group, 'controllers/IndexController');
+        echo "init Done!";
     }
     
     //构建控制列表

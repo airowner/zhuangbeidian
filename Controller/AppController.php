@@ -45,7 +45,9 @@ class AppController extends Controller {
         'Session', 
         'Acl', 
         'Auth'=>array(
-            //'authorize' => array('actionPath' => 'controllers'),
+            'authorize' => array(
+                'Actions' => array('actionPath' => 'controllers'),
+            ),
         ),
     );
     public $helper = array('Session', 'Form', 'Html');
