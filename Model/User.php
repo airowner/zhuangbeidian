@@ -18,15 +18,6 @@ class User extends AppModel {
         return true;
     }
     
-    /**
-     * In case we want simplified per-group only permissions, we need to implement bindNode() in User model.
-     * This method will tell ACL to skip checking User Aro’s and to check only Group Aro’s.
-     */
-     /*
-    public function bindNode($user) {
-        return array('model' => 'Group', 'foreign_key' => $user['User']['group_id']);
-    }
-    */
     
     public function parentNode() {
         if (!$this->id && empty($this->data)) {
@@ -43,24 +34,7 @@ class User extends AppModel {
             return array('Group'=>array('id'=>$groupId));
         }
     }
-/**    
-* After save callback
-*
-* Update the aro for the user.
-*
-* @access public
-* @return void
-*/
-    function afterSave($created) {
-            if (!$created) {
-                $parent = $this->parentNode();
-                $parent = $this->node($parent);
-                $node = $this->node();
-                $aro = $node[0];
-                $aro['Aro']['parent_id'] = $parent[0]['Aro']['id'];
-                $this->Aro->save($aro);
-            }
-    }
+
 /**
  * Validation rules
  *
