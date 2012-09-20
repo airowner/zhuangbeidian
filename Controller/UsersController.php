@@ -9,10 +9,10 @@ class UsersController extends AppController {
 
     public $layout = 'default';
     
-    function beforeFilter() 
+    public function beforeFilter() 
     {
         parent::beforeFilter(); 
-        $this->Auth->allow = array('*');
+        $this->Auth->allow('*');
     }
     
     public function login()
