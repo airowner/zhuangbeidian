@@ -77,7 +77,7 @@ class TaobaoComponent extends Component
 	{
 		$num_id = intval(self::getTaobaoId($url));
 		if(!$num_id){
-			return false
+			return false;
 		}
 		return $this->getItem($num_id);
   	}
