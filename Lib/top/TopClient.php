@@ -74,13 +74,12 @@ class TopClient
 
     protected $sdkVersion = "top-sdk-php-20120807";
 
-    public function __construct($logger)
+    public function __construct()
     {
         $conf = $this->getConf();
         $this->appkey = $conf->appkey;
         $this->secretKey = $conf->secretKey;
         $this->gatewayUrl = $conf->gatewayUrl;
-		$this->logger = $logger;
     }
 
     protected function getConf()
