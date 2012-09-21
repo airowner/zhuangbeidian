@@ -56,7 +56,7 @@ class TopWidgetClient extends TopClient
 
     protected function generateSign($params)
     {
-        $this->logger->log("widget generateSign: {$this->secretKey}app_key{$this->appkey}timestamp" . date('Y-m-d H:i:s') . "{$this->secretKey}");
+        CakeLog::info("widget generateSign: {$this->secretKey}app_key{$this->appkey}timestamp" . date('Y-m-d H:i:s') . "{$this->secretKey}");
         return strtoupper(bin2hex(mhash(MHASH_MD5, "{$this->secretKey}app_key{$this->appkey}timestamp" . date('Y-m-d H:i:s') . "{$this->secretKey}")));
     }
 }
@@ -102,7 +102,7 @@ class TopClient
         }
         unset($k, $v);
         $stringToBeSigned .= $this->secretKey;
-        $this->logger->log($stringToBeSigned);
+        CakeLog::info($stringToBeSigned);
 
         return strtoupper(md5($stringToBeSigned));
     }
@@ -209,7 +209,7 @@ class TopClient
         }
         catch (Exception $e)
         {
-			$this->logger->error(json_encode(array($sysParams["method"],$requestUrl,"HTTP_ERROR_" . $e->getCode(),$e->getMessage())));
+			CakeLog::error(json_encode(array($sysParams["method"],$requestUrl,"HTTP_ERROR_" . $e->getCode(),$e->getMessage())));
             $result->code = $e->getCode();
             $result->msg = $e->getMessage();
             return $result;
@@ -230,7 +230,7 @@ class TopClient
         //返回的HTTP文本不是标准JSON或者XML，记下错误日志
         if (false === $respWellFormed)
         {
-            $this->logger->error(array($sysParams["method"],$requestUrl,"HTTP_RESPONSE_NOT_WELL_FORMED",$resp));
+            CakeLog::error(json_encode(array($sysParams["method"],$requestUrl,"HTTP_RESPONSE_NOT_WELL_FORMED",$resp)));
             $result->code = 0;
             $result->msg = "HTTP_RESPONSE_NOT_WELL_FORMED";
             return $result;
@@ -239,8 +239,7 @@ class TopClient
         //如果TOP返回了错误码，记录到业务错误日志中
         if (isset($respObject->code))
         {
-            $this->logger->error(array(date("Y-m-d H:i:s"),$resp));
-            $logger = new LtLogger;
+            CakeLog::error(json_encode(array(date("Y-m-d H:i:s"), $resp)));
         }
         return $respObject;
     }
