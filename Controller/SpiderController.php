@@ -159,8 +159,9 @@ class SpiderController extends AppController
             $request = new ItemGetRequest();
             $request->setFields("detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
         }
-        $request->setNumIid(18831672974);
+        $request->setNumIid($num_id);
         $result = self::TopClient()->execute($request);
+var_dump($result);exit;
         $result = self::parse_taobao($result);
         if($result && isset($result['item_get_response'], $result['item_get_response']['item'])){
             $result = $result['item_get_response']['item'];

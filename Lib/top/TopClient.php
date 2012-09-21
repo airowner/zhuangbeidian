@@ -1,12 +1,12 @@
 <?php
 date_default_timezone_set('Asia/Shanghai');
 
-define('TOP_SDK_WORK_DIR', '/tmp');
+define('TOP_SDK_WORK_DIR', dirname(dirname(__FILE__)) . '/tmp/top');
 
 class OnlineConf
 {
-    public $appkey = '21181372';
-    public $secretKey = 'c0eeef8223b85603ee92c400a7e41138';
+    public $appkey = '21101696';
+    public $secretKey = '237ace29d974b9da95d0055f7c50e057';
     public $gatewayUrl = 'http://gw.api.taobao.com/router/rest';
 }
 class OnlineWidgetConf
@@ -56,15 +56,13 @@ class TopWidgetClient extends TopClient
 
     protected function generateSign($params)
     {
-        echo "{$this->secretKey}app_key{$this->appkey}timestamp" . date('Y-m-d H:i:s') . "{$this->secretKey}" . "\n";
-        echo bin2hex(mhash(MHASH_MD5, "{$this->secretKey}app_key{$this->appkey}timestamp" . date('Y-m-d H:i:s') . "{$this->secretKey}")). "\n";
+        $this->logger->log("widget generateSign: {$this->secretKey}app_key{$this->appkey}timestamp" . date('Y-m-d H:i:s') . "{$this->secretKey}");
         return strtoupper(bin2hex(mhash(MHASH_MD5, "{$this->secretKey}app_key{$this->appkey}timestamp" . date('Y-m-d H:i:s') . "{$this->secretKey}")));
     }
 }
 
 class TopClient
 {
-    //public $format = "xml";
     public $format = "json";
     
     /** 是否打开入参check**/
@@ -76,12 +74,13 @@ class TopClient
 
     protected $sdkVersion = "top-sdk-php-20120807";
 
-    public function __construct()
+    public function __construct($logger)
     {
         $conf = $this->getConf();
         $this->appkey = $conf->appkey;
         $this->secretKey = $conf->secretKey;
         $this->gatewayUrl = $conf->gatewayUrl;
+		$this->logger = $logger;
     }
 
     protected function getConf()
@@ -103,6 +102,7 @@ class TopClient
         }
         unset($k, $v);
         $stringToBeSigned .= $this->secretKey;
+        $this->logger->log($stringToBeSigned);
 
         return strtoupper(md5($stringToBeSigned));
     }
@@ -163,26 +163,6 @@ class TopClient
         return $reponse;
     }
 
-    protected function logCommunicationError($apiName, $requestUrl, $errorCode, $responseTxt)
-    {
-        $localIp = isset($_SERVER["SERVER_ADDR"]) ? $_SERVER["SERVER_ADDR"] : "CLI";
-        $logger = new LtLogger;
-        $logger->conf["log_file"] = rtrim(TOP_SDK_WORK_DIR, '\\/') . '/' . "logs/top_comm_err_" . $this->appkey . "_" . date("Y-m-d") . ".log";
-        $logger->conf["separator"] = "^_^";
-        $logData = array(
-        date("Y-m-d H:i:s"),
-        $apiName,
-        $this->appkey,
-        $localIp,
-        PHP_OS,
-        $this->sdkVersion,
-        $requestUrl,
-        $errorCode,
-        str_replace("\n","",$responseTxt)
-        );
-        $logger->log($logData);
-    }
-
     public function execute($request, $session = null)
     {
         if($this->checkRequest) {
@@ -229,7 +209,7 @@ class TopClient
         }
         catch (Exception $e)
         {
-            $this->logCommunicationError($sysParams["method"],$requestUrl,"HTTP_ERROR_" . $e->getCode(),$e->getMessage());
+			$this->logger->error(json_encode(array($sysParams["method"],$requestUrl,"HTTP_ERROR_" . $e->getCode(),$e->getMessage())));
             $result->code = $e->getCode();
             $result->msg = $e->getMessage();
             return $result;
@@ -250,7 +230,7 @@ class TopClient
         //返回的HTTP文本不是标准JSON或者XML，记下错误日志
         if (false === $respWellFormed)
         {
-            $this->logCommunicationError($sysParams["method"],$requestUrl,"HTTP_RESPONSE_NOT_WELL_FORMED",$resp);
+            $this->logger->error(array($sysParams["method"],$requestUrl,"HTTP_RESPONSE_NOT_WELL_FORMED",$resp));
             $result->code = 0;
             $result->msg = "HTTP_RESPONSE_NOT_WELL_FORMED";
             return $result;
@@ -259,78 +239,10 @@ class TopClient
         //如果TOP返回了错误码，记录到业务错误日志中
         if (isset($respObject->code))
         {
+            $this->logger->error(array(date("Y-m-d H:i:s"),$resp));
             $logger = new LtLogger;
-            $logger->conf["log_file"] = rtrim(TOP_SDK_WORK_DIR, '\\/') . '/' . "logs/top_biz_err_" . $this->appkey . "_" . date("Y-m-d") . ".log";
-            $logger->log(array(
-                date("Y-m-d H:i:s"),
-                $resp
-            ));
         }
         return $respObject;
     }
 
-    public function exec($paramsArray)
-    {
-        if (!isset($paramsArray["method"]))
-        {
-            trigger_error("No api name passed");
-        }
-        $inflector = new LtInflector;
-        $inflector->conf["separator"] = ".";
-        $requestClassName = ucfirst($inflector->camelize(substr($paramsArray["method"], 7))) . "Request";
-        if (!class_exists($requestClassName))
-        {
-            trigger_error("No such api: " . $paramsArray["method"]);
-        }
-
-        $session = isset($paramsArray["session"]) ? $paramsArray["session"] : null;
-
-        $req = new $requestClassName;
-        foreach($paramsArray as $paraKey => $paraValue)
-        {
-            $inflector->conf["separator"] = "_";
-            $setterMethodName = $inflector->camelize($paraKey);
-            $inflector->conf["separator"] = ".";
-            $setterMethodName = "set" . $inflector->camelize($setterMethodName);
-            if (method_exists($req, $setterMethodName))
-            {
-                $req->$setterMethodName($paraValue);
-            }
-        }
-        return $this->execute($req, $session);
-    }
 }
-
-class LtLogger
-{
-    public function __call($name, $args){}
-}
-
-class LtInflector
-{
-    public function __call($name, $args)
-    {
-        echo $name . "\n";
-        var_dump($args);
-    }
-}
-
-//class request
-//{
-//    public function check()
-//    {
-//        return true;
-//    }
-//    public function getApiParas()
-//    {
-//        return array(
-//            'item_id'=>'16400123401',
-//            'recommend_type'=>'1',
-//            'count'=>5,
-//        );
-//    }
-//    public function getApiMethodName()
-//    {
-//        return 'taobao.userrecommend.items.get';
-//    }
-//}
