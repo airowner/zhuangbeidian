@@ -35,7 +35,11 @@ class SpiderController extends AppController
     {
          if ($this->request->is('post') || $this->request->is('put')) {
             $url = $this->request->data['Spider']['url'];
+			try{
             $item = $this->Taobao->getItemByUrl($url);
+	   		 }catch(Exception $e){
+					var_dump($e);
+				}
             var_dump($item);exit;
             try{
                 $shop = self::getShop($item['nick']);
