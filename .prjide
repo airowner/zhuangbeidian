@@ -1853,17 +1853,26 @@ zbd=/srv/http/zbd CD=. filter="*" {
   }
  }
  Controller=Controller {
+  AdminController.php
   AdsController.php
   AppController.php
+  GroupsController.php
   IndexController.php
   ItemsController.php
   PagesController.php
+  SpiderController.php
+  UsersController.php
+  geany_run_script.sh
   Component=Component {
    empty
   }
  }
  Lib=Lib {
   empty
+  top=top{
+   RequestCheckUtil.php
+   TopClient.php
+  }
  }
  Locale=Locale {
   eng=eng {
