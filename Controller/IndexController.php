@@ -79,6 +79,7 @@ class IndexController extends AppController
 
 	public function topcallback()
 	{
+		echo "callback";exit;
 		$top_appkey = $_GET['top_appkey']; 
 		$top_parameters = $_GET['top_parameters']; 
 		$top_session = $_GET['top_session']; 
