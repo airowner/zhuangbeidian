@@ -56,7 +56,7 @@ class TaobaoComponent extends Component
 	  'valid_thru' => 7,
 	  );
 	 */
-	public function getItem($num_id)
+	public function Item($num_id)
 	{
 	    static $request = null;
 	    if(!$request){
@@ -68,14 +68,130 @@ class TaobaoComponent extends Component
 		return self::request($request, 'item');
 	}
 	
-	public function getItemByUrl($url)
+	public function TKItemByUrl($url)
 	{
 		$num_id = self::getTaobaoId($url);
 		if(!$num_id){
 			return false;
 		}
-		return $this->getItem($num_id);
+		return $this->TKItem($num_id);
   	}
+
+	/*
+	返回数据类型同基本获取,　同时可传入１０个num_iid
+	*/
+	public function TKItem($num_iids)
+	{
+		static $request = null;
+		if(!$request){
+			include(WWW_ROOT . '../Lib/top/request/TaobaokeItemsGetRequest.php');
+	        $request = new TaobaokeItemsGetRequest();	$request->setFields("detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
+		}
+		$request->setNumIids($num_iids);
+		return self::request($request);
+	}
+
+	/*
+	查询淘宝客推广商品
+	keyword or cid
+	{"taobaoke_items_get_response":{"taobaoke_items":{"taobaoke_item":
+	{"click_url":"http:\/\/s.click.taobao.com\/t?e=zGU34CA7K%2BPkqB07S4%2FK0CITy7klxn%2F7bvn0ayzWJnTnEa2SXqybAtUq9wRBdx53BkCIOf2Ek06nbUBnQeatjOsEk4o7Ql3a%2FHpGZmhWe%2Fhl7qT3QHehM6w6f3rc6qamE%2BNJ6fg22EA2XOBZbGer8i7qOMGcFoMRsvAxvc6qlQ%3D%3D&pid=mm_17531361_0_0&spm=2014.21101696.1.0",
+	"commission":"27.90","commission_num":"0","commission_rate":"50.00","commission_volume":"0","item_location":"广东 深圳","nick":"威廉科技","num_iid":15835893026,"pic_url":"http:\/\/img04.taobaocdn.com\/bao\/uploaded\/i4\/T1OiLKXXRpXXbQ90I__105735.jpg","price":"5580.00","seller_credit_score":14,"shop_click_url":"http:\/\/s.click.taobao.com\/t?e=zGU34CA7K%2BPkqB04MQzdgG69RGcaJPb63yl1mhTcxLmvM0RoTx5PVJdZqGr7OwarFYSqoSTQt55u9jK5mxdVafOi0baLC31fjLitQ9jCqI4iWMGYDA5g8vRrhJXGhc9ytJb0hLcxNAu0KldBtBJtWtw%3D&pid=mm_17531361_0_0&spm=2014.21101696.1.0","title":"今日到货 机锋网认证 Apple\/苹果 <span class=H>iPhone<\/span> <span class=H>5<\/span> 苹果<span class=H>5<\/span> 预售中港版无锁","volume":254}
+	*/
+	public function TKItems($keyword)
+	{
+		static $request = null;
+		if(!$request){
+			include(WWW_ROOT . '../Lib/top/request/TaobaokeItemsGetRequest.php');
+	        $request = new TaobaokeItemsGetRequest();	$request->setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
+		}
+		$request->setKeyword($keyword);
+		return self::request($request);
+	}
+	
+	/*
+	查询淘宝客折扣商品
+	关键字　or cid(类目id)
+	默认每次返回４０个
+	return 
+	  "taobaoke_items_coupon_get_response":
+	  "taobaoke_items"
+	  "taobaoke_item"
+	    19 => 
+	    array (
+	        'click_url' => 'http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB07S4%2FK0CITy7klxn%2F7bvn0ayzWJnVw%2FR8L3TPFIZ8WbPe95IzZJw%2Fi%2BgU428C61vf0tu2lUpOlVw%2B3xXxv0v6whwbfrXb7L2QLaHUF%2BinbVjZ7EXt1jUunAc1jRUMu3qZZdNvNcIwB2fjlSD33duh6pGmnHA%3D%3D&pid=mm_17531361_0_0&spm=2014.21101696.2.0',
+	        'commission' => '1.36',
+	        'commission_num' => '0',
+	        'commission_rate' => '100.00',
+	        'commission_volume' => '0.00',
+	        'coupon_end_time' => '2012-09-23 02:00:00',
+	        'coupon_price' => '64.06',
+	        'coupon_rate' => '4710.00',
+	        'coupon_start_time' => '2012-09-22 08:00:00',
+	        'item_location' => '广东 深圳',
+	        'nick' => 'fengfeng_20088888',
+	        'num_iid' => 15886939685,
+	        'pic_url' => 'http://img04.taobaocdn.com/bao/uploaded/i4/T1hPqYXnVtXXceBREV_021525.jpg',
+	        'price' => '136.00',
+	        'seller_credit_score' => 8,
+	        'shop_click_url' => 'http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB04MQzdgG69RGcaJPb63yl1mhTcxLjztO5Tq6Gx5%2B%2FU56vxsG0zKkzN6Dc%2BniQj9hKzCWAbE6ZLz8g0VdachBqkgTEH6MGkMUCwPdu5YCeubGKFrjiCtjByeMmtambhLcafTs3Ozf0%3D&pid=mm_17531361_0_0',
+	        'shop_type' => 'C',
+	        'title' => '#独畅团#Hello Kitty苹果<span class=H>HTC</span>移动电源充电器外置电池充电宝',
+	        'volume' => 50,
+	    ),
+	*/
+	public function TKCoupon($keyword)
+	{
+		static $request = null;
+		if(!$request){
+			include(WWW_ROOT . '../Lib/top/request/TaobaokeItemsCouponGetRequest.php');
+	        $request = new TaobaokeItemsCouponGetRequest();	$request->setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume,coupon_price,coupon_rate,coupon_start_time,coupon_end_time,shop_type");
+		}
+		$request->setKeyword($keyword);
+		return self::request($request);
+	}
+	
+	/*
+	通过昵称查询店铺信息 , 最多传入１０个昵称
+	return 
+	{"taobaoke_shops_convert_response":
+		{"taobaoke_shops":{
+			"taobaoke_shop":[
+					{"click_url":"http:\/\/s.click.taobao.com\/t?e=zGU34CA7K%2BPkqB04MQzdgG69RGcaJPb63yl1mhTcxLmjQgGdsIzMURQZxSX4zwJR1KArrW57ihlEYjegiTCTgck5GGiUOZoWqG7GSoqltVWfpZYGRRlIeHxvCS79%2FxDO541%2Fnlz2UESC6I2lPm98bGzR&pid=mm_17531361_0_0&spm=2014.21101696.1.0",
+				"commission_rate":"0.5",
+				"shop_title":"上海非常手机通讯店"}
+	]}}}
+	*/
+	public function TKShopByNicks($nicks)
+	{
+		$nicks = (array)$nicks;
+		$nicks = implode(',', $nicks);
+		static $request = null;
+	    if(!$request){
+	        include(WWW_ROOT . '../Lib/top/request/TaobaokeShopsConvertRequest.php');
+	        $request = new TaobaokeShopsConvertRequest();			$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction")
+	    }
+	    $request->setSellerNicks($nicks);
+		return self::request($request);
+	}
+	
+	/*
+	搜索店铺　通过关键字或类目id
+	keyword or cid
+	{"taobaoke_shops_get_response":{"taobaoke_shops":{"taobaoke_shop":[
+	{"auction_count":"8","click_url":"http:\/\/s.click.taobao.com\/t?e=zGU34CA7K%2BPkqB04MQzdgG69RGcaJPb63yl1mhTcxaNv1n0J756dJfnCiDPfxK9W9DKGC6840%2BVqGSnwk19Cz1%2F238WFmpLdauB1Wrse7zWxpYZLCBz34MB411E5EAOsXNnZCnB2vuaAMDt%2B%2FnEFGQs%3D&pid=mm_17531361_0_0&spm=2014.21101696.1.0","commission_rate":"1.0","seller_credit":"11","shop_title":"苹果iphone4手机壳_iphone5手机壳_义乌手机壳批发_手机保护膜","shop_type":"C","total_auction":"1636","user_id":88014895},
+	*/
+	public function TKShop($keyword)
+	{
+		static $request = null;
+	    if(!$request){
+	        include(WWW_ROOT . '../Lib/top/request/TaobaokeShopsConvertRequest.php');
+	        $request = new TaobaokeShopsConvertRequest();
+			$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction");
+	    }
+	    $request->setKeyword($keyword);
+		return self::request($request);
+	}
 
 /*
 	 array (

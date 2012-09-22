@@ -10,7 +10,7 @@ class SpiderController extends AppController
     //public $helper = array('Html');
 	public $components = array('Taobao');
 
-    public $uses = array('ItemGetBefore', 'Tag');
+    public $uses = array('Item', 'Tag');
     
     private $tags = array();
     private $game = array();
@@ -36,17 +36,19 @@ class SpiderController extends AppController
          if ($this->request->is('post') || $this->request->is('put')) {
             $url = $this->request->data['Spider']['url'];
 			//~ http://detail.tmall.com/item.htm?spm=a2106.m874.1000384.d11&id=12399021577&source=dou&scm=1029.0.1.1
-			$item = $this->Taobao->getItemByUrl($url);
+			$item = $this->Taobao->TKItemByUrl($url);
 			if(!$item){
 				$this->Session->setFlash('抓取不成功!');
 				$this->redirect(array('action'=>'request'));
 			}
+			
 			$nick = $item->nick;
-            $shop = self::getShop($item['nick']);
+            $shop = $this->Taobao->TKShop($item['nick']);
             if(!$shop){
 				$this->Session->setFlash('获取店铺信息错误!');
 				$this->redirect(array('action'=>'request'));
 			}
+			
 			var_dump($item, $shop);
         }
     }

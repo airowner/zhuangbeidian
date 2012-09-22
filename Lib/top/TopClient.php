@@ -199,6 +199,7 @@ class TopClient
 		$resp = $this->curl($requestUrl, $apiParams);
 
         //解析TOP返回结果
+		$resp = stripslashes($resp);
         $respObject = json_decode($resp);
 		if( null !== $respObject)
 		{
@@ -212,7 +213,7 @@ class TopClient
 			}
 		}else{
 			CakeLog::error(json_encode(array($sysParams["method"],$requestUrl,"HTTP_RESPONSE_NOT_WELL_FORMED",$resp)));
-			throw new Exception('HTTP_RESPONSE_NOT_WELL_FORMED')
+			throw new Exception('HTTP_RESPONSE_NOT_WELL_FORMED');
 		}
 		return $respObject;
     }
