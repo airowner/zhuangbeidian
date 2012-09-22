@@ -58,6 +58,7 @@ class TaobaoComponent extends Component
 	 */
 	public function getItem($num_id)
 	{
+		var_dump($num_id);exit;
 	    static $request = null;
 	    if(!$request){
 	        include(WWW_ROOT . '../Lib/top/request/ItemGetRequest.php');
