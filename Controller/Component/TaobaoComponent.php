@@ -84,8 +84,8 @@ class TaobaoComponent extends Component
 	{
 		static $request = null;
 		if(!$request){
-			include(WWW_ROOT . '../Lib/top/request/TaobaokeItemsGetRequest.php');
-	        $request = new TaobaokeItemsGetRequest();	$request->setFields("detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
+			include(WWW_ROOT . '../Lib/top/request/TaobaokeItemsDetailGetRequest.php');
+	        $request = new TaobaokeItemsDetailGetRequest();	$request->setFields("detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
 		}
 		$request->setNumIids($num_iids);
 		return self::request($request);
