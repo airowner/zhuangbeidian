@@ -114,6 +114,7 @@ class TaobaoComponent extends Component
 
 	private static function parse_taobao($result)
 	{
+		var_dump($result);exit;
 		$result = @json_decode($result);
 		var_dump($result);exit;
 		if($result->code){
