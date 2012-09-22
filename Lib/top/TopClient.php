@@ -199,7 +199,7 @@ class TopClient
 		$resp = $this->curl($requestUrl, $apiParams);
 
         //解析TOP返回结果
-		$resp = stripslashes($resp);
+		//$resp = stripslashes($resp);
         $respObject = json_decode($resp);
 		if( null !== $respObject)
 		{
