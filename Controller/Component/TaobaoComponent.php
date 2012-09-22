@@ -176,7 +176,11 @@ class TaobaoComponent extends Component
 	        $request = new TaobaokeShopsConvertRequest();			$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction");
 	    }
 	    $request->setSellerNicks($nicks);
-		return self::request($request);
+		$result = self::request($request);
+		if($result){
+			$result = $result->taobaoke_shops_convert_response->taobaoke_shops->taobaoke_shop[0];
+		}
+		return $result;
 	}
 	
 	/*
