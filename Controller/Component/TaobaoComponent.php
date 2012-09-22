@@ -76,7 +76,7 @@ class TaobaoComponent extends Component
 	
 	public function getItemByUrl($url)
 	{
-		$num_id = intval(self::getTaobaoId($url));
+		$num_id = self::getTaobaoId($url);
 		if(!$num_id){
 			return false;
 		}
@@ -153,10 +153,11 @@ class TaobaoComponent extends Component
 	    $id = false;
 	    $query = parse_url($url, PHP_URL_QUERY);
 	    parse_str($query, $q_ary);
+		var_dump($q_ary);
 	    foreach($q_ary as $key => $value){
 	        switch($key){
 	            case 'id':
-	                $id = $value;
+	                $id = intval($value);
 	                break;
 	        }
 	    }
