@@ -74,7 +74,11 @@ class TaobaoComponent extends Component
 		if(!$num_id){
 			return false;
 		}
-		return $this->TKItem($num_id);
+		$result = $this->TKItem($num_id);
+		if($result){
+	 		$result = $result->taobaoke_item_details->taobaoke_item_detail[0]->item;
+		}
+		return $result;
   	}
 
 	/*
