@@ -41,9 +41,10 @@ class SpiderController extends AppController
 				$this->Session->setFlash('抓取不成功!');
 				$this->redirect(array('action'=>'request'));
 			}
+			var_dump($item);exit;
 			
 			$nick = $item->nick;
-            $shop = $this->Taobao->TKShop($item['nick']);
+            $shop = $this->Taobao->TKShop($item->nick);
             if(!$shop){
 				$this->Session->setFlash('获取店铺信息错误!');
 				$this->redirect(array('action'=>'request'));
