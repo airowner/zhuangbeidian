@@ -178,7 +178,7 @@ class TaobaoComponent extends Component
 	    $request->setSellerNicks($nicks);
 		$result = self::request($request);
 		if($result){
-			$result = $result->taobaoke_shops_convert_response->taobaoke_shops->taobaoke_shop[0];
+			$result = $result->taobaoke_shops->taobaoke_shop[0];
 		}
 		return $result;
 	}
