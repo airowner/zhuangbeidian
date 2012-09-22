@@ -165,13 +165,7 @@ class TopClient
     public function execute($request, $session = null)
     {
         if($this->checkRequest) {
-            try {
-                $request->check();
-            } catch (Exception $e) {
-                $result->code = $e->getCode();
-                $result->msg = $e->getMessage();
-                return $result;
-            }
+			$request->check();
         }
         //组装系统参数
         $sysParams["app_key"] = $this->appkey;
@@ -202,45 +196,25 @@ class TopClient
         $requestUrl = substr($requestUrl, 0, -1);
 
         //发起HTTP请求
-        try
-        {
-            $resp = $this->curl($requestUrl, $apiParams);
-        }
-        catch (Exception $e)
-        {
-			CakeLog::error(json_encode(array($sysParams["method"],$requestUrl,"HTTP_ERROR_" . $e->getCode(),$e->getMessage())));
-            $result->code = $e->getCode();
-            $result->msg = $e->getMessage();
-            return $result;
-        }
+		$resp = $this->curl($requestUrl, $apiParams);
 
         //解析TOP返回结果
-        $respWellFormed = false;
         $respObject = json_decode($resp);
-        if (null !== $respObject)
-        {
-            $respWellFormed = true;
-            foreach ($respObject as $propKey => $propValue)
+		if( null !== $respObject)
+		{
+			foreach ($respObject as $propKey => $propValue)
             {
                 $respObject = $propValue;
             }
-        }
-
-        //返回的HTTP文本不是标准JSON或者XML，记下错误日志
-        if (false === $respWellFormed)
-        {
-            CakeLog::error(json_encode(array($sysParams["method"],$requestUrl,"HTTP_RESPONSE_NOT_WELL_FORMED",$resp)));
-            $result->code = 0;
-            $result->msg = "HTTP_RESPONSE_NOT_WELL_FORMED";
-            return $result;
-        }
-
-        //如果TOP返回了错误码，记录到业务错误日志中
-        if (isset($respObject->code))
-        {
-            CakeLog::error(json_encode(array(date("Y-m-d H:i:s"), $resp)));
-        }
-        return $respObject;
+			if(isset($respObject->code)){
+				$msg = json_encode($respObject);
+				throw new Exception($msg);
+			}
+		}else{
+			CakeLog::error(json_encode(array($sysParams["method"],$requestUrl,"HTTP_RESPONSE_NOT_WELL_FORMED",$resp)));
+			throw new Exception('HTTP_RESPONSE_NOT_WELL_FORMED')
+		}
+		return $respObject;
     }
 
 }

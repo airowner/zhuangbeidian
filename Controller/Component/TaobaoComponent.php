@@ -65,12 +65,7 @@ class TaobaoComponent extends Component
 	$request->setFields("detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
 	    }
 	    $request->setNumIid($num_id);
-	    $result = self::ins()->execute($request);
-	    $result = self::parse_taobao($result);
-	    if($result && isset($result['item_get_response'], $result['item_get_response']['item'])){
-	        $result = $result['item_get_response']['item'];
-	    }
-	    return $result;
+		return self::request($request, 'item');
 	}
 	
 	public function getItemByUrl($url)
@@ -104,33 +99,8 @@ class TaobaoComponent extends Component
 	        $request->setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
 	    }
 	    $request->setNick($taobao_nick);
-	    $result = self::ins()->execute($request);
-	    $result = self::parse_taobao($result);
-	    if($result){
-	        $result = $result['shop'];
-	    }
-	    return $result;
+		return self::request($request, 'shop');
 	}
-
-	private static function parse_taobao($result)
-	{
-		var_dump($result);exit;
-		$result = @json_decode($result);
-		var_dump($result);exit;
-		if($result->code){
-			$error = '';
-			if(isset($result->msg)){
-				$error .= $result->msg;
-			}
-			if(isset($result->submsg)){
-				$error .= ' '. $result->submsg;
-			}
-			throw new Exception($error);
-		}
-		//parse
-		return @json_decode($result, true);
-	}
-
 
 	private static function ins()
 	{
@@ -143,6 +113,20 @@ class TaobaoComponent extends Component
 		}
 		return $client;
 	}
+	
+	private static request($request, $subCate=null)
+	{
+		$result = null;
+		try{
+	    	$result = self::ins()->execute($request);
+			if($subCate && isset($result->{$subCate})){
+				$result = $result->{$subCate};
+			}
+		}catch(Exception $e){
+			CakeLog::error($e->getMessage());
+		}
+	    return $result;
+	}
 
 	private static function getTaobaoId($url)
 	{
@@ -152,7 +136,6 @@ class TaobaoComponent extends Component
 	    $id = false;
 	    $query = parse_url($url, PHP_URL_QUERY);
 	    parse_str($query, $q_ary);
-		var_dump($q_ary);
 	    foreach($q_ary as $key => $value){
 	        switch($key){
 	            case 'id':

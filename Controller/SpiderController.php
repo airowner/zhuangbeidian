@@ -35,26 +35,19 @@ class SpiderController extends AppController
     {
          if ($this->request->is('post') || $this->request->is('put')) {
             $url = $this->request->data['Spider']['url'];
-			try{
-            	$item = $this->Taobao->getItemByUrl($url);
-	   		}catch(Exception $e){
-				var_dump($e);
+			//~ http://detail.tmall.com/item.htm?spm=a2106.m874.1000384.d11&id=12399021577&source=dou&scm=1029.0.1.1
+			$item = $this->Taobao->getItemByUrl($url);
+			if(!$item){
+				$this->Session->setFlash('抓取不成功!');
+				$this->redirect(array('action'=>'request'));
 			}
-            var_dump($item);exit;
-            try{
-                $shop = self::getShop($item['nick']);
-            }catch(Exception $e){
-                $this->Session->setFlash($e->getMessage());
-                exit();
-            }
-
-            //~ http://detail.tmall.com/item.htm?spm=a2106.m874.1000384.d11&id=12399021577&source=dou&scm=1029.0.1.1
-            //~ $data = TaoBaoApi::get($url);
-            //~ if($data){
-                //~ $this->requestAction(array('action'=>'add'), $data);
-            //~ }else{
-                //~ $this->Session->setFlash(__('获取数据失败.'));
-            //~ }
+			$nick = $item->nick;
+            $shop = self::getShop($item['nick']);
+            if(!$shop){
+				$this->Session->setFlash('获取店铺信息错误!');
+				$this->redirect(array('action'=>'request'));
+			}
+			var_dump($item, $shop);
         }
     }
     
