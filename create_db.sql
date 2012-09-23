@@ -20,28 +20,37 @@ CREATE TABLE `groups` (
     modified DATETIME
 );
 
+--　"skus":{"sku":[{"created":"2012-09-05 12:37:11","modified":"2012-09-23 02:31:22","price":"7700.00","properties":"1627207:28320;1630696:6536025","quantity":194,"sku_id":22169393864},{"created":"2012-09-05 12:37:11","modified":"2012-09-23 04:22:46","price":"7700.00","properties":"1627207:28341;1630696:6536025","quantity":193,"sku_id":22169393865},{"created":"2012-09-14 11:56:44","modified":"2012-09-22 11:30:35","price":"8800.00","properties":"1627207:3232481;1630696:6536025","quantity":276,"sku_id":22369518881},{"created":"2012-09-14 11:56:44","modified":"2012-09-22 11:30:35","price":"8200.00","properties":"1627207:3232483;1630696:6536025","quantity":259,"sku_id":22369518882},{"created":"2012-09-14 11:56:44","modified":"2012-09-22 11:30:35","price":"8200.00","properties":"1627207:3232484;1630696:6536025","quantity":271,"sku_id":22369518883},{"created":"2012-09-14 11:56:44","modified":"2012-09-22 11:30:35","price":"8800.00","properties":"1627207:90554;1630696:6536025","quantity":273,"sku_id":22369518884},{"created":"2012-09-22 11:30:35","modified":"2012-09-22 14:37:38","price":"5990.00","properties":"1627207:28332;1630696:6536025","quantity":198,"sku_id":31377528504},{"created":"2012-09-22 11:30:35","modified":"2012-09-22 14:37:38","price":"5990.00","properties":"1627207:30156;1630696:6536025","quantity":199,"sku_id":31377528505}]}
+--　"item_imgs":{"item_img":[{"id":0,"position":0,"url":"http:\/\/img04.taobaocdn.com\/bao\/uploaded\/i4\/T1OiLKXXRpXXbQ90I__105735.jpg"}]}
+--　"prop_imgs":{"prop_img":[{"id":0,"position":0,"properties":"","url":"http:\/\/img04.taobaocdn.com\/bao\/uploaded\/i4\/T1OiLKXXRpXXbQ90I__105735.jpg"}]}
+--　"location":{"city":"深圳","state":"广东"}
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item`
 (
     `id` int(11) unsigned not null auto_increment,
     `num_iid` int(11) unsigned not null comment 'taobao详情页 item.htm 对应id item.htm?id=xxx',
-    `item_imgs` text not null comment '需要序列化，为宝贝的图片',
+	`title` varchar(255) not null comment '商品名称',
+	`click_url` text not null comment '转换后的淘宝链接url',
+	`shop_click_url` text not null comment '店铺url',
+	`seller_credit_score` tinyint unsigned not null comment '卖家信用等级',
+	`pic_url` varchar(255) not null comment '商品图片url',
+    `item_imgs` text not null comment '需要序列化，为多个宝贝的图片',
     `num` int(11) unsigned not null comment '库存',
     `track_iid` int(11) unsigned not null,
     `cid` int(11) unsigned not null comment '分类id?',
     `list_time` datetime not null comment '上架时间',
-    `modified` datetime not null comment '最后修改时间',
     `delist_time` datetime not null comment '下架时间',
-    `title` varchar(255) not null comment '商品名称',
-    `pic_url` varchar(255) not null comment '商品图片url',
+    `modified` datetime not null comment '最后修改时间',
     `price` decimal(10,2) unsigned not null comment '商品费用',
-    `props` varchar(255) not null comment '宝贝详情属性部分',
     `nick` varchar(255) not null comment 'taobao帐号',
     `city` varchar(255) not null comment '城市',
     `state` varchar(255) not null comment '省份？',
     `desc` text not null comment '宝贝描述',
+	`prop_img` text not null default '' comment '宝贝详情属性多图',
+	`props` text not null default '' comment '宝贝详情属性部分',
+	`property_alias` text not null default '' comment '属性别名',
     `auction_point` tinyint(3) unsigned not null comment '拍卖点？',
-    `approve_status` varchar(255) not null comment '在售?onsale',
+    `approve_status` varchar(255) not null comment '核准状态:在售?onsale',
     `detail_url` varchar(255) not null comment '商品taobao地址',
     `ems_fee` decimal(10,2) unsigned not null comment 'ems费用',
     `express_fee` decimal(10,2) unsigned not null comment '快递费用',
@@ -49,19 +58,18 @@ CREATE TABLE `item`
     `has_discount` tinyint(3) unsigned not null comment '是否有折扣',
     `has_invoice` tinyint(3) unsigned not null comment '是否有发票',
     `has_showcase` tinyint(3) unsigned not null comment '是否有橱窗？？',
-    `has_warranty` tinyint(3) unsigned not null comment '是否有折扣',
+    `has_warranty` tinyint(3) unsigned not null comment '是否有担保',
     `is_virtual` tinyint(3) unsigned not null comment '是否是虚拟货物',
     `stuff_status` varchar(255) not null comment '新品？二手？。。。new?',
     `seller_cids` varchar(255) not null,
     `input_pids` varchar(255) not null comment '自定义属性名id',
     `input_str` varchar(255) not null comment '自定义属性值',
     `type` varchar(255) not null,
-    `valid_thru` int(11) unsigned not null,
-    `post_fee` decimal(10,2) unsigned not null,
-    `postage_id` int(11) unsigned not null,
-    `property_alias` varchar(255) not null,
+    `valid_thru` int(11) unsigned not null　comment '有效时长(７)',
+    `post_fee` decimal(10,2) unsigned not null comment '邮费',
+    `postage_id` int(11) unsigned not null comment '邮件id',
     `outer_id` varchar(255) not null,
-    `skus` text not null comment '商品分类',
+    `skus` text not null comment '类似套餐的商品选择',
     PRIMARY KEY `id` (`id`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
@@ -179,13 +187,24 @@ insert into ad (name, type, url, img , txt, width, height) values \
 ;
 
 -- 热门店铺
--- DROP TABLE IF EXISTS `shop`;
--- CREATE TABLE `shop`
--- (
---     `id` int(11) unsigned not null auto_increment,
---     `name` varchar(255) not null,
---     PRIMARY KEY `id` (`id`),
--- ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+DROP TABLE IF EXISTS `shop`;
+CREATE TABLE `shop`
+(
+    `id` int(11) unsigned not null auto_increment,
+    `name` varchar(255) not null comment 'taobao shop_title',
+	`userid` int unsigned not null comment 'taobao user_id',
+	`click_url` text comment '转换后的淘宝链接',
+	`auction_count` int unsigned not null comment '',
+	`seller_credit` tinyint unsigned not null comment '店铺等级,共２０给',
+	`commission_rate` decimal(2) not null comment '',
+	`shop_type`　tinyint unsigned not null default 1 comment '1-c, 2-b',
+	`total_auction` int unsigned not null comment '',
+	`update_time` datetime not null,
+    PRIMARY KEY `id` (`id`),
+	UNIQUE KEY `userid` (`userid`),
+	KEY `name` (`name`),
+	KEY `update_time` (`update_time`)
+) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 -- 
 -- DROP TABLE IF EXISTS `shop_tag`;
 -- CREATE TABLE `shop_tag`

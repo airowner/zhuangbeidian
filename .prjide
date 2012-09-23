@@ -2036,3 +2036,227 @@ zbd=/srv/http/zbd CD=. filter="*" {
   }
  }
 }
+zbd=~/Sites/zhuangbeidian CD=. filter="*" {
+ create_db.sql
+ index.php
+ test.php
+ zbd.conf
+ Config=Config {
+  acl.ini.php
+  acl.php
+  bootstrap.php
+  core.php
+  database.php
+  database.php.default
+  email.php.default
+  routes.php
+  Schema=Schema {
+   db_acl.php
+   db_acl.sql
+   i18n.php
+   i18n.sql
+   sessions.php
+   sessions.sql
+  }
+ }
+ Console=Console {
+  cake
+  cake.bat
+  cake.php
+  Command=Command {
+   AppShell.php
+   Task=Task {
+    empty
+   }
+  }
+  Templates=Templates {
+   empty
+  }
+ }
+ Controller=Controller {
+  AdminController.php
+  AdsController.php
+  AppController.php
+  GroupsController.php
+  IndexController.php
+  ItemsController.php
+  PagesController.php
+  SpiderController.php
+  TaobaoController.php
+  UsersController.php
+  Component=Component {
+   TaobaoComponent.php
+   empty
+  }
+ }
+ Lib=Lib {
+  empty
+  top=top{
+   RequestCheckUtil.php
+   TopClient.php
+  }
+ }
+ Locale=Locale {
+  eng=eng {
+   LC_MESSAGES=LC_MESSAGES {
+    empty
+   }
+  }
+ }
+ Model=Model {
+  Ad.php
+  AppModel.php
+  Group.php
+  ItemGetBefore.php
+  Tag.php
+  TagItem.php
+  User.php
+  item.php
+  Behavior=Behavior {
+   empty
+  }
+  Datasource=Datasource {
+   empty
+  }
+ }
+ Plugin=Plugin {
+  empty
+ }
+ Test=Test {
+  Case=Case {
+   Controller=Controller {
+    AdsControllerTest.php
+    GroupsControllerTest.php
+    ItemsControllerTest.php
+    UsersControllerTest.php
+    Component=Component {
+     empty
+    }
+   }
+   Model=Model {
+    GroupTest.php
+    UserTest.php
+    Behavior=Behavior {
+     empty
+    }
+   }
+   View=View {
+    Helper=Helper {
+     empty
+    }
+   }
+  }
+  Fixture=Fixture {
+   GroupFixture.php
+   UserFixture.php
+   empty
+  }
+ }
+ Vendor=Vendor {
+  empty
+ }
+ View=View {
+  Taobao=Taobao{
+  }
+  Elements=Elements {
+   empty
+   item.html
+   leftnav.html
+  }
+  Emails=Emails {
+   html=html {
+    default.ctp
+   }
+   text=text {
+    default.ctp
+   }
+  }
+  Errors=Errors {
+   error400.ctp
+   error500.ctp
+  }
+  Helper=Helper {
+   AppHelper.php
+  }
+  Layouts=Layouts {
+   ajax.ctp
+   default.ctp
+   error.ctp
+   flash.ctp
+   index.ctp
+   Emails=Emails {
+    html=html {
+     default.ctp
+    }
+    text=text {
+     default.ctp
+    }
+   }
+   js=js {
+    default.ctp
+   }
+   rss=rss {
+    default.ctp
+   }
+   xml=xml {
+    default.ctp
+   }
+  }
+  Pages=Pages {
+   home.ctp
+  }
+  Scaffolds=Scaffolds {
+   empty
+  }
+  Index=Index{
+   index.html
+   tag.html
+  }
+  ad=ad {
+  }
+ }
+ tmp=tmp {
+  cache=cache {
+   models=models {
+    empty
+   }
+   persistent=persistent {
+    empty
+   }
+   views=views {
+   }
+  }
+  logs=logs {
+   empty
+  }
+  sessions=sessions {
+   empty
+  }
+  tests=tests {
+  }
+ }
+ webroot=webroot {
+  favicon.ico
+  index.php
+  test.php
+  xtaoAuth.txt
+  css=css {
+   cake.generic.css
+   layout.css
+  }
+  files=files {
+   empty
+  }
+  img=img {
+   cake.icon.png
+   cake.power.gif
+   test-error-icon.png
+   test-fail-icon.png
+   test-pass-icon.png
+   test-skip-icon.png
+  }
+  js=js {
+   empty
+  }
+ }
+}

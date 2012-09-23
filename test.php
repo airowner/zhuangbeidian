@@ -1,8 +1,24 @@
 <?php
 
-$url  = 'http://item.taobao.com/item.htm?id=15312637279&ali_refid=a3_420961_1006:1102939026:6::9aaa5f1da4eff60973444b8ccb4331a3&ali_trackid=1_9aaa5f1da4eff60973444b8ccb4331a3';
+require dirname(__FILE__) . '/Controller/Component/TaobaoComponent.php';
+$taobao = new TaobaoComponent();
 
-$query = parse_url($url, PHP_URL_QUERY);
+$reflect = new ReflectionClass($taobao);
+$re_methods = $reflect->getMethods();
+$methods = array();
+foreach($re_methods as $method){
+    if($method->isPublic()){
+        $methods[] = $method;
+    }
+}
 
-parse_str($query, $a);
-var_export($a);
+$args = array();
+foreach($methods as $method){
+    $m = $method->getName();
+    $args[$m] = array();
+    $reflect_params = $method->getParameters();
+    foreach($reflect_params as $params){
+        $args[$m][] = $params->getName();
+    }
+}
+
