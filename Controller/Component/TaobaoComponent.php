@@ -1,6 +1,6 @@
 <?php
 
-class TaobaoComponent// extends Component
+class TaobaoComponent extends Component
 {
 /*
 	 array (
