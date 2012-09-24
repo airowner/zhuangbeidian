@@ -208,7 +208,8 @@ class TaobaoComponent extends Component
 		static $request = null;
 	    if(!$request){
 	        include(WWW_ROOT . '../Lib/top/request/TaobaokeShopsConvertRequest.php');
-	        $request = new TaobaokeShopsConvertRequest();			$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction");
+	        $request = new TaobaokeShopsConvertRequest();
+			$request->setFields("shop_title,click_url,commission_rate");	//$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction");
 	    }
 	    $request->setSellerNicks($nicks);
 		$result = self::request($request);
