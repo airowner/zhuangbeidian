@@ -43,7 +43,8 @@ class SpiderController extends AppController
 			}
 			
 			$nick = $item->nick;
-            $shop = $this->Taobao->TKShopByNicks($nick);
+            //$shop = $this->Taobao->TKShopByNicks($nick);
+            $shop = $this->Taobao->TKShop('古老鲨鱼');
             if(!$shop){
 				$this->Session->setFlash('获取店铺信息错误!');
 				$this->redirect(array('action'=>'request'));
