@@ -49,7 +49,19 @@ class SpiderController extends AppController
 				$this->redirect(array('action'=>'request'));
 			}
 			
-			var_dump($item, $shop);
+			$item = json_decode(json_encode($item), true);
+			$shop = json_decode(json_encode($shop), true);
+			
+			$handle = fopen(dirname(__FILE__) . '/../tmp/data', 'w');
+			$content = "<?php\n";
+			$content .= "\$item = ";
+			$content .= var_export($item, true);
+			$content .= "\n\$shop = ";
+			$content .= var_export($shop, true);
+			fwrite($handle, $content);
+			fclose($handle);
+			
+			die("done");
         }
     }
     
