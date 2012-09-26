@@ -65,7 +65,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => 'wangjile123',
+		'password' => '',
 		'database' => 'zhuangbeidian',
 		'prefix' => '',
 		'encoding' => 'utf8',

@@ -18,9 +18,9 @@ class SpiderController extends AppController
     private $ccate = array();
     private $price = array();
     
-    public function __construct($id, $module=null)
+    public function beforeFilter()
     {
-        parent::__construct($id, $module);
+        $this->Auth->allow('*');
         $this->game = $this->Tag->getCategory('#game', true);
         $this->price = $this->Tag->getCategory('#price', true);
         $this->cate = $this->Tag->getCate(true);
@@ -66,6 +66,31 @@ class SpiderController extends AppController
         }
     }
     
+    public function testsave()
+    {
+        require dirname(dirname(__FILE__)) . '/data.php';
+        $item['city'] = $item['location']['city'];
+        $item['state'] = $item['location']['state'];
+        $item['item_imgs'] = json_encode($item['item_imgs']);
+        $item['prop_imgs'] = json_encode($item['prop_imgs']);
+        $item['skus'] = json_encode($item['skus']);
+        $item['cick_url'] = '';
+        $item['shop_click_url'] = '';
+        $item['seller_credit_score'] = 11;
+
+
+        $item = array('Item'=>$item);
+        var_export($item);
+        $this->Item->create();
+        var_dump($this->Item->save($item));
+        exit;
+
+        $shop = json_decode(json_encode($shop));
+        $shops = $shop->taobaoke_shops->taobaoke_shop;
+        var_export($item);
+        var_export($shop);
+        exit;
+    }
     private function _setSelect($data)
     {
         $_data = array();
