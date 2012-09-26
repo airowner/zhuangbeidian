@@ -22,9 +22,17 @@ $dispatcher = 'Cake' . $ds . 'Console' . $ds . 'ShellDispatcher.php';
 
 if (function_exists('ini_set')) {
 	//$root = dirname(dirname(dirname(__FILE__)));
-	$root = '/srv/http/git/cakephp';
+    if(PHP_OS == 'Darwin'){
+        $root = '/Users/airowner/Sites/cakephp';
+    }elseif(PHP_OS == 'WINNT'){
+        $root = 'e:\cakephp';
+    }else{
+        $root = '/srv/http/git/cakephp';
+    }
 	ini_set('include_path', $root . $ds . 'lib' . PATH_SEPARATOR . ini_get('include_path'));
 }
+
+echo ini_get('include_path') . "\n";
 
 if (!include ($dispatcher)) {
 	trigger_error('Could not locate CakePHP core files.', E_USER_ERROR);

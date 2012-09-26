@@ -71,6 +71,7 @@ class SpiderController extends AppController
         require dirname(dirname(__FILE__)) . '/data.php';
         $item['city'] = $item['location']['city'];
         $item['state'] = $item['location']['state'];
+        unset($item['location']);
         $item['item_imgs'] = json_encode($item['item_imgs']);
         $item['prop_imgs'] = json_encode($item['prop_imgs']);
         $item['skus'] = json_encode($item['skus']);
@@ -80,9 +81,10 @@ class SpiderController extends AppController
 
 
         $item = array('Item'=>$item);
-        var_export($item);
+        //var_export($item);
         $this->Item->create();
         var_dump($this->Item->save($item));
+        debug($this->Item->validationErrors);
         exit;
 
         $shop = json_decode(json_encode($shop));
