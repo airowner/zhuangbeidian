@@ -2219,8 +2219,8 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
    edit.ctp
    index.ctp
    request.ctp
+   shop.ctp
    view.ctp
-   getShop.ctp
   }
  }
  tmp=tmp {

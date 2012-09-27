@@ -47,7 +47,8 @@ class SpiderController extends AppController
             $item = array('Item'=>$item);
             $this->Item->create();
             if($this->Item->save($item)){
-                $this->redirect(array('action'=>'getShop', 'nick'=>$nick)); 
+                //$this->redirect(array('action'=>'getShop', 'nick'=>$nick)); 
+				$this->Session->setFlash('保存数据成功!');
             }else{
                 debug($this->Item->validationErrors);
                 exit;
@@ -55,14 +56,14 @@ class SpiderController extends AppController
 				//$this->redirect(array('action'=>'request'));
             }
 			
-            $shop = $this->Taobao->TKShopByNicks($nick);
-            //$shop = $this->Taobao->TKShop($nick);
-            if(!$shop){
-				$this->Session->setFlash('获取店铺信息错误!');
-				$this->redirect(array('action'=>'request'));
-			}
+            //$shop = $this->Taobao->TKShopByNicks($nick);
+            ////$shop = $this->Taobao->TKShop($nick);
+            //if(!$shop){
+			//	$this->Session->setFlash('获取店铺信息错误!');
+			//	$this->redirect(array('action'=>'request'));
+			//}
 
-            var_export($item, $shop);exit;
+            //var_export($item, $shop);exit;
         }
     }
 
