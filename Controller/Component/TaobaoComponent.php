@@ -76,6 +76,7 @@ class TaobaoComponent extends Component
 			return false;
 		}
 		$result = $this->TKItem($num_id);
+        var_export($result);exit;
 		if($result){
 	 		$result = $result->taobaoke_item_details->taobaoke_item_detail[0]->item;
 		}
