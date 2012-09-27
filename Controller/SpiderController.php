@@ -49,6 +49,8 @@ class SpiderController extends AppController
 				$this->Session->setFlash('获取店铺信息错误!');
 				$this->redirect(array('action'=>'request'));
 			}
+
+            var_export($item, $shop);exit;
 			
 			$item = json_decode(json_encode($item), true);
 			$shop = json_decode(json_encode($shop), true);
