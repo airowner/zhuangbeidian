@@ -42,8 +42,19 @@ class SpiderController extends AppController
 				$this->redirect(array('action'=>'request'));
 			}
             $item = $this->prepareItem($item);
-			
 			$nick = $item['nick'];
+
+            $item = array('Item'=>$item);
+            $this->Item->create();
+            if($this->Item->save($item)){
+                $this->redirect(array('action'=>'getShop', 'nick'=>$nick); 
+            }else{
+                debug($this->Item->validationErrors);
+                exit;
+				//$this->Session->setFlash('保存数据不成功!');
+				//$this->redirect(array('action'=>'request'));
+            }
+			
             $shop = $this->Taobao->TKShopByNicks($nick);
             //$shop = $this->Taobao->TKShop($nick);
             if(!$shop){
@@ -52,20 +63,6 @@ class SpiderController extends AppController
 			}
 
             var_export($item, $shop);exit;
-			
-			$item = json_decode(json_encode($item), true);
-			$shop = json_decode(json_encode($shop), true);
-			
-			$handle = fopen(dirname(__FILE__) . '/../tmp/data', 'w');
-			$content = "<?php\n";
-			$content .= "\$item = ";
-			$content .= var_export($item, true);
-			$content .= "\n\$shop = ";
-			$content .= var_export($shop, true);
-			fwrite($handle, $content);
-			fclose($handle);
-			
-			die("done");
         }
     }
 
@@ -94,6 +91,11 @@ class SpiderController extends AppController
         return $return_item;
     }
     
+
+    public function getShop($nick)
+    {
+        echo $nick;exit;
+    }
     public function testsave()
     {
         require dirname(dirname(__FILE__)) . '/data.php';
