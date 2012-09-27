@@ -74,6 +74,9 @@ class SpiderController extends AppController
         $return_item['seller_credit_score'] = $item->seller_credit_score;
         $product = $item->item;
         foreach($product as $key => $value){
+            if(is_bool($value)){
+                $value = $value ? 1 : 0;
+            }
             switch($key){
             case 'location':
                 $return_item['city'] = $value->city;
