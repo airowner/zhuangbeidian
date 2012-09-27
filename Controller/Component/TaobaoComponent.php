@@ -274,6 +274,7 @@ class TaobaoComponent extends Component
 	{
 		static $client = null;
 		if($client === null){			                              
+		    include(WWW_ROOT . '../Lib/top/RequestCheckUtil.php');
 		    include(WWW_ROOT . '../Lib/top/TopClient.php');
             $client = array();
 	        //~ TopConf::$online = false;
