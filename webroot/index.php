@@ -61,9 +61,10 @@ if (!defined('APP_DIR')) {
  */
 if(PHP_OS == 'WINNT'){
     define('CAKE_CORE_INCLUDE_PATH', 'E:' . DS . 'cakephp' . DS . 'lib');
-}else{
+}elseif(PHP_OS == 'Darwin'){
     define('CAKE_CORE_INCLUDE_PATH', '/Users/airowner/Sites/cakephp' . DS . 'lib');
-    #define('CAKE_CORE_INCLUDE_PATH', '/srv/http/git/cakephp' . DS . 'lib');
+}else{
+    define('CAKE_CORE_INCLUDE_PATH', '/srv/http/git/cakephp' . DS . 'lib');
 }
 
 /**
