@@ -219,7 +219,7 @@ class TaobaoComponent extends Component
 			$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction");
 	    }
 	    $request->setSellerNicks($nicks);
-		$result = self::widgetRequest($request);
+		$result = self::request($request);
         var_dump($result);
 		if($result){
 			$result = $result->taobaoke_shops->taobaoke_shop;
