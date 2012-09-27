@@ -3,7 +3,7 @@
  * TOP API: tmall.temai.items.search request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class TmallTemaiItemsSearchRequest
 {
@@ -75,5 +75,10 @@ start=96，start=144，start=192......
 	{
 		
 		RequestCheckUtil::checkNotNull($this->cat,"cat");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }

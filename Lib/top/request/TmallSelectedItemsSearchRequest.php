@@ -3,7 +3,7 @@
  * TOP API: tmall.selected.items.search request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class TmallSelectedItemsSearchRequest
 {
@@ -39,5 +39,10 @@ class TmallSelectedItemsSearchRequest
 	{
 		
 		RequestCheckUtil::checkNotNull($this->cid,"cid");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }

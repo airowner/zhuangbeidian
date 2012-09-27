@@ -3,12 +3,12 @@
  * TOP API: taobao.taobaoke.caturl.get request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class TaobaokeCaturlGetRequest
 {
 	/** 
-	 * 商品所属分类id。该ID为商品类目ID，与taobao.itemcats.get接口获取到的后台类目ID有所区别。
+	 * 标准商品后台类目id。该ID可以通过taobao.itemcats.get接口获取到。
 	 **/
 	private $cid;
 	
@@ -104,5 +104,10 @@ class TaobaokeCaturlGetRequest
 		
 		RequestCheckUtil::checkNotNull($this->cid,"cid");
 		RequestCheckUtil::checkMinValue($this->cid,0,"cid");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }

@@ -1,21 +1,16 @@
 <?php
 /**
- * TOP API: taobao.shop.get request
+ * TOP API: taobao.user.buyer.get request
  * 
  * @author auto create
  * @since 1.0, 2012-09-27 16:40:54
  */
-class ShopGetRequest
+class UserBuyerGetRequest
 {
 	/** 
-	 * 需返回的字段列表。可选值：Shop 结构中的所有字段；多个字段之间用逗号(,)分隔
+	 * 只返回nick,sex,buyer_credit,avatar,has_shop,vip_info参数
 	 **/
 	private $fields;
-	
-	/** 
-	 * 卖家昵称
-	 **/
-	private $nick;
 	
 	private $apiParas = array();
 	
@@ -30,20 +25,9 @@ class ShopGetRequest
 		return $this->fields;
 	}
 
-	public function setNick($nick)
-	{
-		$this->nick = $nick;
-		$this->apiParas["nick"] = $nick;
-	}
-
-	public function getNick()
-	{
-		return $this->nick;
-	}
-
 	public function getApiMethodName()
 	{
-		return "taobao.shop.get";
+		return "taobao.user.buyer.get";
 	}
 	
 	public function getApiParas()
@@ -55,7 +39,6 @@ class ShopGetRequest
 	{
 		
 		RequestCheckUtil::checkNotNull($this->fields,"fields");
-		RequestCheckUtil::checkNotNull($this->nick,"nick");
 	}
 	
 	public function putOtherTextParam($key, $value) {

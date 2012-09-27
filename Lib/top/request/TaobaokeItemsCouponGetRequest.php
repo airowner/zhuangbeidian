@@ -3,7 +3,7 @@
  * TOP API: taobao.taobaoke.items.coupon.get request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class TaobaokeItemsCouponGetRequest
 {
@@ -13,7 +13,7 @@ class TaobaokeItemsCouponGetRequest
 	private $area;
 	
 	/** 
-	 * 商品所属分类id。该ID为商品类目ID，与taobao.itemcats.get接口获取到的后台类目ID有所区别。
+	 * 标准商品后台类目id。该ID可以通过taobao.itemcats.get接口获取到。
 	 **/
 	private $cid;
 	
@@ -88,7 +88,7 @@ class TaobaokeItemsCouponGetRequest
 	private $pageSize;
 	
 	/** 
-	 * 用户的pid,必须是mm_xxxx_0_0这种格式中间的"xxxx". 注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准,且pid的最大长度是20
+	 * 用户的pid,必须是mm_xxxx_0_0这种格式中间的"xxxx". 注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准,且pid的最大长度是20。第一次调用接口的用户，推荐该入参不要填写，使用nick=（淘宝账号）的方式去获取，以免出错。
 	 **/
 	private $pid;
 	
@@ -430,5 +430,10 @@ volume_desc(成交量成高到低), volume_asc(成交量从低到高)
 	{
 		
 		RequestCheckUtil::checkNotNull($this->fields,"fields");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }

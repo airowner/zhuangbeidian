@@ -3,7 +3,7 @@
  * TOP API: taobao.taobaoke.items.detail.get request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class TaobaokeItemsDetailGetRequest
 {
@@ -33,7 +33,7 @@ class TaobaokeItemsDetailGetRequest
 	private $outerCode;
 	
 	/** 
-	 * 用户的pid,必须是mm_xxxx_0_0这种格式中间的"xxxx". 注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准,且pid的最大长度是20
+	 * 用户的pid,必须是mm_xxxx_0_0这种格式中间的"xxxx". 注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准,且pid的最大长度是20。第一次调用接口的用户，推荐该入参不要填写，使用nick=（淘宝账号）的方式去获取，以免出错。
 	 **/
 	private $pid;
 	
@@ -138,5 +138,10 @@ class TaobaokeItemsDetailGetRequest
 		RequestCheckUtil::checkMaxListSize($this->numIids,10,"numIids");
 		RequestCheckUtil::checkMaxLength($this->outerCode,12,"outerCode");
 		RequestCheckUtil::checkMaxListSize($this->trackIids,10,"trackIids");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }

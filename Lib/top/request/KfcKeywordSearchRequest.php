@@ -3,7 +3,7 @@
  * TOP API: taobao.kfc.keyword.search request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class KfcKeywordSearchRequest
 {
@@ -76,5 +76,10 @@ class KfcKeywordSearchRequest
 	{
 		
 		RequestCheckUtil::checkNotNull($this->content,"content");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }

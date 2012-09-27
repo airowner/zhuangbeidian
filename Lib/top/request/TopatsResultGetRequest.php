@@ -3,7 +3,7 @@
  * TOP API: taobao.topats.result.get request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class TopatsResultGetRequest
 {
@@ -39,5 +39,10 @@ class TopatsResultGetRequest
 	{
 		
 		RequestCheckUtil::checkNotNull($this->taskId,"taskId");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }

@@ -3,7 +3,7 @@
  * TOP API: taobao.item.sku.get request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class ItemSkuGetRequest
 {
@@ -89,5 +89,10 @@ class ItemSkuGetRequest
 		RequestCheckUtil::checkNotNull($this->fields,"fields");
 		RequestCheckUtil::checkMinValue($this->numIid,0,"numIid");
 		RequestCheckUtil::checkNotNull($this->skuId,"skuId");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }

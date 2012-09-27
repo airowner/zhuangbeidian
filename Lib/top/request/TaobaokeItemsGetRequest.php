@@ -3,7 +3,7 @@
  * TOP API: taobao.taobaoke.items.get request
  * 
  * @author auto create
- * @since 1.0, 2012-08-07 16:31:26
+ * @since 1.0, 2012-09-27 16:40:54
  */
 class TaobaokeItemsGetRequest
 {
@@ -28,7 +28,7 @@ class TaobaokeItemsGetRequest
 	private $cashOndelivery;
 	
 	/** 
-	 * 商品后台标准类目id，可以通过taobao.itemcats.get接口获取到。
+	 * 标准商品后台类目id。该ID可以通过taobao.itemcats.get接口获取到。
 	 **/
 	private $cid;
 	
@@ -105,7 +105,7 @@ class TaobaokeItemsGetRequest
 	private $overseasItem;
 	
 	/** 
-	 * 结果页数.1~99
+	 * 结果页数.1~10
 	 **/
 	private $pageNo;
 	
@@ -116,7 +116,7 @@ class TaobaokeItemsGetRequest
 	
 	/** 
 	 * 用户的pid,必须是mm_xxxx_0_0这种格式中间的"xxxx".
-<font color="red">注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准,且pid的最大长度是20</font>
+<font color="red">注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准,且pid的最大长度是20</font>。第一次调用接口的用户，推荐该入参不要填写，使用nick=（淘宝账号）的方式去获取，以免出错。
 	 **/
 	private $pid;
 	
@@ -556,7 +556,12 @@ delistTime_asc(商品下架时间从低到高)
 		
 		RequestCheckUtil::checkMaxValue($this->cid,2147483647,"cid");
 		RequestCheckUtil::checkNotNull($this->fields,"fields");
-		RequestCheckUtil::checkMaxValue($this->pageNo,1000000,"pageNo");
+		RequestCheckUtil::checkMaxValue($this->pageNo,10,"pageNo");
 		RequestCheckUtil::checkMaxValue($this->pageSize,400,"pageSize");
+	}
+	
+	public function putOtherTextParam($key, $value) {
+		$this->apiParas[$key] = $value;
+		$this->$key = $value;
 	}
 }
