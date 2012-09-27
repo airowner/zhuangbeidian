@@ -47,7 +47,7 @@ class SpiderController extends AppController
             $item = array('Item'=>$item);
             $this->Item->create();
             if($this->Item->save($item)){
-                $this->redirect(array('action'=>'getShop', 'nick'=>$nick); 
+                $this->redirect(array('action'=>'getShop', 'nick'=>$nick)); 
             }else{
                 debug($this->Item->validationErrors);
                 exit;
