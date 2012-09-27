@@ -36,6 +36,7 @@ class AppModel extends Model {
         if(PHP_OS != 'WINNT'){
             $this->useDbConfig = 'develop';
         }
+
         parent::__construct($id, $table, $ds);
     }
 
