@@ -95,10 +95,11 @@ class SpiderController extends AppController
     }
     
 
-    public function getShop($nick)
+    public function shop($nick)
     {
         $this->set('nick', $nick);
     }
+
     public function testsave()
     {
         require dirname(dirname(__FILE__)) . '/data.php';
