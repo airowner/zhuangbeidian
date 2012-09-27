@@ -1,5 +1,7 @@
 <?php
 
+ddd
+
 require dirname(__FILE__) . '/Controller/Component/TaobaoComponent.php';
 $taobao = new TaobaoComponent();
 
