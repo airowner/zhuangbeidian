@@ -5,14 +5,14 @@ define('TOP_SDK_WORK_DIR', dirname(dirname(__FILE__)) . '/tmp/top');
 
 class OnlineConf
 {
-    public $appkey = '21101696';
-    public $secretKey = '237ace29d974b9da95d0055f7c50e057';
+    public $appkey = '21181372';
+    public $secretKey = 'c0eeef8223b85603ee92c400a7e41138';
     public $gatewayUrl = 'http://gw.api.taobao.com/router/rest';
 }
 class OnlineWidgetConf
 {
-    public $appkey = '21101696';
-    public $secretKey = '237ace29d974b9da95d0055f7c50e057';
+    public $appkey = '21181372';
+    public $secretKey = 'c0eeef8223b85603ee92c400a7e41138';
     public $gatewayUrl = 'http://gw.api.taobao.com/widget/rest';
 }
 
