@@ -219,7 +219,8 @@ class TaobaoComponent extends Component
 			$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction");
 	    }
 	    $request->setSellerNicks($nicks);
-		$result = self::request($request);
+		$result = self::widgetRequest($request);
+        var_dump($result);
 		if($result){
 			$result = $result->taobaoke_shops->taobaoke_shop;
 		}
@@ -269,23 +270,28 @@ class TaobaoComponent extends Component
 		return self::request($request, 'shop');
 	}
 
-	private static function ins()
+	private static function ins($widget=false)
 	{
 		static $client = null;
 		if($client === null){			                              
 		    include(WWW_ROOT . '../Lib/top/TopClient.php');
-	        include(WWW_ROOT . '../Lib/top/RequestCheckUtil.php');
+            $client = array();
 	        //~ TopConf::$online = false;
-	        $client = new TopClient();
+	        $client[] = new TopClient();
+	        $client[] = new TopWidgetClient();
 		}
-		return $client;
+        if($widget){
+            return $client[1];
+        }else{
+            return $client[0];
+        }
 	}
 	
-	private static function request($request, $subCate=null)
+	private static function _request($widget, $request, $subCate=null)
 	{
 		$result = null;
 		try{
-	    	$result = self::ins()->execute($request);
+	    	$result = self::ins($widget)->execute($request);
 			if($subCate && isset($result->{$subCate})){
 				$result = $result->{$subCate};
 			}
@@ -294,6 +300,16 @@ class TaobaoComponent extends Component
 		}
 	    return $result;
 	}
+
+    private static function request($request, $subCate=null)
+    {
+        return self::_request(false, $request, $subCate);
+    }
+
+    private static function widgetRequest($request, $subCate=null)
+    {
+        return self::_request(true, $request, $subCate);
+    }
 
 	private static function getTaobaoId($url)
 	{
