@@ -2107,11 +2107,11 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
   Ad.php
   AppModel.php
   Group.php
+  Item.php
   ItemGetBefore.php
   Tag.php
   TagItem.php
   User.php
-  item.php
   Behavior=Behavior {
    empty
   }
@@ -2213,6 +2213,14 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
    tag.html
   }
   ad=ad {
+  }
+  Spider=Spider{
+   add.ctp
+   edit.ctp
+   index.ctp
+   request.ctp
+   view.ctp
+   getShop.ctp
   }
  }
  tmp=tmp {

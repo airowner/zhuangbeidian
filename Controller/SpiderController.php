@@ -97,7 +97,7 @@ class SpiderController extends AppController
 
     public function getShop($nick)
     {
-        echo $nick;exit;
+        $this->set('nick', $nick);
     }
     public function testsave()
     {
