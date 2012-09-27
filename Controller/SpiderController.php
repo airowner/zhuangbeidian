@@ -95,8 +95,9 @@ class SpiderController extends AppController
     }
     
 
-    public function shop($nick)
+    public function shop( $nick )
     {
+        //$nick = $this->request->nick;
         $this->set('nick', $nick);
     }
 
