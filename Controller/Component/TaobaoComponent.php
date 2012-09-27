@@ -76,7 +76,6 @@ class TaobaoComponent extends Component
 			return false;
 		}
 		$result = $this->TKItem($num_id);
-        var_export($result);exit;
 		if($result){
 	 		$result = $result->taobaoke_item_details->taobaoke_item_detail[0]->item;
 		}
@@ -210,12 +209,12 @@ class TaobaoComponent extends Component
 	    if(!$request){
 	        include(WWW_ROOT . '../Lib/top/request/TaobaokeShopsConvertRequest.php');
 	        $request = new TaobaokeShopsConvertRequest();
-			$request->setFields("shop_title,click_url,commission_rate");	//$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction");
+			$request->setFields("user_id,click_url,shop_title,commission_rate,seller_credit,shop_type,auction_count,total_auction");
 	    }
 	    $request->setSellerNicks($nicks);
 		$result = self::request($request);
 		if($result){
-			$result = $result->taobaoke_shops->taobaoke_shop[0];
+			$result = $result->taobaoke_shops->taobaoke_shop;
 		}
 		return $result;
 	}

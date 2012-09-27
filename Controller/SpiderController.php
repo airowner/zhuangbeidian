@@ -41,10 +41,11 @@ class SpiderController extends AppController
 				$this->Session->setFlash('抓取不成功!');
 				$this->redirect(array('action'=>'request'));
 			}
+            $item = $this->prepareItem($item);
 			
-			$nick = $item->nick;
-            //$shop = $this->Taobao->TKShopByNicks($nick);
-            $shop = $this->Taobao->TKShop('古老鲨鱼');
+			$nick = $item['nick'];
+            $shop = $this->Taobao->TKShopByNicks($nick);
+            //$shop = $this->Taobao->TKShop($nick);
             if(!$shop){
 				$this->Session->setFlash('获取店铺信息错误!');
 				$this->redirect(array('action'=>'request'));
@@ -66,6 +67,31 @@ class SpiderController extends AppController
 			
 			die("done");
         }
+    }
+
+    private function prepareItem($item)
+    {
+        $return_item = array();
+        $return_item['click_url'] = $item->click_url;
+        $return_item['shop_click_url'] = $item->shop_click_url;
+        $return_item['seller_credit_score'] = $item->seller_credit_score;
+        $product = $item->item;
+        foreach($product as $key => $value){
+            switch($key){
+            case 'location':
+                $return_item['city'] = $value->city;
+                $return_item['state'] = $value->state;
+                break;
+            case 'skus':
+            case 'prop_imgs':
+            case 'item_imgs':
+                $return_item[$key] = json_encode($value);
+                break;
+            default:
+                $return_item[$key] = $value;
+            }
+        }
+        return $return_item;
     }
     
     public function testsave()

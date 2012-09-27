@@ -72,6 +72,8 @@ CREATE TABLE `item`
     `outer_id` varchar(255) not null,
     `skus` text not null comment '类似套餐的商品选择',
     PRIMARY KEY `id` (`id`),
+    UNIQUE KEY `num_iid` (`num_iid`),
+    UNIQUE KEY `track_iid` (`track_iid`),
     KEY `seller_credit_score` (`seller_credit_score`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
