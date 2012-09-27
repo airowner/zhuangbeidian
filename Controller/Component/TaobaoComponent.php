@@ -77,7 +77,7 @@ class TaobaoComponent extends Component
 		}
 		$result = $this->TKItem($num_id);
 		if($result){
-	 		$result = $result->taobaoke_item_details->taobaoke_item_detail[0]->item;
+	 		$result = $result[0];
 		}
 		return $result;
   	}
@@ -102,8 +102,15 @@ class TaobaoComponent extends Component
 	        $request = new TaobaokeItemsDetailGetRequest();	$request->setFields("click_url,shop_click_url,seller_credit_score,detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
 			//click_url,shop_click_url,seller_credit_score,num_iid,title,nick
 		}
+        if(is_array($num_iids)){
+            $num_iids = implode(',', $num_iids);
+        }
 		$request->setNumIids($num_iids);
-		return self::request($request);
+		$result = self::request($request);
+        if($result){
+            $result = $result->taobaoke_item_details->taobaoke_item_detail;
+        }
+        return $result;
 	}
 
 	/*
