@@ -32,12 +32,4 @@ App::uses('Model', 'Model');
  */
 class AppModel extends Model {
 
-	public function __construct($id = false, $table = null, $ds = null) {
-        if(PHP_OS != 'WINNT'){
-            $this->useDbConfig = 'develop';
-        }
-
-        parent::__construct($id, $table, $ds);
-    }
-
 }

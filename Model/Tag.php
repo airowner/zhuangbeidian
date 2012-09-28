@@ -6,6 +6,8 @@ class Tag extends AppModel
 {
     public $name = 'tag';
     public $useTable = 'tag';
+
+    public $actsAs = array('Tree');
     
     public $display = true;
     public $validate = true;
@@ -14,10 +16,15 @@ class Tag extends AppModel
     public $cateId2Tag = array();
     public $cateTag2Id = array();
 
-    public $hasAndBelongsToMany = array(
-        'Item' => array(
-        ),
-    );
+    //public $hasAndBelongsToMany = array(
+    //    'Item' => array(
+    //    ),
+    //);
+    //
+    public function getTree()
+    {
+        var_dump($this->Tree);
+    }
     
     private function addOption(&$options)
     {

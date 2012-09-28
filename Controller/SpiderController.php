@@ -67,6 +67,7 @@ class SpiderController extends AppController
         }
     }
 
+
     private function prepareItem($item)
     {
         $return_item = array();
@@ -101,44 +102,6 @@ class SpiderController extends AppController
         //$nick = $this->request->nick;
         $this->set('nick', $nick);
     }
-
-    public function testsave()
-    {
-        require dirname(dirname(__FILE__)) . '/data.php';
-        $item['city'] = $item['location']['city'];
-        $item['state'] = $item['location']['state'];
-        unset($item['location']);
-        $item['item_imgs'] = json_encode($item['item_imgs']);
-        $item['prop_imgs'] = json_encode($item['prop_imgs']);
-        $item['skus'] = json_encode($item['skus']);
-        $item['cick_url'] = '';
-        $item['shop_click_url'] = '';
-        $item['seller_credit_score'] = 11;
-
-
-        $item = array('Item'=>$item);
-        //var_export($item);
-        $this->Item->create();
-        var_dump($this->Item->save($item));
-        debug($this->Item->validationErrors);
-        exit;
-
-        $shop = json_decode(json_encode($shop));
-        $shops = $shop->taobaoke_shops->taobaoke_shop;
-        var_export($item);
-        var_export($shop);
-        exit;
-    }
-    private function _setSelect($data)
-    {
-        $_data = array();
-        foreach($data as $d){
-            $_data[$d['id']] = $d['tag'];
-        }
-        $this->tags += $_data;
-        return $_data;
-    }
-
     
     private function translate($tagid)
     {
@@ -187,7 +150,7 @@ class SpiderController extends AppController
  * @return void
  */
     public function index() {
-        $this->ItemGetBefore->recursive = 0;
+        $this->Item->recursive = 0;
         $result = $this->paginate();
         foreach($result as &$r){
             $this->translateItem($r);

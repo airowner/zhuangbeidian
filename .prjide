@@ -2038,6 +2038,7 @@ zbd=/srv/http/zbd CD=. filter="*" {
 }
 zbd=~/Sites/zhuangbeidian CD=. filter="*" {
  create_db.sql
+ data.php
  index.php
  test.php
  zbd.conf
@@ -2082,6 +2083,7 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
   ItemsController.php
   PagesController.php
   SpiderController.php
+  TagsController.php
   TaobaoController.php
   UsersController.php
   Component=Component {
@@ -2108,7 +2110,6 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
   AppModel.php
   Group.php
   Item.php
-  ItemGetBefore.php
   Tag.php
   TagItem.php
   User.php
@@ -2128,6 +2129,7 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
     AdsControllerTest.php
     GroupsControllerTest.php
     ItemsControllerTest.php
+    TagsControllerTest.php
     UsersControllerTest.php
     Component=Component {
      empty
@@ -2135,6 +2137,7 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
    }
    Model=Model {
     GroupTest.php
+    ItemTest.php
     UserTest.php
     Behavior=Behavior {
      empty
@@ -2148,6 +2151,7 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
   }
   Fixture=Fixture {
    GroupFixture.php
+   ItemFixture.php
    UserFixture.php
    empty
   }
@@ -2212,6 +2216,16 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
    index.html
    tag.html
   }
+  Items=Items{
+   add.ctp
+   admin_add.ctp
+   admin_edit.ctp
+   admin_index.ctp
+   admin_view.ctp
+   edit.ctp
+   index.ctp
+   view.ctp
+  }
   ad=ad {
   }
   Spider=Spider{
@@ -2222,25 +2236,57 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
    shop.ctp
    view.ctp
   }
+  Tags=Tags{
+   add.ctp
+   edit.ctp
+   index.ctp
+   view.ctp
+  }
  }
  tmp=tmp {
   cache=cache {
    models=models {
     empty
+    myapp_cake_model_default_zhuangbeidian_acos
+    myapp_cake_model_default_zhuangbeidian_aros
+    myapp_cake_model_default_zhuangbeidian_aros_acos
+    myapp_cake_model_default_zhuangbeidian_groups
+    myapp_cake_model_default_zhuangbeidian_item
+    myapp_cake_model_default_zhuangbeidian_list
+    myapp_cake_model_default_zhuangbeidian_users
+    myapp_cake_model_develop_zhuangbeidian_ad
+    myapp_cake_model_develop_zhuangbeidian_aros_acos
+    myapp_cake_model_develop_zhuangbeidian_groups
+    myapp_cake_model_develop_zhuangbeidian_item
+    myapp_cake_model_develop_zhuangbeidian_item_tag
+    myapp_cake_model_develop_zhuangbeidian_list
+    myapp_cake_model_develop_zhuangbeidian_tag
+    myapp_cake_model_develop_zhuangbeidian_users
    }
    persistent=persistent {
     empty
+    myapp_cake_core_cake_console_
+    myapp_cake_core_cake_dev_en-us
+    myapp_cake_core_cake_dev_zh-cn
+    myapp_cake_core_cake_en-us
+    myapp_cake_core_cake_zh-cn
+    myapp_cake_core_default_en-us
+    myapp_cake_core_default_zh-cn
+    myapp_cake_core_file_map
+    myapp_cake_core_method_cache
    }
    views=views {
    }
   }
   logs=logs {
    empty
+   error.log
   }
   sessions=sessions {
    empty
   }
   tests=tests {
+   empty
   }
  }
  webroot=webroot {

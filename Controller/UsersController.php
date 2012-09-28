@@ -146,11 +146,6 @@ class UsersController extends AppController {
         $this->Acl->deny($group, 'controllers');
         $this->Acl->allow($group, 'controllers/Index');
 
-        $group->id = 3;
-        $this->Acl->deny($group, 'controllers');
-        $this->Acl->allow($group, 'controllers/Ads');
-        $this->Acl->allow($group, 'controllers/Spider');
-        
         echo "init Done!";
         exit;
     }
