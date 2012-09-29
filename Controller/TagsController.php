@@ -13,7 +13,15 @@ class TagsController extends AppController {
     {
         parent::beforeFilter(); 
 		//$this->Auth->allow('*');
-        var_dump($this->Tag->generateTreeList($conditions=array('parent_id'=>null)));exit;
+        $result = Hash::extract($this->Tag->children(null), '{n}.Tag');
+        $tree = array();
+        foreach($result as $r){
+            if($r['parent_id'] === null){
+                $tree[$r['id']] = array('tag'=>$r['tag']);
+            }else{
+            }
+        }
+        var_dump($this->Tag->generateTreeList(null, '{n}.Tag.id', '{n}.Tag.tag', '', 2));exit;
     }
 /**
  * index method
