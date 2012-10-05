@@ -28,7 +28,7 @@ location":{"city":"深圳","state":"广东"}
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item`
 (
-    `id` int unsigned not null auto_increment,
+    `id` int(11) unsigned not null auto_increment,
     `num_iid` bigint unsigned not null comment 'taobao详情页 item.htm 对应id item.htm?id=xxx',
 	`title` varchar(255) not null comment '商品名称',
 	`click_url` text not null comment '转换后的淘宝链接url',
@@ -77,6 +77,39 @@ CREATE TABLE `item`
     KEY `seller_credit_score` (`seller_credit_score`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+-- 店铺折扣
+DROP TABLE IF EXISTS `item_promotion`;
+CREATE TABLE `item_promotion`
+(
+	`id` int(11) not null auto_increment,
+	`item_id` int(11) unsigned not null,
+	`promotion_id` varchar(255) not null,
+	`name` varchar(255) not null,
+	`desc` varchar(255) not null,
+	`start_time` datetime not null,
+	`end_time` datetime not null,
+	`item_promo_price` int(11) not null,
+	`other_need` varchar(255) not null,
+	`other_send` varchar(255) not null,
+	`sku_id_list` text not null,
+	`sky_price_list` text not null,
+	primary key `id` (`id`),
+	key `price` (`item_promo_price`),
+	key `start_time` (`start_time`),
+	key `end_time` (`end_time`) 
+) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- 店铺折扣
+DROP TABLE IF EXISTS `item_recommend`;
+CREATE TABLE `item_recommend`
+(
+	`id` int(11) not null auto_increment,
+	`item_id` int(11) unsigned not null,
+	`modify_time` datetime not null, 
+	primary key `id` (`id`),
+	key `price` (`item_promo_price`),
+	key `modify_time` (`modify_time`)
+) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag`
@@ -212,6 +245,7 @@ CREATE TABLE `shop`
 	KEY `shop_title` (`shop_title`),
 	KEY `update_time` (`update_time`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 -- 
 -- DROP TABLE IF EXISTS `shop_tag`;
 -- CREATE TABLE `shop_tag`

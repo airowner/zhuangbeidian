@@ -8,14 +8,6 @@ class Tag extends AppModel
     public $useTable = 'tag';
 
     public $actsAs = array('Tree');
-    
-    public $display = true;
-    public $validate = true;
-    
-    public $top = array();
-    public $cateId2Tag = array();
-    public $cateTag2Id = array();
-
     //public $hasAndBelongsToMany = array(
     //    'Item' => array(
     //    ),
@@ -23,160 +15,132 @@ class Tag extends AppModel
     //
     public function getTree()
     {
-        var_dump($this->Tree);
-    }
-    
-    private function addOption(&$options)
-    {
-        if($this->display){
-            $options['condition']['display'] = $this->display;
+		//$this->unbindModel(array('hasAndBelongsToMany' => array('Item')));
+		static $tree = null;
+		if($tree !== null) return $tree;
+		
+		$this->cateId2Tag = array();
+		$this->cateTag2Id = array();
+		
+        $result = Hash::extract($this->children(null), '{n}.Tag');
+        $tree = array();
+        $path = array();
+        foreach($result as $r){
+            $path[$r['id']] = $r['parent_id'];
+			$this->cateId2Tag[$r['id']] = $r['tag'];
+			$this->cateTag2Id[$r['tag']] = $r['id'];
+            $tmp_parent_id = $r['parent_id'];
+            $tmp_path = array();
+            while($tmp_parent_id !== null){
+                $tmp_path[] = $tmp_parent_id;
+                $tmp_parent_id = $path[$tmp_parent_id];
+            }
+            $tmp_path = array_reverse($tmp_path);
+            $obj = &$tree;
+            foreach($tmp_path as $t){
+                if(isset($obj['children'][$t])){
+                    $obj = &$obj['children'][$t];
+                }
+            }
+            if(!isset($obj['children'])){
+                $obj['children'] = array();
+            }
+            $obj['children'][$r['id']] = $r;
         }
-        if($this->validate){
-            $options['condition']['validate'] = $this->validate;
-        }
+		$tree = $tree['children'];
+		return $tree;
     }
+
 /*
  * ROOT分类
  */
     public function getTop()
     {
-        if($this->top) return $this->top;
-    
-        $this->unbindModel(array('hasAndBelongsToMany' => array('Item')));
-        $data = $this->find('all', array(
-            'conditions' => array('parent_id'=>'0'),
-            'fields' => 'id, tag',
-        ));
-        $data = Hash::extract($data, '{n}.Tag');
-        $top = array();
-        foreach($data as $d){
-            $top[$d['tag']] = $d['id'];
-        }
-        $this->top = $top;
-        return $this->top;
+		static $top = null;
+		if($top !== null) return $top;
+		$tree = $this->getTree();
+		$top = array();
+		foreach($tree as $t){
+			$top[$t['tag']] = $t['id'];
+		}
+        return $top;
     }
     
-    public function getCategory($parent_Tags, $getItem=false)
+/*
+根据给定父tag,获取子tag内容
+*/
+    public function getCategories($parent_Tags, $onlyValid=true, $onlyDisplay=true)
     {
-        $top = $this->getTop();
-        $parent_Tags = (array)$parent_Tags;
-        foreach($parent_Tags as $key => $tag){
-            $parent_Tags[$key] = isset($top[$tag]) ? $top[$tag] : $tag;
-        }
-        if(count($parent_Tags)==1){
-            $parent_Tags = $parent_Tags[0];
-        }
-        $options = array(
-            'conditions' => array(
-                'parent_id' => $parent_Tags,
-            ),
-            'order' => "order desc",
-        );
-        $this->addOption($options);
-        if(!$getItem){
-            $this->unbindModel(array('hasAndBelongsToMany' => array('Item')));
-        }else{
-            $options += array(
-                //
-            );
-        }
-        $data = $this->find('all', $options);
-        $data = Set::extract($data, '{n}.Tag');
-        return $data;
+		$parent_Tags = (array)$parent_Tags;
+        $tree = $this->getTree();
+
+		$parent_tagid = array();
+		foreach($parent_Tags as $key => $pt){
+			if(!is_numeric($pt)){
+				if(isset($this->cateTag2Id[$pt])){
+					$pt = $this->cateTag2Id[$pt];
+				}
+			}
+			$parent_tagid[$pt] = array();
+		}
+		
+		self::findTree($parent_tagid, $tree, $onlyValid, $onlyDisplay);
+		
+		//order by order desc
+		foreach($parent_tagid as $key => $value){
+			usort($value, array('Tag', '_sortTree'));
+			$parent_tagid[$key] = $value;
+		}
+		return $parent_tagid;
     }
+
+	public function getCategory($parent_Tag, $onlyValid=true, $onlyDisplay=true)
+	{
+		$parent_tagid = $this->getCategories($parent_Tag, $onlyValid, $onlyDisplay);
+		if(!is_numeric($parent_Tag)){
+			$parent_Tag = $this->cateTag2Id[$parent_Tag];
+		}
+		if($parent_Tag){
+			return $parent_tagid[$parent_Tag];
+		}
+	}
+
+	private static function _sortTree($a, $b)
+	{
+		return $a['order'] > $b['order'];
+	}
+
+	private static function findTree(&$parent_tagid, $tree, $onlyValid, $onlyDisplay){
+		foreach($tree as $t){
+			if(isset($parent_tagid[$t['parent_id']])){
+				if($onlyValid && !$t['validate']) continue;
+				if($onlyDisplay && !$t['display_html']) continue;
+				$parent_tagid[$t['parent_id']][] = $t;
+			}elseif(isset($t['children'])){
+				self::findTree($parent_tagid, $t['children'], $onlyValid, $onlyDisplay);
+			}
+		}
+	}
     
     public function getCateTag($key)
     {
-        $this->getCate();
-        
+        $this->getTree();      
         if(is_numeric($key)){
             return isset($this->cateId2Tag[$key]) ? $this->cateId2Tag[$key] : false;
         }else{
             return isset($this->cateTag2Id[$key]) ? $this->cateTag2Id[$key] : false;
         }
     }
-    
-    public function getCate()
-    {
-        static $cate = array();
-        if($cate){
-            return $cate;
-        }
-        $product = $this->getCategory('#product');
-        foreach($product as $k => $c){
-            $product[$k]['children'] = array();
-            $cate[$c['id']] = $product[$k];
-            $this->cateId2Tag[$c['id']] = $c['tag'];
-            $this->cateTag2Id[$c['tag']] = $c['id'];
-        }
-        $parent_ids = array_keys($this->cateId2Tag);
-        $subcate = $this->getCategory($parent_ids);
-        foreach($subcate as $s){
-            $cate[$s['parent_id']]['children'][] = $s;
-            $this->cateId2Tag[$s['id']] = $s['tag'];
-            $this->cateTag2Id[$s['tag']] = $s['id'];
-        }
-        return $cate;
-    }
-
-    public function getTagByTagName($tag)
-    {
-        $this->unbindModel(array('hasAndBelongsToMany' => array('Item')));
-        $options = array('conditions'=>array('tag'=>$tag), 'fields'=>'id, tag, parent_id');
-        $this->addOption($options);
-        $g_tag = $this->find('first', $options);
-        return Set::extract($g_tag, '{n}.Tag');
-    }
-
-    /*
-     * 获取多个父tag
-     */
-    public function getParents($tag_ids)
-    {
-        $tag_ids = (array)$tag_ids;
-        $this->unbindModel(array('hasAndBelongsToMany' => array('Item')));
-        $options = array('conditions'=>array('id'=>$tag_ids), 'fields'=>'id, tag, parent_id');
-        $this->addOption($options);
-        $g_tag = $this->find('all', $options);
-        $g_tag = Set::extract($g_tag, '{n}.Tag');
-        $return = array();
-        foreach($g_tag as $g){
-            $return[$g['id']] = $g;
-        }
-        return $return;
-    }
 
     //获取传入tag的路径
-    public function getPath($ids)
+    public function get_Path($ids)
     {
+		$ids = (array)$ids;
         $path = array();
         $tmp = array();
-        $this->_getPath($ids, $path, $tmp);
+		foreach($ids as $id){
+			$path[$id] = Hash::extract($this->getPath($id), '{n}.Tag');
+		}
         return $path;
-    }
-
-    private function _getPath($ids, &$path, &$tmp)
-    {
-        if(!$ids) return $path;
-
-        $parent_ids = array();
-        $parent = $this->getParents($ids);
-        foreach($parent as $id => $p){
-            if(!isset($tmp[$id])){
-                $oid = $id;
-            }else{
-                $oid = $tmp[$id];
-            }
-            if(!isset($path[$oid])){
-                $path[$oid] = array();
-            }
-            array_unshift($path[$oid], $p);
-            if($p['parent_id']){
-                $parent_ids[] = $p['parent_id'];
-                $tmp[$p['parent_id']] = $oid;
-            }
-        }
-
-        return $this->_getPath($parent_ids, $path, $tmp);
     }
 }

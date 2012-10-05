@@ -21,9 +21,9 @@ class SpiderController extends AppController
     public function beforeFilter()
     {
         $this->Auth->allow('*');
-        $this->game = $this->Tag->getCategory('#game', true);
-        $this->price = $this->Tag->getCategory('#price', true);
-        $this->cate = $this->Tag->getCate(true);
+        $this->game = $this->Tag->getCategory('#game', false, false);
+        $this->price = $this->Tag->getCategory('#price', false, false);
+        $this->cate = $this->Tag->getCategory('#product', false, false);
 
         $this->set('all_game', $this->game);
         $this->set('all_cate', $this->cate);
@@ -46,15 +46,23 @@ class SpiderController extends AppController
 
             $item = array('Item'=>$item);
             $this->Item->create();
-            if($this->Item->save($item)){
-                //$this->redirect(array('action'=>'getShop', 'nick'=>$nick)); 
-				$this->Session->setFlash('保存数据成功!');
-            }else{
-                debug($this->Item->validationErrors);
-                exit;
-				//$this->Session->setFlash('保存数据不成功!');
-				//$this->redirect(array('action'=>'request'));
-            }
+			try{
+            	if($this->Item->save($item)){
+					//保存成功后直接添加tag标记
+					$this->redirect(array('controller'=>'tagitem', 'action' => 'add', $this->Item->id));
+	            }else{
+	                debug($this->Item->validationErrors);
+	                exit;
+					//$this->Session->setFlash('保存数据不成功!');
+					//$this->redirect(array('action'=>'request'));
+	            }
+			}catch(Exception $e){
+				if($e->getCode() == '23000'){
+					$this->Session->setFlash('此商品已经被抓取过!');
+					$this->redirect(array('action'=>'request'));
+				}
+				var_dump($e);exit;
+			}
 			
             //$shop = $this->Taobao->TKShopByNicks($nick);
             ////$shop = $this->Taobao->TKShop($nick);

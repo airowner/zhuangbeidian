@@ -118,6 +118,7 @@ div.view {
 	width:76%;
 	border-left:1px solid #666;
 	padding:10px 2%;
+	min-height: 400px;
 }
 div.actions {
 	float:left;

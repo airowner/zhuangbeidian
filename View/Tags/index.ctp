@@ -1,10 +1,21 @@
 <div class="tags index">
 	<h2><?php echo __('Tags'); ?></h2>
+    <div class="tags cates">
+    <?php 
+    $nav = array();
+    if($path){
+        $nav = array($this->Html->link('root', array('action'=>'index')));
+        foreach($path as $p){
+            $nav[] = $this->Html->link($p['tag'], array('action'=>'index', $p['id']));
+        }
+    }
+    echo implode(' &gt; ', $nav);
+    ?>
+    </div>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('tag'); ?></th>
-			<th><?php echo $this->Paginator->sort('parent_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('display_html'); ?></th>
 			<th><?php echo $this->Paginator->sort('order'); ?></th>
 			<th><?php echo $this->Paginator->sort('validate'); ?></th>
@@ -15,8 +26,7 @@
 	foreach ($tags as $tag): ?>
 	<tr>
 		<td><?php echo h($tag['Tag']['id']); ?>&nbsp;</td>
-		<td><?php echo h($tag['Tag']['tag']); ?>&nbsp;</td>
-		<td><?php echo h($tag['Tag']['parent_id']); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(h($tag['Tag']['tag']), array('action'=>'index', $tag['Tag']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($tag['Tag']['display_html']); ?>&nbsp;</td>
 		<td><?php echo h($tag['Tag']['order']); ?>&nbsp;</td>
 		<td><?php echo h($tag['Tag']['validate']); ?>&nbsp;</td>
@@ -47,14 +57,8 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Tag'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('New Tag'), array('action' => 'add',  $parent_id)); ?></li>
 		<li><?php echo $this->Html->link(__('List Items'), array('controller' => 'items', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Item'), array('controller' => 'items', 'action' => 'add')); ?> </li>
-	</ul>
-	<h3><?php echo __('分类'); ?></h3>
-	<ul>
-        <?php foreach($top as $t){ ?>
-		<li><?php echo $this->Html->link(__($t['tag']), array('action' => 'index', $t['id'])); ?></li>
-        <?php } ?>
 	</ul>
 </div>

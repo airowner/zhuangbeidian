@@ -107,9 +107,12 @@ class TaobaoComponent extends Component
         }
 		$request->setNumIids($num_iids);
 		$result = self::request($request);
-        if($result){
+        if($result->total_results){
             $result = $result->taobaoke_item_details->taobaoke_item_detail;
-        }
+        }else{
+			$this->Session->setFlash('抓取失败!');
+			$this->redirct(array('controller' => 'spider', 'action'=>'request'));
+		}
         return $result;
 	}
 

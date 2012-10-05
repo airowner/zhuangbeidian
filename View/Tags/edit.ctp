@@ -5,7 +5,7 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('tag');
-		echo $this->Form->input('parent_id');
+		echo $this->Form->hidden('parent_id');
 		echo $this->Form->input('display_html');
 		echo $this->Form->input('order');
 		echo $this->Form->input('validate');

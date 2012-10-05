@@ -8,20 +8,7 @@ class IndexController extends AppController
 
     //public $helper = array('Html');
 
-    public $uses = array('Ad', 'Tag', 'Item');
-
-    public function __construct($id, $module=null)
-    {
-        parent::__construct($id, $module);
-        $game = $this->Tag->getCategory('#game');
-        $this->game = array();
-        foreach($game as $g){
-            $this->game[$g['id']] = $g;
-        }
-        $this->set('game', $this->game);
-        $this->cates = $this->Tag->getCate(true);
-        $this->set('cates', $this->cates);
-    }
+    public $uses = array('Ad', 'Tag', 'Item', 'TagItem');
     
     function beforeFilter() 
     {
@@ -37,6 +24,15 @@ class IndexController extends AppController
             $ads[$ad['id']] = $ad;
         }
         $this->set('ads', $ads);
+
+        $game = $this->Tag->getCategory('#game');
+        $this->game = array();
+        foreach($game as $g){
+            $this->game[$g['id']] = $g;
+        }
+        $this->set('game', $this->game);
+        $this->cates = $this->Tag->getCategory('#product');
+        $this->set('cates', $this->cates);
     }
 
     public function index()
@@ -66,7 +62,24 @@ class IndexController extends AppController
         $tags = explode('_', $mt[2]);
         $tags = $this->changeTags($tags);
 
-        return $this->_tag($tags);
+        $this->_tag($tags);
+		
+		//items
+		$items = $this->TagItem->find('all', array(
+			'fields' => array(
+				'Item.id, Item.title, Item.pic_url, Item.price, Item.click_url, Item.shop_click_url, Item.nick, Item.num',
+			),
+			'conditions' => array(
+				'TagItem.tag_id' => $tags,
+			),
+			'contain' => array('Item'),
+			'order' => array('price asc'),
+			'page' => 1,
+			'limit' => 12,
+		));
+		$this->set('items_count', $this->TagItem->find('count', array('conditions'=>array('TagItem.tag_id'=>$tags))));
+		$items = Hash::extract($items, '{n}.Item');
+		$this->set('items', $items);
     }
 
     public function search($name)
@@ -115,8 +128,8 @@ class IndexController extends AppController
         $this->set('root', $this->top);
 
         //path
-        $path = $this->Tag->getPath($tags);
-        //~ var_dump($path);exit;
+        $path = $this->Tag->get_Path($tags);
+		//var_dump($path);exit;
         $active_path = array();
         $return_path = array();
         foreach($path as $k => $p){

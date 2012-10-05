@@ -1,16 +1,15 @@
 <div class="tags form">
-<?php echo $this->Form->create('Tag'); ?>
+<?php echo $this->Form->create('Tag');?>
 	<fieldset>
-		<legend><?php echo __('Add Tag'); ?></legend>
-	<?php
+		<legend><?php echo __('Add Tag');?></legend>
+<?php
 		echo $this->Form->input('tag');
-		echo $this->Form->input('parent_id');
+		echo $this->Form->hidden('parent_id', array('value'=>$parent_id));
 		echo $this->Form->input('display_html');
 		echo $this->Form->input('order');
 		echo $this->Form->input('validate');
 		echo $this->Form->input('time');
-		echo $this->Form->input('Item');
-	?>
+?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>

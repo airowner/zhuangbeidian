@@ -13,36 +13,32 @@ class TagsController extends AppController {
     {
         parent::beforeFilter(); 
 		//$this->Auth->allow('*');
-        $result = Hash::extract($this->Tag->children(null), '{n}.Tag');
-        $tree = array();
-        foreach($result as $r){
-            if($r['parent_id'] === null){
-                $tree[$r['id']] = array('tag'=>$r['tag']);
-            }else{
-            }
-        }
-        var_dump($this->Tag->generateTreeList(null, '{n}.Tag.id', '{n}.Tag.tag', '', 2));exit;
+        //var_dump($this->Tag->getParentNode(3));
+        //var_dump($this->Tag->getPath(15));
+        //exit;
+        //var_dump($tree);exit;
+        //var_dump($this->Tag->generateTreeList(null, '{n}.Tag.id', '{n}.Tag.tag', ''));exit;
     }
+
 /**
  * index method
  *
  * @return void
  */
-	public function index( $parent_id=1 ) {
+	public function index( $parent_id=null ) {
+        $path = array();
+        if($parent_id !== null){
+            $path = $this->Tag->getPath($parent_id);
+            $path = $path[$parent_id];
+        }
+        $this->set('path', $path);
+        $this->set('parent_id', $parent_id);
 		$this->Tag->recursive = 0;
         $this->set('tags', $this->paginate(
            array(
                 'parent_id' => $parent_id,
             )
         ));
-        $top = $this->Tag->find('all', array(
-            'conditions'=>array(
-                'parent_id' => 0,
-            ),
-            'order' => 'id asc',
-        ));
-        $top = Hash::extract($top, '{n}.Tag');
-        $this->set('top', $top);
 	}
 
 /**
@@ -65,7 +61,7 @@ class TagsController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add( $parent_id=null ) {
 		if ($this->request->is('post')) {
 			$this->Tag->create();
 			if ($this->Tag->save($this->request->data)) {
@@ -75,6 +71,7 @@ class TagsController extends AppController {
 				$this->Session->setFlash(__('The tag could not be saved. Please, try again.'));
 			}
 		}
+        $this->set('parent_id', $parent_id);
 	}
 
 /**

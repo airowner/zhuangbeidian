@@ -208,6 +208,7 @@ class Item extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		/*
 		'property_alias' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -218,6 +219,7 @@ class Item extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		*/
 		'auction_point' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),

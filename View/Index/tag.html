@@ -38,177 +38,25 @@
               <li><a href="">信用<b class="icons down"></b></a></li>
               <li><a href="">时间<b class="icons up"></b></a></li>
             </ul>
-            <div>共有&nbsp;133件商品</div>
+            <div>共有&nbsp;<?php echo $items_count; ?>件商品</div>
           </div>
           <ul class="productCell clearfix">
+			<?php foreach($items as $i): ?>
             <li>
               <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
+                <a href="<?php echo $i['click_url']; ?>" target="_blank">
+                  <img src="<?php echo $i['pic_url']; ?>" style="max-width:175px;">
                 </a>
               </div>
               <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
+                <li class="name"><a href="<?php echo $i['click_url']; ?>" target="_blank" title="<?php echo $i['title'];?>" ><?php echo $i['title'];?></a></li>
+                <li class="price">装备店价：<b>￥<?php echo $i['price']?></b></li>
+                <li class="sold">库存：<b><?php echo $i['num']; ?></b>&nbsp;件</li>
+                <li class="owner">掌柜：<a href="<?php echo $i['shop_click_url'];?>" target="_blank"><?php echo $i['nick']; ?></a></li>
               </ul>
-              <a class="btn" href="">去店铺看看</a>
+              <a class="btn" href="<?php echo $i['shop_click_url'];?>"  target="_blank">去店铺看看</a>
             </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
-            <li>
-              <div>
-                <a href="">
-                  <img src="temp/img_product.jpg">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                <li class="price">装备店价：<b>￥2279.00</b></li>
-                <li class="sold">已售：<b>3235</b>&nbsp;件</li>
-                <li class="owner">掌柜：没约旗舰店</li>
-              </ul>
-              <a class="btn" href="">去店铺看看</a>
-            </li>
+			<?php endforeach; ?>
           </ul>
         </div>
       </div>
