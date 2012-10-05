@@ -10,6 +10,9 @@ CREATE TABLE `users` (
     created DATETIME,
     modified DATETIME
 );
+LOCK TABLES `users` WRITE;
+INSERT INTO `users` VALUES (1,'zhanghua','e5a3f6412e61c6959028f9b2ab9e373a315c2995',1,'2012-09-26 00:32:21','2012-09-26 00:32:21');
+UNLOCK TABLES;
 
 
 DROP TABLE IF EXISTS `groups`;
@@ -19,6 +22,53 @@ CREATE TABLE `groups` (
     created DATETIME,
     modified DATETIME
 );
+LOCK TABLES `groups` WRITE;
+INSERT INTO `groups` VALUES (1,'administrator','2012-09-26 00:32:02','2012-09-26 00:32:02'),(2,'viewer','2012-09-26 00:32:11','2012-09-26 00:32:11');
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `acos`;
+CREATE TABLE `acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `foreign_key` int(10) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `aros`;
+CREATE TABLE `aros` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `foreign_key` int(10) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `aros_acos`;
+CREATE TABLE `aros_acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `aro_id` int(10) NOT NULL,
+  `aco_id` int(10) NOT NULL,
+  `_create` varchar(2) NOT NULL DEFAULT '0',
+  `_read` varchar(2) NOT NULL DEFAULT '0',
+  `_update` varchar(2) NOT NULL DEFAULT '0',
+  `_delete` varchar(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `aros_acos` WRITE;
+INSERT INTO `aros_acos` VALUES (1,2,1,'1','1','1','1'),(2,4,1,'-1','-1','-1','-1'),(3,4,28,'1','1','1','1'),(4,7,1,'-1','-1','-1','-1'),(5,7,10,'1','1','1','1'),(6,7,49,'1','1','1','1');
+UNLOCK TABLES;
+
 /*
 skus":{"sku":[{"created":"2012-09-05 12:37:11","modified":"2012-09-23 02:31:22","price":"7700.00","properties":"1627207:28320;1630696:6536025","quantity":194,"sku_id":22169393864},{"created":"2012-09-05 12:37:11","modified":"2012-09-23 04:22:46","price":"7700.00","properties":"1627207:28341;1630696:6536025","quantity":193,"sku_id":22169393865},{"created":"2012-09-14 11:56:44","modified":"2012-09-22 11:30:35","price":"8800.00","properties":"1627207:3232481;1630696:6536025","quantity":276,"sku_id":22369518881},{"created":"2012-09-14 11:56:44","modified":"2012-09-22 11:30:35","price":"8200.00","properties":"1627207:3232483;1630696:6536025","quantity":259,"sku_id":22369518882},{"created":"2012-09-14 11:56:44","modified":"2012-09-22 11:30:35","price":"8200.00","properties":"1627207:3232484;1630696:6536025","quantity":271,"sku_id":22369518883},{"created":"2012-09-14 11:56:44","modified":"2012-09-22 11:30:35","price":"8800.00","properties":"1627207:90554;1630696:6536025","quantity":273,"sku_id":22369518884},{"created":"2012-09-22 11:30:35","modified":"2012-09-22 14:37:38","price":"5990.00","properties":"1627207:28332;1630696:6536025","quantity":198,"sku_id":31377528504},{"created":"2012-09-22 11:30:35","modified":"2012-09-22 14:37:38","price":"5990.00","properties":"1627207:30156;1630696:6536025","quantity":199,"sku_id":31377528505}]}
 item_imgs":{"item_img":[{"id":0,"position":0,"url":"http:\/\/img04.taobaocdn.com\/bao\/uploaded\/i4\/T1OiLKXXRpXXbQ90I__105735.jpg"}]}
@@ -99,7 +149,7 @@ CREATE TABLE `item_promotion`
 	key `end_time` (`end_time`) 
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
--- 店铺折扣
+-- 商品推荐
 DROP TABLE IF EXISTS `item_recommend`;
 CREATE TABLE `item_recommend`
 (
@@ -107,7 +157,7 @@ CREATE TABLE `item_recommend`
 	`item_id` int(11) unsigned not null,
 	`modify_time` datetime not null, 
 	primary key `id` (`id`),
-	key `price` (`item_promo_price`),
+	-- key `price` (`item_promo_price`),
 	key `modify_time` (`modify_time`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
@@ -128,8 +178,6 @@ CREATE TABLE `tag`
     UNIQUE KEY `tag` (`tag`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
--- game 游戏tag
--- official 官方tag （用于官方分类，搜索)
 -- user 用户自定义tag (用户提交商品自定义tag， 如果不再收录的tag中， 则添加为此分类， 方便转入官方支持的tag）
 insert into `tag` (`id`, `tag`, `parent_id`, `display_html`, `lft`, `rght`) value 
 
@@ -259,51 +307,3 @@ CREATE TABLE `shop`
 -- ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 -- 
 
-DROP TABLE IF EXISTS `acos`;
-CREATE TABLE `acos` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(10) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `foreign_key` int(10) DEFAULT NULL,
-  `alias` varchar(255) DEFAULT NULL,
-  `lft` int(10) DEFAULT NULL,
-  `rght` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
-
-LOCK TABLES `acos` WRITE;
-INSERT INTO `acos` VALUES (1,NULL,NULL,NULL,'controllers',1,130),(2,1,NULL,NULL,'Admin',2,17),(3,2,NULL,NULL,'index',3,4),(4,2,NULL,NULL,'top',5,6),(5,2,NULL,NULL,'bottom',7,8),(6,2,NULL,NULL,'add',9,10),(7,2,NULL,NULL,'edit',11,12),(8,2,NULL,NULL,'view',13,14),(9,2,NULL,NULL,'delete',15,16),(10,1,NULL,NULL,'Ads',18,29),(11,10,NULL,NULL,'index',19,20),(12,10,NULL,NULL,'view',21,22),(13,10,NULL,NULL,'add',23,24),(14,10,NULL,NULL,'edit',25,26),(15,10,NULL,NULL,'delete',27,28),(16,1,NULL,NULL,'App',30,41),(17,16,NULL,NULL,'add',31,32),(18,16,NULL,NULL,'edit',33,34),(19,16,NULL,NULL,'index',35,36),(20,16,NULL,NULL,'view',37,38),(21,16,NULL,NULL,'delete',39,40),(22,1,NULL,NULL,'Groups',42,53),(23,22,NULL,NULL,'index',43,44),(24,22,NULL,NULL,'view',45,46),(25,22,NULL,NULL,'add',47,48),(26,22,NULL,NULL,'edit',49,50),(27,22,NULL,NULL,'delete',51,52),(28,1,NULL,NULL,'Index',54,69),(29,28,NULL,NULL,'index',55,56),(30,28,NULL,NULL,'tag',57,58),(31,28,NULL,NULL,'search',59,60),(32,28,NULL,NULL,'add',61,62),(33,28,NULL,NULL,'edit',63,64),(34,28,NULL,NULL,'view',65,66),(35,28,NULL,NULL,'delete',67,68),(36,1,NULL,NULL,'Items',70,81),(37,36,NULL,NULL,'index',71,72),(38,36,NULL,NULL,'view',73,74),(39,36,NULL,NULL,'add',75,76),(40,36,NULL,NULL,'edit',77,78),(41,36,NULL,NULL,'delete',79,80),(42,1,NULL,NULL,'Pages',82,95),(43,42,NULL,NULL,'display',83,84),(44,42,NULL,NULL,'add',85,86),(45,42,NULL,NULL,'edit',87,88),(46,42,NULL,NULL,'index',89,90),(47,42,NULL,NULL,'view',91,92),(48,42,NULL,NULL,'delete',93,94),(49,1,NULL,NULL,'Spider',96,109),(50,49,NULL,NULL,'request',97,98),(51,49,NULL,NULL,'index',99,100),(52,49,NULL,NULL,'view',101,102),(53,49,NULL,NULL,'add',103,104),(54,49,NULL,NULL,'edit',105,106),(55,49,NULL,NULL,'delete',107,108),(56,1,NULL,NULL,'Users',110,129),(57,56,NULL,NULL,'login',111,112),(58,56,NULL,NULL,'logout',113,114),(59,56,NULL,NULL,'index',115,116),(60,56,NULL,NULL,'view',117,118),(61,56,NULL,NULL,'add',119,120),(62,56,NULL,NULL,'edit',121,122),(63,56,NULL,NULL,'delete',123,124),(64,56,NULL,NULL,'initDB',125,126),(65,56,NULL,NULL,'build_acl',127,128);
-UNLOCK TABLES;
-
-DROP TABLE IF EXISTS `aros`;
-CREATE TABLE `aros` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(10) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `foreign_key` int(10) DEFAULT NULL,
-  `alias` varchar(255) DEFAULT NULL,
-  `lft` int(10) DEFAULT NULL,
-  `rght` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
-LOCK TABLES `aros` WRITE;
-INSERT INTO `aros` VALUES (1,NULL,'Group',1,NULL,1,2),(2,NULL,'Group',1,NULL,3,6),(3,2,'User',1,NULL,4,5),(4,NULL,'Group',2,NULL,7,10),(5,4,'User',2,NULL,8,9),(6,7,'User',3,NULL,12,13),(7,NULL,'Group',3,NULL,11,14);
-UNLOCK TABLES;
-
-DROP TABLE IF EXISTS `aros_acos`;
-CREATE TABLE `aros_acos` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `aro_id` int(10) NOT NULL,
-  `aco_id` int(10) NOT NULL,
-  `_create` varchar(2) NOT NULL DEFAULT '0',
-  `_read` varchar(2) NOT NULL DEFAULT '0',
-  `_update` varchar(2) NOT NULL DEFAULT '0',
-  `_delete` varchar(2) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
-LOCK TABLES `aros_acos` WRITE;
-INSERT INTO `aros_acos` VALUES (1,2,1,'1','1','1','1'),(2,4,1,'-1','-1','-1','-1'),(3,4,28,'1','1','1','1'),(4,7,1,'-1','-1','-1','-1'),(5,7,10,'1','1','1','1'),(6,7,49,'1','1','1','1');
-UNLOCK TABLES;
