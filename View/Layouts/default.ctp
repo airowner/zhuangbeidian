@@ -75,7 +75,7 @@ $cakeDescription = __d('cake_dev', '管理后台');
     <?php echo $this->element('sql_dump'); ?>
 <script>
 TOP.init({
-    appkey: 21181372,
+    appKey: 21181372,
     channelUrl: '/channel.html'
 });
 </script>
