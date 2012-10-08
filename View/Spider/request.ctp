@@ -9,6 +9,17 @@
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
 
+<script>
+var getShop = function(seller_nick){
+    TB.get({
+        method: 'taobao.taobaoke.widget.shops.convert',
+        fields: 'user_id,shop_title,click_url,commission_rate',
+        seller_nicks: seller_nick
+    }, function(resp){
+        $('#result').html(TB.debug(resp));
+    }
+}
+</script>
 <div class="spider form">
     <fieldset>
         <legend><?php echo __('添加商品'); ?></legend>
@@ -22,14 +33,3 @@
 <pre id="result">
 </pre>
 
-<script>
-var getShop = function(seller_nick){
-    TB.get({
-        method: 'taobao.taobaoke.widget.shops.convert',
-        fields: 'user_id,shop_title,click_url,commission_rate',
-        seller_nicks: seller_nick
-    }, function(resp){
-        $('#result').html(TB.debug(resp));
-    }
-}
-</script>
