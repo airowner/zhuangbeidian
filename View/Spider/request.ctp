@@ -17,7 +17,7 @@ var getShop = function(seller_nick){
         seller_nicks: seller_nick
     }, function(resp){
         $('#result').html(TB.debug(resp));
-    }
+    });
 }
 </script>
 <div class="spider form">
@@ -32,11 +32,3 @@ var getShop = function(seller_nick){
 
 <pre id="result">
 </pre>
-
-<script>
-TOP.init({
-    appkey: '',
-    status: 0,
-    channelFile: '/channel.html'
-});
-</script>
