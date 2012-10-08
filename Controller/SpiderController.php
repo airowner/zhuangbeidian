@@ -20,6 +20,7 @@ class SpiderController extends AppController
     
     public function beforeFilter()
     {
+        parent::beforeFilter();
         $this->Auth->allow('*');
         $this->game = $this->Tag->getCategory('#game', false, false);
         $this->price = $this->Tag->getCategory('#price', false, false);
