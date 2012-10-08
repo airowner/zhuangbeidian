@@ -36,6 +36,8 @@ $cakeDescription = __d('cake_dev', '管理后台');
         echo $this->fetch('script');
     ?>
     <script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
+    <script src="http://a.tbcdn.cn/apps/top/x/sdk.js?appkey=21181372"></script>
+    <script type="text/javascript" src="/js/taobao.js"></script>
 </head>
 <body>
     <div id="container">

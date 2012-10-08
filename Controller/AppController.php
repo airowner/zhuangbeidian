@@ -57,6 +57,14 @@ class AppController extends Controller {
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'home');
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
+
+        $app_key = '21181372';/*填写appkey */
+        $secret='c0eeef8223b85603ee92c400a7e41138';/*填入Appsecret'*/
+        $timestamp=time()."000";
+        $message = $secret.'app_key'.$app_key.'timestamp'.$timestamp.$secret;
+        $mysign=strtoupper(hash_hmac("md5",$message,$secret));
+        setcookie("timestamp",$timestamp);
+        setcookie("sign",$mysign);
     }
 
 }
