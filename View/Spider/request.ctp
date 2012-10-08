@@ -33,3 +33,10 @@ var getShop = function(seller_nick){
 <pre id="result">
 </pre>
 
+<script>
+TOP.init({
+    appkey: '',
+    status: 0,
+    channelFile: '/channel.html'
+});
+</script>
