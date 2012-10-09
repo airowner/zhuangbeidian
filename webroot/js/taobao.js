@@ -42,12 +42,12 @@ TB.getShop = function(seller_nick, callback)
     }, callback);
 }
 
+//{"taobaoke_items":{"taobaoke_item":[{"click_url":"http:\/\/s.click.taobao.com\/t?e=zGU34CA7K%2BPkqB07S4%2FK0CITy7klxn%2F7bvn0ayzXh15Xy3ppPVHr2fr3aZc24UZy5R21%2BdtOl%2BeT1MJ3tp6Xvl4GQDdIf%2BEmtXjkDKgXbuE6tM%2FIsXBqL0nbRQOYfq2sOirJYG60wqMIkm4cXrm77NqPq0Sfqw5ZaCwQXKea8w%3D%3D&pid=mm_17531361_0_0&spm=2014.21181372.1.0","commission":"9.90","commission_num":"113","commission_rate":"1000.00","commission_volume":"1084.89","item_location":"广东 广州","nick":"gzhmgzhm","num_iid":15516502019,"pic_url":"http:\/\/img01.taobaocdn.com\/bao\/uploaded\/i1\/T18nPzXeBfXXckM8o0_035940.jpg","price":"99.00","seller_credit_score":13,"shop_click_url":"http:\/\/s.click.taobao.com\/t?e=zGU34CA7K%2BPkqB04MQzdgG69RGcaJPb63yl1mhTdjPgsrLcb7lX7W8cZ%2FSuLjNEf0a2N3HCucsTK%2FdSb3iB6Zcd%2Fo6wfZzaB0thHCGo%2B3Tje0W%2FdxxvmpqjvOk%2BHr%2Br9imvMKYPkGMgq7b6FudXNqmQ%3D&pid=mm_17531361_0_0&spm=2014.21181372.1.0","title":"茵曼 2012秋冬装新款纯棉大码长袖针织衫开衫小外套女823131258","volume":1226}]},"total_results":1}
 TB.getItems = function(num_iids, callback)
 {
     TB.get({
         method: 'taobao.taobaoke.widget.items.convert',
-        fields: 'num_iid,title,click_url,shop_click_url,seller_credit,pic_url,item_imgs,num,track_iid,cid,list_time,delist_time,modified,price,nick,desc,volume,prop_img,props,props_name,property_alias,auction_point,approve_status,detail_url,ems_fee,express_fee,post_fee,freight_payer,has_discount,has_invoice,has_warranty,has_showcase,is_virtual,stuff_status,seller_cids,input_pids,input_str,type,valid_thru,postage_id,outer_id,skus',
-        //fields: 'num_iid,seller_id,nick,title,price,item_location,seller_credit_score,click_url,shop_click_url,pic_url,taobaoke_cat_click_url,keyword_click_url,coupon_rate,coupon_price,coupon_start_time,coupon_end_time,commission_rate,commission,commission_num,commission_volume,volume,shop_type',
-        seller_nicks: seller_nick
+        fields: 'num_iid,seller_id,nick,title,price,item_location,seller_credit_score,click_url,shop_click_url,pic_url,taobaoke_cat_click_url,keyword_click_url,coupon_rate,coupon_price,coupon_start_time,coupon_end_time,commission_rate,commission,commission_num,commission_volume,volume,shop_type',
+        num_iids: num_iids 
     }, callback);
 }
