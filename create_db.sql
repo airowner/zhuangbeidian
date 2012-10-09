@@ -85,46 +85,70 @@ CREATE TABLE `item`
 	`seller_credit_score` tinyint unsigned not null comment '卖家信用等级',
 	`pic_url` varchar(255) not null comment '商品图片url',
     `item_imgs` text not null comment '需要序列化，为多个宝贝的图片',
-    `num` int(11) unsigned not null comment '库存',
+    `num` int(11) unsigned not null comment '商品数量',
     `track_iid` varchar(255) not null default '',
-    `cid` int(11) unsigned not null comment '分类id?',
+    `cid` int(11) unsigned not null comment '商品所属的叶子类目id',
     `list_time` datetime not null comment '上架时间',
     `delist_time` datetime not null comment '下架时间',
     `modified` datetime not null comment '最后修改时间',
-    `price` decimal(10,2) unsigned not null comment '商品费用',
+    `price` decimal(10,2) unsigned not null comment '商品价格',
     `nick` varchar(255) not null comment 'taobao帐号',
     `city` varchar(255) not null comment '城市',
-    `state` varchar(255) not null comment '省份？',
+    `state` varchar(255) not null comment '省份',
     `desc` text not null comment '宝贝描述',
+    `volume` int(11) unsigned not null comment '对应搜索商品列表页的最近成交量',
 	`prop_img` text not null default '' comment '宝贝详情属性多图',
 	`props` text not null default '' comment '宝贝详情属性部分',
-	`property_alias` text not null default '' comment '属性别名',
-    `auction_point` tinyint(3) unsigned not null comment '拍卖点？',
-    `approve_status` varchar(255) not null comment '核准状态:在售?onsale',
+	`property_alias` text not null default '' comment '属性值别名,比如颜色的自定义名称',
+    `auction_point` tinyint(3) unsigned not null comment '商城返点比例，为5的倍数，最低0.5%',
+    `approve_status` varchar(255) not null comment '商品上传后的状态。onsale出售中，instock库中',
     `detail_url` varchar(255) not null comment '商品taobao地址',
     `ems_fee` decimal(10,2) unsigned not null comment 'ems费用',
     `express_fee` decimal(10,2) unsigned not null comment '快递费用',
-    `freight_payer` varchar(255) not null comment '邮费付款方seller, buyer',
-    `has_discount` tinyint(3) unsigned not null comment '是否有折扣',
+    `post_fee` decimal(10,2) unsigned not null comment '平邮费用',
+    `freight_payer` varchar(255) not null comment '运费承担方式,seller(卖家承担),buyer(买家承担)',
+    `has_discount` tinyint(3) unsigned not null comment '是否支持会员打折',
     `has_invoice` tinyint(3) unsigned not null comment '是否有发票',
-    `has_showcase` tinyint(3) unsigned not null comment '是否有橱窗？？',
-    `has_warranty` tinyint(3) unsigned not null comment '是否有担保',
+    `has_showcase` tinyint(3) unsigned not null comment '是否橱窗推荐',
+    `has_warranty` tinyint(3) unsigned not null comment '是否有保修',
     `is_virtual` tinyint(3) unsigned not null comment '是否是虚拟货物',
-    `stuff_status` varchar(255) not null comment '新品？二手？。。。new?',
-    `seller_cids` varchar(255) not null,
-    `input_pids` varchar(255) not null default '' comment '自定义属性名id',
-    `input_str` varchar(255) not null default '' comment '自定义属性值',
-    `type` varchar(255) not null,
-    `valid_thru` int(11) unsigned not null comment '有效时长 ７天',
-    `post_fee` decimal(10,2) unsigned not null comment '邮费',
-    `postage_id` int(11) unsigned not null comment '邮件id',
-    `outer_id` varchar(255) not null default '',
+    `stuff_status` varchar(255) not null comment '商品新旧程度(全新:new，闲置:unused，二手：second)',
+    `seller_cids` varchar(255) not null comment '商品所属的店铺内卖家自定义类目列表',
+    `input_pids` varchar(255) not null default '' comment '用户自行输入的类目属性ID串',
+    `input_str` varchar(255) not null default '' comment '用户自行输入的子属性名和属性值, input_str需要与input_pids一一对应',
+    `type` varchar(255) not null comment '商品类型(fixed:一口价;auction:拍卖)',
+    `valid_thru` int(11) unsigned not null default 14 comment '有效期,7或者14（默认是14天）',
+    `postage_id` int(11) unsigned not null comment '宝贝所属的运费模板ID',
+    `outer_id` varchar(255) not null default '商家外部编码(可与商家外部系统对接)',
     `skus` text not null default '' comment '类似套餐的商品选择',
     PRIMARY KEY `id` (`id`),
     UNIQUE KEY `num_iid` (`num_iid`),
     UNIQUE KEY `track_iid` (`track_iid`),
     KEY `seller_credit_score` (`seller_credit_score`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS `shop`;
+CREATE TABLE `shop`
+(
+    `id` int(11) unsigned not null auto_increment,
+    `shop_id` int(11) unsigned not null,
+    `seller_nick` varchar(255) not null,
+	`user_id` int unsigned not null comment 'taobao user_id',
+    `shop_title` varchar(255) not null comment 'taobao shop_title',
+	`click_url` text comment '转换后的淘宝链接',
+	`auction_count` int unsigned not null comment '店铺内商品总数',
+	`seller_credit` tinyint unsigned not null comment '店铺掌柜信用等级,共２０给',
+	`commission_rate` decimal(2) not null comment '淘宝客店铺佣金比率',
+	`shop_type` tinyint unsigned not null default 1 comment '1:c,2:b',
+	`total_auction` int unsigned not null comment '累计推广量',
+	`update_time` datetime not null,
+    PRIMARY KEY `id` (`id`),
+	UNIQUE KEY `user_id` (`user_id`),
+	KEY `shop_title` (`shop_title`),
+	KEY `update_time` (`update_time`)
+) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 
 -- 店铺折扣
 DROP TABLE IF EXISTS `item_promotion`;
@@ -279,26 +303,6 @@ insert into ad (name, type, url, img , txt, width, height) values
 , ('二级页左侧2','img','http://www.google.com','files/c/b/50f50dba109f82522e13d943df195dcb.jpg','二级页左侧2','245','280')
 , ('二级页左侧3','img','http://www.google.com','files/c/b/50f50dba109f82522e13d943df195dcb.jpg','二级页左侧3','245','280')
 ;
-
--- 热门店铺
-DROP TABLE IF EXISTS `shop`;
-CREATE TABLE `shop`
-(
-    `id` int(11) unsigned not null auto_increment,
-    `shop_title` varchar(255) not null comment 'taobao shop_title',
-	`user_id` int unsigned not null comment 'taobao user_id',
-	`click_url` text comment '转换后的淘宝链接',
-	`auction_count` int unsigned not null comment '',
-	`seller_credit` tinyint unsigned not null comment '店铺等级,共２０给',
-	`commission_rate` decimal(2) not null comment '佣金率',
-	`shop_type` tinyint unsigned not null default 1 comment '1:c,2:b',
-	`total_auction` int unsigned not null comment '',
-	`update_time` datetime not null,
-    PRIMARY KEY `id` (`id`),
-	UNIQUE KEY `user_id` (`user_id`),
-	KEY `shop_title` (`shop_title`),
-	KEY `update_time` (`update_time`)
-) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- 
 -- DROP TABLE IF EXISTS `shop_tag`;
