@@ -1,0 +1,2317 @@
+cakephp=/srv/http/git/cakephp filter="*" {
+ README.md
+ build.properties
+ build.xml
+ index.php
+ app=app {
+  index.php
+  Config=Config {
+   acl.ini.php
+   acl.php
+   bootstrap.php
+   core.php
+   database.php.default
+   email.php.default
+   routes.php
+   Schema=Schema {
+    db_acl.php
+    db_acl.sql
+    i18n.php
+    i18n.sql
+    sessions.php
+    sessions.sql
+   }
+  }
+  Console=Console {
+   cake
+   cake.bat
+   cake.php
+   Command=Command {
+    AppShell.php
+    Task=Task {
+     empty
+    }
+   }
+   Templates=Templates {
+    empty
+   }
+  }
+  Controller=Controller {
+   AppController.php
+   PagesController.php
+   Component=Component {
+    empty
+   }
+  }
+  Lib=Lib {
+   empty
+  }
+  Locale=Locale {
+   eng=eng {
+    LC_MESSAGES=LC_MESSAGES {
+     empty
+    }
+   }
+  }
+  Model=Model {
+   AppModel.php
+   Behavior=Behavior {
+    empty
+   }
+   Datasource=Datasource {
+    empty
+   }
+  }
+  Plugin=Plugin {
+   empty
+  }
+  Test=Test {
+   Case=Case {
+    Controller=Controller {
+     Component=Component {
+      empty
+     }
+    }
+    Model=Model {
+     Behavior=Behavior {
+      empty
+     }
+    }
+    View=View {
+     Helper=Helper {
+      empty
+     }
+    }
+   }
+   Fixture=Fixture {
+    empty
+   }
+  }
+  Vendor=Vendor {
+   empty
+  }
+  View=View {
+   Elements=Elements {
+    empty
+   }
+   Emails=Emails {
+    html=html {
+     default.ctp
+    }
+    text=text {
+     default.ctp
+    }
+   }
+   Errors=Errors {
+    error400.ctp
+    error500.ctp
+   }
+   Helper=Helper {
+    AppHelper.php
+   }
+   Layouts=Layouts {
+    ajax.ctp
+    default.ctp
+    error.ctp
+    flash.ctp
+    Emails=Emails {
+     html=html {
+      default.ctp
+     }
+     text=text {
+      default.ctp
+     }
+    }
+    js=js {
+     default.ctp
+    }
+    rss=rss {
+     default.ctp
+    }
+    xml=xml {
+     default.ctp
+    }
+   }
+   Pages=Pages {
+    home.ctp
+   }
+   Scaffolds=Scaffolds {
+    empty
+   }
+  }
+  tmp=tmp {
+   cache=cache {
+    models=models {
+     empty
+    }
+    persistent=persistent {
+     empty
+     myapp_cake_core_cake_console_
+     myapp_cake_core_file_map
+     myapp_cake_core_object_map
+    }
+    views=views {
+     empty
+    }
+   }
+   logs=logs {
+    empty
+   }
+   sessions=sessions {
+    empty
+   }
+   tests=tests {
+    empty
+   }
+  }
+  webroot=webroot {
+   favicon.ico
+   index.php
+   test.php
+   css=css {
+    cake.generic.css
+   }
+   files=files {
+    empty
+   }
+   img=img {
+    cake.icon.png
+    cake.power.gif
+    test-error-icon.png
+    test-fail-icon.png
+    test-pass-icon.png
+    test-skip-icon.png
+   }
+   js=js {
+    empty
+   }
+  }
+ }
+ lib=lib {
+  Cake=Cake {
+   LICENSE.txt
+   VERSION.txt
+   basics.php
+   bootstrap.php
+   Cache=Cache {
+    Cache.php
+    CacheEngine.php
+    Engine=Engine {
+     ApcEngine.php
+     FileEngine.php
+     MemcacheEngine.php
+     RedisEngine.php
+     WincacheEngine.php
+     XcacheEngine.php
+    }
+   }
+   Config=Config {
+    config.php
+    routes.php
+    unicode=unicode {
+     casefolding=casefolding {
+      0080_00ff.php
+      0100_017f.php
+      0180_024F.php
+      0250_02af.php
+      0370_03ff.php
+      0400_04ff.php
+      0500_052f.php
+      0530_058f.php
+      1e00_1eff.php
+      1f00_1fff.php
+      2100_214f.php
+      2150_218f.php
+      2460_24ff.php
+      2c00_2c5f.php
+      2c60_2c7f.php
+      2c80_2cff.php
+      ff00_ffef.php
+     }
+    }
+   }
+   Configure=Configure {
+    ConfigReaderInterface.php
+    IniReader.php
+    PhpReader.php
+   }
+   Console=Console {
+    ConsoleErrorHandler.php
+    ConsoleInput.php
+    ConsoleInputArgument.php
+    ConsoleInputOption.php
+    ConsoleInputSubcommand.php
+    ConsoleOptionParser.php
+    ConsoleOutput.php
+    HelpFormatter.php
+    Shell.php
+    ShellDispatcher.php
+    TaskCollection.php
+    cake
+    cake.bat
+    cake.php
+    Command=Command {
+     AclShell.php
+     ApiShell.php
+     AppShell.php
+     BakeShell.php
+     CommandListShell.php
+     ConsoleShell.php
+     I18nShell.php
+     SchemaShell.php
+     TestShell.php
+     TestsuiteShell.php
+     UpgradeShell.php
+     Task=Task {
+      BakeTask.php
+      ControllerTask.php
+      DbConfigTask.php
+      ExtractTask.php
+      FixtureTask.php
+      ModelTask.php
+      PluginTask.php
+      ProjectTask.php
+      TemplateTask.php
+      TestTask.php
+      ViewTask.php
+     }
+    }
+    Templates=Templates {
+     default=default {
+      actions=actions {
+       controller_actions.ctp
+      }
+      classes=classes {
+       controller.ctp
+       fixture.ctp
+       model.ctp
+       test.ctp
+      }
+      views=views {
+       form.ctp
+       index.ctp
+       view.ctp
+      }
+     }
+     skel=skel {
+      index.php
+      Config=Config {
+       acl.ini.php
+       bootstrap.php
+       core.php
+       database.php.default
+       email.php.default
+       routes.php
+       Schema=Schema {
+        db_acl.php
+        db_acl.sql
+        i18n.php
+        i18n.sql
+        sessions.php
+        sessions.sql
+       }
+      }
+      Console=Console {
+       cake
+       cake.bat
+       cake.php
+       Command=Command {
+        AppShell.php
+        Task=Task {
+         empty
+        }
+       }
+       Templates=Templates {
+        empty
+       }
+      }
+      Controller=Controller {
+       AppController.php
+       PagesController.php
+       Component=Component {
+        empty
+       }
+      }
+      Lib=Lib {
+       empty
+      }
+      Locale=Locale {
+       eng=eng {
+        LC_MESSAGES=LC_MESSAGES {
+         empty
+        }
+       }
+      }
+      Model=Model {
+       AppModel.php
+       Behavior=Behavior {
+        empty
+       }
+       Datasource=Datasource {
+        empty
+       }
+      }
+      Plugin=Plugin {
+       empty
+      }
+      Test=Test {
+       Case=Case {
+        Controller=Controller {
+         Component=Component {
+          empty
+         }
+        }
+        Model=Model {
+         Behavior=Behavior {
+          empty
+         }
+        }
+        View=View {
+         Helper=Helper {
+          empty
+         }
+        }
+       }
+       Fixture=Fixture {
+        empty
+       }
+      }
+      Vendor=Vendor {
+       empty
+      }
+      View=View {
+       Elements=Elements {
+        empty
+       }
+       Emails=Emails {
+        html=html {
+         default.ctp
+        }
+        text=text {
+         default.ctp
+        }
+       }
+       Errors=Errors {
+        error400.ctp
+        error500.ctp
+       }
+       Helper=Helper {
+        AppHelper.php
+       }
+       Layouts=Layouts {
+        ajax.ctp
+        default.ctp
+        error.ctp
+        flash.ctp
+        Emails=Emails {
+         html=html {
+          default.ctp
+         }
+         text=text {
+          default.ctp
+         }
+        }
+        js=js {
+         default.ctp
+        }
+        rss=rss {
+         default.ctp
+        }
+        xml=xml {
+         default.ctp
+        }
+       }
+       Pages=Pages {
+        home.ctp
+       }
+       Scaffolds=Scaffolds {
+        empty
+       }
+      }
+      tmp=tmp {
+       cache=cache {
+        models=models {
+         empty
+        }
+        persistent=persistent {
+         empty
+        }
+        views=views {
+         empty
+        }
+       }
+       logs=logs {
+        empty
+       }
+       sessions=sessions {
+        empty
+       }
+       tests=tests {
+        empty
+       }
+      }
+      webroot=webroot {
+       favicon.ico
+       index.php
+       test.php
+       css=css {
+        cake.generic.css
+       }
+       files=files {
+        empty
+       }
+       img=img {
+        cake.icon.png
+        cake.power.gif
+        test-error-icon.png
+        test-fail-icon.png
+        test-pass-icon.png
+        test-skip-icon.png
+       }
+       js=js {
+        empty
+       }
+      }
+     }
+    }
+   }
+   Controller=Controller {
+    CakeErrorController.php
+    Component.php
+    ComponentCollection.php
+    Controller.php
+    Scaffold.php
+    Component=Component {
+     AclComponent.php
+     AuthComponent.php
+     CookieComponent.php
+     EmailComponent.php
+     PaginatorComponent.php
+     RequestHandlerComponent.php
+     SecurityComponent.php
+     SessionComponent.php
+     Acl=Acl {
+      AclInterface.php
+      DbAcl.php
+      IniAcl.php
+      PhpAcl.php
+     }
+     Auth=Auth {
+      ActionsAuthorize.php
+      BaseAuthenticate.php
+      BaseAuthorize.php
+      BasicAuthenticate.php
+      ControllerAuthorize.php
+      CrudAuthorize.php
+      DigestAuthenticate.php
+      FormAuthenticate.php
+     }
+    }
+   }
+   Core=Core {
+    App.php
+    CakePlugin.php
+    Configure.php
+    Object.php
+   }
+   Error=Error {
+    ErrorHandler.php
+    ExceptionRenderer.php
+    exceptions.php
+   }
+   Event=Event {
+    CakeEvent.php
+    CakeEventListener.php
+    CakeEventManager.php
+   }
+   I18n=I18n {
+    I18n.php
+    L10n.php
+    Multibyte.php
+   }
+   Log=Log {
+    CakeLog.php
+    CakeLogInterface.php
+    LogEngineCollection.php
+    Engine=Engine {
+     BaseLog.php
+     ConsoleLog.php
+     FileLog.php
+    }
+   }
+   Model=Model {
+    AclNode.php
+    Aco.php
+    AcoAction.php
+    Aro.php
+    BehaviorCollection.php
+    CakeSchema.php
+    ConnectionManager.php
+    I18nModel.php
+    Model.php
+    ModelBehavior.php
+    ModelValidator.php
+    Permission.php
+    Behavior=Behavior {
+     AclBehavior.php
+     ContainableBehavior.php
+     TranslateBehavior.php
+     TreeBehavior.php
+    }
+    Datasource=Datasource {
+     CakeSession.php
+     DataSource.php
+     DboSource.php
+     Database=Database {
+      Mysql.php
+      Postgres.php
+      Sqlite.php
+      Sqlserver.php
+     }
+     Session=Session {
+      CacheSession.php
+      CakeSessionHandlerInterface.php
+      DatabaseSession.php
+     }
+    }
+    Validator=Validator {
+     CakeValidationRule.php
+     CakeValidationSet.php
+    }
+   }
+   Network=Network {
+    CakeRequest.php
+    CakeResponse.php
+    CakeSocket.php
+    Email=Email {
+     AbstractTransport.php
+     CakeEmail.php
+     DebugTransport.php
+     MailTransport.php
+     SmtpTransport.php
+    }
+    Http=Http {
+     BasicAuthentication.php
+     DigestAuthentication.php
+     HttpResponse.php
+     HttpSocket.php
+    }
+   }
+   Routing=Routing {
+    Dispatcher.php
+    DispatcherFilter.php
+    Router.php
+    Filter=Filter {
+     AssetDispatcher.php
+     CacheDispatcher.php
+    }
+    Route=Route {
+     CakeRoute.php
+     PluginShortRoute.php
+     RedirectRoute.php
+    }
+   }
+   Test=Test {
+    Case=Case {
+     AllBehaviorsTest.php
+     AllCacheTest.php
+     AllComponentsTest.php
+     AllConfigureTest.php
+     AllConsoleTest.php
+     AllControllerTest.php
+     AllCoreTest.php
+     AllDatabaseTest.php
+     AllErrorTest.php
+     AllEventTest.php
+     AllHelpersTest.php
+     AllI18nTest.php
+     AllLogTest.php
+     AllNetworkTest.php
+     AllRoutingTest.php
+     AllTestSuiteTest.php
+     AllTestsTest.php
+     AllUtilityTest.php
+     AllViewTest.php
+     BasicsTest.php
+     Cache=Cache {
+      CacheTest.php
+      Engine=Engine {
+       ApcEngineTest.php
+       FileEngineTest.php
+       MemcacheEngineTest.php
+       RedisEngineTest.php
+       WincacheEngineTest.php
+       XcacheEngineTest.php
+      }
+     }
+     Configure=Configure {
+      IniReaderTest.php
+      PhpReaderTest.php
+     }
+     Console=Console {
+      AllConsoleLibsTest.php
+      AllConsoleTest.php
+      AllShellsTest.php
+      AllTasksTest.php
+      ConsoleErrorHandlerTest.php
+      ConsoleOptionParserTest.php
+      ConsoleOutputTest.php
+      HelpFormatterTest.php
+      ShellDispatcherTest.php
+      ShellTest.php
+      TaskCollectionTest.php
+      Command=Command {
+       AclShellTest.php
+       ApiShellTest.php
+       BakeShellTest.php
+       CommandListShellTest.php
+       SchemaShellTest.php
+       TestShellTest.php
+       Task=Task {
+        ControllerTaskTest.php
+        DbConfigTaskTest.php
+        ExtractTaskTest.php
+        FixtureTaskTest.php
+        ModelTaskTest.php
+        PluginTaskTest.php
+        ProjectTaskTest.php
+        TemplateTaskTest.php
+        TestTaskTest.php
+        ViewTaskTest.php
+       }
+      }
+     }
+     Controller=Controller {
+      ComponentCollectionTest.php
+      ComponentTest.php
+      ControllerMergeVarsTest.php
+      ControllerTest.php
+      PagesControllerTest.php
+      ScaffoldTest.php
+      Component=Component {
+       AclComponentTest.php
+       AuthComponentTest.php
+       CookieComponentTest.php
+       EmailComponentTest.php
+       PaginatorComponentTest.php
+       RequestHandlerComponentTest.php
+       SecurityComponentTest.php
+       SessionComponentTest.php
+       Acl=Acl {
+        DbAclTest.php
+        IniAclTest.php
+        PhpAclTest.php
+       }
+       Auth=Auth {
+        ActionsAuthorizeTest.php
+        BasicAuthenticateTest.php
+        ControllerAuthorizeTest.php
+        CrudAuthorizeTest.php
+        DigestAuthenticateTest.php
+        FormAuthenticateTest.php
+       }
+      }
+     }
+     Core=Core {
+      AppTest.php
+      CakePluginTest.php
+      ConfigureTest.php
+      ObjectTest.php
+     }
+     Error=Error {
+      ErrorHandlerTest.php
+      ExceptionRendererTest.php
+     }
+     Event=Event {
+      CakeEventManagerTest.php
+      CakeEventTest.php
+     }
+     I18n=I18n {
+      I18nTest.php
+      L10nTest.php
+      MultibyteTest.php
+     }
+     Log=Log {
+      CakeLogTest.php
+      Engine=Engine {
+       ConsoleLogTest.php
+       FileLogTest.php
+      }
+     }
+     Model=Model {
+      AclNodeTest.php
+      BehaviorCollectionTest.php
+      CakeSchemaTest.php
+      ConnectionManagerTest.php
+      ModelCrossSchemaHabtmTest.php
+      ModelDeleteTest.php
+      ModelIntegrationTest.php
+      ModelReadTest.php
+      ModelTest.php
+      ModelTestBase.php
+      ModelValidationTest.php
+      ModelWriteTest.php
+      models.php
+      Behavior=Behavior {
+       AclBehaviorTest.php
+       ContainableBehaviorTest.php
+       TranslateBehaviorTest.php
+       TreeBehaviorAfterTest.php
+       TreeBehaviorNumberTest.php
+       TreeBehaviorScopedTest.php
+       TreeBehaviorTest.php
+       TreeBehaviorUuidTest.php
+      }
+      Datasource=Datasource {
+       CakeSessionTest.php
+       DataSourceTest.php
+       DboSourceTest.php
+       Database=Database {
+        MysqlTest.php
+        PostgresTest.php
+        SqliteTest.php
+        SqlserverTest.php
+       }
+       Session=Session {
+        CacheSessionTest.php
+        DatabaseSessionTest.php
+       }
+      }
+      Validator=Validator {
+       CakeValidationRuleTest.php
+       CakeValidationSetTest.php
+      }
+     }
+     Network=Network {
+      CakeRequestTest.php
+      CakeResponseTest.php
+      CakeSocketTest.php
+      Email=Email {
+       CakeEmailTest.php
+       DebugTransportTest.php
+       SmtpTransportTest.php
+      }
+      Http=Http {
+       BasicAuthenticationTest.php
+       DigestAuthenticationTest.php
+       HttpResponseTest.php
+       HttpSocketTest.php
+      }
+     }
+     Routing=Routing {
+      DispatcherTest.php
+      RouterTest.php
+      Filter=Filter {
+       AssetDispatcherTest.php
+      }
+      Route=Route {
+       CakeRouteTest.php
+       PluginShortRouteTest.php
+       RedirectRouteTest.php
+      }
+     }
+     TestSuite=TestSuite {
+      CakeTestCaseTest.php
+      CakeTestFixtureTest.php
+      CakeTestSuiteTest.php
+      ControllerTestCaseTest.php
+      HtmlCoverageReportTest.php
+     }
+     Utility=Utility {
+      CakeNumberTest.php
+      CakeTimeTest.php
+      ClassRegistryTest.php
+      DebuggerTest.php
+      FileTest.php
+      FolderTest.php
+      HashTest.php
+      InflectorTest.php
+      ObjectCollectionTest.php
+      SanitizeTest.php
+      SecurityTest.php
+      SetTest.php
+      StringTest.php
+      ValidationTest.php
+      XmlTest.php
+     }
+     View=View {
+      HelperCollectionTest.php
+      HelperTest.php
+      JsonViewTest.php
+      MediaViewTest.php
+      ScaffoldViewTest.php
+      ThemeViewTest.php
+      ViewTest.php
+      XmlViewTest.php
+      Helper=Helper {
+       CacheHelperTest.php
+       FormHelperTest.php
+       HtmlHelperTest.php
+       JqueryEngineHelperTest.php
+       JsHelperTest.php
+       MootoolsEngineHelperTest.php
+       NumberHelperTest.php
+       PaginatorHelperTest.php
+       PrototypeEngineHelperTest.php
+       RssHelperTest.php
+       SessionHelperTest.php
+       TextHelperTest.php
+       TimeHelperTest.php
+      }
+     }
+    }
+    Fixture=Fixture {
+     AccountFixture.php
+     AcoActionFixture.php
+     AcoFixture.php
+     AcoTwoFixture.php
+     AdFixture.php
+     AdvertisementFixture.php
+     AfterTreeFixture.php
+     AnotherArticleFixture.php
+     AppleFixture.php
+     ArmorFixture.php
+     ArmorsPlayerFixture.php
+     AroFixture.php
+     AroTwoFixture.php
+     ArosAcoFixture.php
+     ArosAcoTwoFixture.php
+     ArticleFeaturedFixture.php
+     ArticleFeaturedsTagsFixture.php
+     ArticleFixture.php
+     ArticlesTagFixture.php
+     AssertTagsTestCase.php
+     AttachmentFixture.php
+     AuthUserCustomFieldFixture.php
+     AuthUserFixture.php
+     AuthorFixture.php
+     BakeArticleFixture.php
+     BakeArticlesBakeTagFixture.php
+     BakeCommentFixture.php
+     BakeTagFixture.php
+     BasketFixture.php
+     BidFixture.php
+     BiddingFixture.php
+     BiddingMessageFixture.php
+     BinaryTestFixture.php
+     BookFixture.php
+     CacheTestModelFixture.php
+     CallbackFixture.php
+     CampaignFixture.php
+     CategoryFixture.php
+     CategoryThreadFixture.php
+     CdFixture.php
+     CommentFixture.php
+     ContentAccountFixture.php
+     ContentFixture.php
+     CounterCachePostFixture.php
+     CounterCachePostNonstandardPrimaryKeyFixture.php
+     CounterCacheUserFixture.php
+     CounterCacheUserNonstandardPrimaryKeyFixture.php
+     DataTestFixture.php
+     DatatypeFixture.php
+     DependencyFixture.php
+     DeviceFixture.php
+     DeviceTypeCategoryFixture.php
+     DeviceTypeFixture.php
+     DocumentDirectoryFixture.php
+     DocumentFixture.php
+     DomainFixture.php
+     DomainsSiteFixture.php
+     ExteriorTypeCategoryFixture.php
+     FeatureSetFixture.php
+     FeaturedFixture.php
+     FilmFileFixture.php
+     FixturizedTestCase.php
+     FlagTreeFixture.php
+     FruitFixture.php
+     FruitsUuidTagFixture.php
+     GroupUpdateAllFixture.php
+     GuildFixture.php
+     GuildsPlayerFixture.php
+     HomeFixture.php
+     ImageFixture.php
+     InnoFixture.php
+     ItemFixture.php
+     ItemsPortfolioFixture.php
+     JoinABFixture.php
+     JoinACFixture.php
+     JoinAFixture.php
+     JoinBFixture.php
+     JoinCFixture.php
+     JoinThingFixture.php
+     MessageFixture.php
+     MyCategoriesMyProductsFixture.php
+     MyCategoriesMyUsersFixture.php
+     MyCategoryFixture.php
+     MyProductFixture.php
+     MyUserFixture.php
+     NodeFixture.php
+     NumberTreeFixture.php
+     NumberTreeTwoFixture.php
+     NumericArticleFixture.php
+     OverallFavoriteFixture.php
+     PersonFixture.php
+     PlayerFixture.php
+     PortfolioFixture.php
+     PostFixture.php
+     PostsTagFixture.php
+     PrefixTestFixture.php
+     PrimaryModelFixture.php
+     ProductFixture.php
+     ProductUpdateAllFixture.php
+     ProjectFixture.php
+     SampleFixture.php
+     SecondaryModelFixture.php
+     SessionFixture.php
+     SiteFixture.php
+     SomethingElseFixture.php
+     SomethingFixture.php
+     StoriesTagFixture.php
+     StoryFixture.php
+     SyfileFixture.php
+     TagFixture.php
+     TestPluginArticleFixture.php
+     TestPluginCommentFixture.php
+     ThePaperMonkiesFixture.php
+     ThreadFixture.php
+     TranslateArticleFixture.php
+     TranslateFixture.php
+     TranslateTableFixture.php
+     TranslateWithPrefixFixture.php
+     TranslatedArticleFixture.php
+     TranslatedItemFixture.php
+     UnconventionalTreeFixture.php
+     UnderscoreFieldFixture.php
+     UserFixture.php
+     UuidFixture.php
+     UuidTagFixture.php
+     UuidTreeFixture.php
+     UuiditemFixture.php
+     UuiditemsUuidportfolioFixture.php
+     UuiditemsUuidportfolioNumericidFixture.php
+     UuidportfolioFixture.php
+     rss.xml
+     sample.xml
+     soap_request.xml
+     soap_response.xml
+    }
+    test_app=test_app {
+     Config=Config {
+      acl.ini
+      acl.ini.php
+      acl.php
+      empty.ini
+      empty.php
+      htmlhelper_minimized.ini
+      htmlhelper_tags.php
+      nested.ini
+      no_ini_extension
+      no_php_extension
+      no_section.ini
+      routes.php
+      var_test.php
+      var_test2.php
+     }
+     Console=Console {
+      Command=Command {
+       SampleShell.php
+       Task=Task {
+        empty
+       }
+      }
+      Templates=Templates {
+       test=test {
+        classes=classes {
+         test_object.ctp
+        }
+        views=views {
+         admin_edit.ctp
+        }
+       }
+      }
+     }
+     Controller=Controller {
+      AppController.php
+      PagesController.php
+      TestAppsErrorController.php
+      TestsAppsController.php
+      TestsAppsPostsController.php
+      Component=Component {
+       empty
+      }
+     }
+     Error=Error {
+      TestAppsExceptionRenderer.php
+     }
+     Lib=Lib {
+      Library.php
+      Cache=Cache {
+       Engine=Engine {
+        TestAppCacheEngine.php
+       }
+      }
+      Log=Log {
+       Engine=Engine {
+        TestAppLog.php
+       }
+      }
+      Utility=Utility {
+       TestUtilityClass.php
+      }
+     }
+     Locale=Locale {
+      cache_test_po=cache_test_po {
+       LC_MESSAGES=LC_MESSAGES {
+        default.po
+        dom1.po
+        dom2.po
+       }
+      }
+      eng=eng {
+       LC_MESSAGES=LC_MESSAGES {
+        validation_messages.po
+       }
+      }
+      ja_jp=ja_jp {
+       LC_TIME
+      }
+      po=po {
+       LC_TIME
+       LC_MESSAGES=LC_MESSAGES {
+        default.po
+       }
+       LC_MONETARY=LC_MONETARY {
+        default.po
+       }
+      }
+      rule_0_mo=rule_0_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_0_po=rule_0_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_10_mo=rule_10_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_10_po=rule_10_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_11_mo=rule_11_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_11_po=rule_11_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_12_mo=rule_12_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_12_po=rule_12_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_13_mo=rule_13_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_13_po=rule_13_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_14_mo=rule_14_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_14_po=rule_14_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_1_mo=rule_1_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_1_po=rule_1_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_2_mo=rule_2_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_2_po=rule_2_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_3_mo=rule_3_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_3_po=rule_3_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_4_mo=rule_4_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_4_po=rule_4_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_5_mo=rule_5_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_5_po=rule_5_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_6_mo=rule_6_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_6_po=rule_6_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_7_mo=rule_7_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_7_po=rule_7_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_8_mo=rule_8_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_8_po=rule_8_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      rule_9_mo=rule_9_mo {
+       LC_MESSAGES=LC_MESSAGES {
+        core.mo
+        default.mo
+       }
+      }
+      rule_9_po=rule_9_po {
+       LC_MESSAGES=LC_MESSAGES {
+        core.po
+        default.po
+       }
+      }
+      time_test=time_test {
+       LC_TIME
+      }
+     }
+     Model=Model {
+      AppModel.php
+      Comment.php
+      PersisterOne.php
+      PersisterTwo.php
+      Post.php
+      Behavior=Behavior {
+       PersisterOneBehaviorBehavior.php
+       PersisterTwoBehaviorBehavior.php
+      }
+      Datasource=Datasource {
+       Test2OtherSource.php
+       Test2Source.php
+       Database=Database {
+        TestLocalDriver.php
+       }
+       Session=Session {
+        TestAppLibSession.php
+       }
+      }
+     }
+     Plugin=Plugin {
+      PluginJs=PluginJs {
+       Config=Config {
+        bootstrap.php
+       }
+       webroot=webroot {
+        js=js {
+         plugin_js.js
+         one=one {
+          plugin_one.js
+         }
+        }
+       }
+      }
+      TestPlugin=TestPlugin {
+       Config=Config {
+        acl.ini.php
+        bootstrap.php
+        custom_config.php
+        load.php
+        more.load.php
+        nested.ini
+        routes.php
+        Schema=Schema {
+         schema.php
+        }
+       }
+       Console=Console {
+        Command=Command {
+         ExampleShell.php
+         Task=Task {
+          OtherTaskTask.php
+         }
+        }
+        Templates=Templates {
+         empty
+        }
+       }
+       Controller=Controller {
+        TestPluginAppController.php
+        TestPluginController.php
+        TestsController.php
+        Component=Component {
+         OtherComponent.php
+         PluginsComponent.php
+         TestPluginComponent.php
+         TestPluginOtherComponent.php
+        }
+       }
+       Lib=Lib {
+        TestPluginLibrary.php
+        TestPluginOtherLibrary.php
+        Cache=Cache {
+         Engine=Engine {
+          TestPluginCacheEngine.php
+         }
+        }
+        Custom=Custom {
+         Package=Package {
+          CustomLibClass.php
+         }
+        }
+        Error=Error {
+         TestPluginExceptionRenderer.php
+        }
+        Log=Log {
+         Engine=Engine {
+          TestPluginLog.php
+         }
+        }
+        Routing=Routing {
+         Filter=Filter {
+          Test2DispatcherFilter.php
+          TestDispatcherFilter.php
+         }
+        }
+       }
+       Locale=Locale {
+        po=po {
+         LC_MESSAGES=LC_MESSAGES {
+          test_plugin.po
+         }
+         LC_MONETARY=LC_MONETARY {
+          test_plugin.po
+         }
+        }
+       }
+       Model=Model {
+        TestPluginAppModel.php
+        TestPluginAuthUser.php
+        TestPluginAuthors.php
+        TestPluginComment.php
+        TestPluginPost.php
+        Behavior=Behavior {
+         TestPluginPersisterOneBehavior.php
+         TestPluginPersisterTwoBehavior.php
+        }
+        Datasource=Datasource {
+         TestOtherSource.php
+         TestSource.php
+         Database=Database {
+          DboDummy.php
+          TestDriver.php
+         }
+         Session=Session {
+          TestPluginSession.php
+         }
+        }
+       }
+       Utility=Utility {
+        TestPluginEngine.php
+       }
+       Vendor=Vendor {
+        welcome.php
+        Example=Example {
+         ExampleExample.php
+        }
+        sample=sample {
+         sample_plugin.php
+        }
+       }
+       View=View {
+        Elements=Elements {
+         plugin_element.ctp
+         test_plugin_element.ctp
+         translate.ctp
+         sub_dir=sub_dir {
+          sub_element.ctp
+         }
+        }
+        Emails=Emails {
+         text=text {
+          test_plugin_tpl.ctp
+         }
+        }
+        Helper=Helper {
+         OtherHelperHelper.php
+         PluggedHelperHelper.php
+         TestPluginAppHelper.php
+        }
+        Layouts=Layouts {
+         default.ctp
+         Emails=Emails {
+          text=text {
+           plug_default.ctp
+          }
+         }
+        }
+        Tests=Tests {
+         index.ctp
+         scaffold.form.ctp
+        }
+       }
+       webroot=webroot {
+        root.js
+        css=css {
+         test_plugin_asset.css
+         theme_one.htc
+         unknown.extension
+        }
+        flash=flash {
+         plugin_test.swf
+        }
+        img=img {
+         cake.icon.gif
+        }
+        js=js {
+         test_plugin=test_plugin {
+          test.js
+         }
+        }
+        pdfs=pdfs {
+         plugin_test.pdf
+        }
+       }
+      }
+      TestPluginTwo=TestPluginTwo {
+       Config=Config {
+        bootstrap.php
+       }
+       Console=Console {
+        Command=Command {
+         ExampleShell.php
+         WelcomeShell.php
+         Task=Task {
+          empty
+         }
+        }
+        Templates=Templates {
+         empty
+        }
+       }
+      }
+     }
+     Utility=Utility {
+      TestAppEngine.php
+     }
+     Vendor=Vendor {
+      welcome.php
+      Test=Test {
+       MyTest.php
+       hello.php
+      }
+      css=css {
+       test_asset.css
+      }
+      img=img {
+       test.jpg
+       test_2.JPG
+      }
+      sample=sample {
+       configure_test_vendor_sample.php
+      }
+      somename=somename {
+       some.name.php
+      }
+     }
+     View=View {
+      Elements=Elements {
+       extended_element.ctp
+       extended_missing_element.ctp
+       html_call.ctp
+       parent_element.ctp
+       session_helper.ctp
+       test_element.ctp
+       test_element.xml
+       type_check.ctp
+       nocache=nocache {
+        contains_nocache.ctp
+        plain.ctp
+        sub1.ctp
+        sub2.ctp
+       }
+      }
+      Emails=Emails {
+       html=html {
+        custom.ctp
+        default.ctp
+        image.ctp
+        japanese.ctp
+        nested_element.ctp
+       }
+       text=text {
+        custom.ctp
+        custom_helper.ctp
+        default.ctp
+        japanese.ctp
+        wide.ctp
+       }
+      }
+      Errors=Errors {
+       error400.ctp
+       error500.ctp
+      }
+      Helper=Helper {
+       BananaHelper.php
+      }
+      Layouts=Layouts {
+       ajax.ctp
+       ajax2.ctp
+       banana.ctp
+       cache_empty_sections.ctp
+       cache_layout.ctp
+       default.ctp
+       flash.ctp
+       multi_cache.ctp
+       Emails=Emails {
+        html=html {
+         default.ctp
+         japanese.ctp
+         thin.ctp
+        }
+        text=text {
+         default.ctp
+         japanese.ctp
+        }
+       }
+       js=js {
+        default.ctp
+       }
+       json=json {
+        default.ctp
+       }
+       rss=rss {
+        default.ctp
+       }
+       xml=xml {
+        default.ctp
+       }
+      }
+      Pages=Pages {
+       extract.ctp
+       home.ctp
+       page.home.ctp
+      }
+      Posts=Posts {
+       alt_ext.alt
+       cache_empty_sections.ctp
+       cache_form.ctp
+       extend_element.ctp
+       extend_loop.ctp
+       extend_loop_inner.ctp
+       extend_missing_element.ctp
+       extend_self.ctp
+       helper_overwrite.ctp
+       index.ctp
+       multiple_nocache.ctp
+       nested_extends.ctp
+       nocache_multiple_element.ctp
+       open_block.ctp
+       parent_1.ctp
+       parent_2.ctp
+       parent_view.ctp
+       scaffold.form.ctp
+       sequencial_nocache.ctp
+       test_nocache_tags.ctp
+       json=json {
+        index.ctp
+       }
+       xml=xml {
+        index.ctp
+       }
+      }
+      Scaffolds=Scaffolds {
+       empty
+      }
+      TestsApps=TestsApps {
+       index.ctp
+       json=json {
+        index.ctp
+       }
+      }
+      Themed=Themed {
+       TestTheme=TestTheme {
+        Elements=Elements {
+         test_element.ctp
+        }
+        Emails=Emails {
+         text=text {
+          themed.ctp
+         }
+        }
+        Layouts=Layouts {
+         default.ctp
+        }
+        Plugin=Plugin {
+         TestPlugin=TestPlugin {
+          Emails=Emails {
+           text=text {
+            test_plugin_tpl.ctp
+           }
+          }
+          Layouts=Layouts {
+           plugin_default.ctp
+          }
+          Tests=Tests {
+           index.ctp
+          }
+         }
+        }
+        Posts=Posts {
+         index.ctp
+         scaffold.index.ctp
+         themed.ctp
+        }
+        webroot=webroot {
+         space image.text
+         css=css {
+          test_asset.css
+          theme_webroot.css
+         }
+         flash=flash {
+          theme_test.swf
+         }
+         img=img {
+          cake.power.gif
+          test.jpg
+         }
+         js=js {
+          theme.js
+          one=one {
+           theme_one.js
+          }
+         }
+         pdfs=pdfs {
+          theme_test.pdf
+         }
+        }
+       }
+      }
+     }
+     tmp=tmp {
+      dir_map
+     }
+     webroot=webroot {
+      img=img {
+       cake.power.gif
+      }
+      theme=theme {
+       test_theme=test_theme {
+        css=css {
+         theme_webroot.css
+         webroot_test.css
+        }
+        img=img {
+         cake.power.gif
+         test.jpg
+        }
+       }
+      }
+     }
+    }
+   }
+   TestSuite=TestSuite {
+    CakeTestCase.php
+    CakeTestLoader.php
+    CakeTestRunner.php
+    CakeTestSuite.php
+    CakeTestSuiteCommand.php
+    CakeTestSuiteDispatcher.php
+    ControllerTestCase.php
+    Coverage=Coverage {
+     BaseCoverageReport.php
+     HtmlCoverageReport.php
+     TextCoverageReport.php
+    }
+    Fixture=Fixture {
+     CakeFixtureManager.php
+     CakeTestFixture.php
+     CakeTestModel.php
+    }
+    Reporter=Reporter {
+     CakeBaseReporter.php
+     CakeHtmlReporter.php
+     CakeTextReporter.php
+    }
+    templates=templates {
+     footer.php
+     header.php
+     menu.php
+     missing_connection.php
+     phpunit.php
+     xdebug.php
+    }
+   }
+   Utility=Utility {
+    CakeNumber.php
+    CakeTime.php
+    ClassRegistry.php
+    Debugger.php
+    File.php
+    Folder.php
+    Hash.php
+    Inflector.php
+    ObjectCollection.php
+    Sanitize.php
+    Security.php
+    Set.php
+    String.php
+    Validation.php
+    Xml.php
+   }
+   View=View {
+    Helper.php
+    HelperCollection.php
+    JsonView.php
+    MediaView.php
+    ScaffoldView.php
+    ThemeView.php
+    View.php
+    ViewBlock.php
+    XmlView.php
+    Elements=Elements {
+     exception_stack_trace.ctp
+     sql_dump.ctp
+    }
+    Errors=Errors {
+     fatal_error.ctp
+     missing_action.ctp
+     missing_behavior.ctp
+     missing_component.ctp
+     missing_connection.ctp
+     missing_controller.ctp
+     missing_database.ctp
+     missing_datasource.ctp
+     missing_datasource_config.ctp
+     missing_helper.ctp
+     missing_layout.ctp
+     missing_plugin.ctp
+     missing_table.ctp
+     missing_view.ctp
+     pdo_error.ctp
+     private_action.ctp
+     scaffold_error.ctp
+    }
+    Helper=Helper {
+     CacheHelper.php
+     FormHelper.php
+     HtmlHelper.php
+     JqueryEngineHelper.php
+     JsBaseEngineHelper.php
+     JsHelper.php
+     MootoolsEngineHelper.php
+     NumberHelper.php
+     PaginatorHelper.php
+     PrototypeEngineHelper.php
+     RssHelper.php
+     SessionHelper.php
+     TextHelper.php
+     TimeHelper.php
+    }
+    Scaffolds=Scaffolds {
+     form.ctp
+     index.ctp
+     view.ctp
+    }
+   }
+  }
+ }
+ plugins=plugins {
+  empty
+ }
+ vendors=vendors {
+  empty
+ }
+}
+zbd=/srv/http/zbd CD=. filter="*" {
+ create_db.sql
+ index.php
+ zbd.conf
+ Config=Config {
+  acl.ini.php
+  acl.php
+  bootstrap.php
+  core.php
+  database.php
+  database.php.default
+  email.php.default
+  routes.php
+  Schema=Schema {
+   db_acl.php
+   db_acl.sql
+   i18n.php
+   i18n.sql
+   sessions.php
+   sessions.sql
+  }
+ }
+ Console=Console {
+  cake
+  cake.bat
+  cake.php
+  Command=Command {
+   AppShell.php
+   Task=Task {
+    empty
+   }
+  }
+  Templates=Templates {
+   empty
+  }
+ }
+ Controller=Controller {
+  AdminController.php
+  AdsController.php
+  AppController.php
+  GroupsController.php
+  IndexController.php
+  ItemsController.php
+  PagesController.php
+  SpiderController.php
+  UsersController.php
+  geany_run_script.sh
+  Component=Component {
+   empty
+  }
+ }
+ Lib=Lib {
+  empty
+  top=top{
+   RequestCheckUtil.php
+   TopClient.php
+  }
+ }
+ Locale=Locale {
+  eng=eng {
+   LC_MESSAGES=LC_MESSAGES {
+    empty
+   }
+  }
+ }
+ Model=Model {
+  Ad.php
+  AppModel.php
+  Item.php
+  Tag.php
+  TagItem.php
+  item.php
+  Behavior=Behavior {
+   empty
+  }
+  Datasource=Datasource {
+   empty
+  }
+ }
+ Plugin=Plugin {
+  empty
+ }
+ Test=Test {
+  Case=Case {
+   Controller=Controller {
+    Component=Component {
+     empty
+    }
+   }
+   Model=Model {
+    Behavior=Behavior {
+     empty
+    }
+   }
+   View=View {
+    Helper=Helper {
+     empty
+    }
+   }
+  }
+  Fixture=Fixture {
+   empty
+  }
+ }
+ Vendor=Vendor {
+  empty
+ }
+ View=View {
+  Elements=Elements {
+   empty
+   leftnav.html
+   item.html
+  }
+  Emails=Emails {
+   html=html {
+    default.ctp
+   }
+   text=text {
+    default.ctp
+   }
+  }
+  Errors=Errors {
+   error400.ctp
+   error500.ctp
+  }
+  Helper=Helper {
+   AppHelper.php
+  }
+  Layouts=Layouts {
+   ajax.ctp
+   default.ctp
+   index.ctp
+   error.ctp
+   flash.ctp
+   Emails=Emails {
+    html=html {
+     default.ctp
+    }
+    text=text {
+     default.ctp
+    }
+   }
+   js=js {
+    default.ctp
+   }
+   rss=rss {
+    default.ctp
+   }
+   xml=xml {
+    default.ctp
+   }
+  }
+  Pages=Pages {
+   home.ctp
+  }
+  Scaffolds=Scaffolds {
+   empty
+  }
+  Index=Index{
+   index.html
+   tag.html
+  }
+  ad=ad {
+   index.html
+   admin_index.html
+  }
+ }
+ tmp=tmp {
+  cache=cache {
+   models=models {
+    empty
+    myapp_cake_model_default_zhuangbeidian_ad
+    myapp_cake_model_default_zhuangbeidian_list
+   }
+   persistent=persistent {
+    empty
+    myapp_cake_core_cake_dev_
+    myapp_cake_core_cake_dev_en-us
+    myapp_cake_core_file_map
+    myapp_cake_core_method_cache
+   }
+   views=views {
+    empty
+   }
+  }
+  logs=logs {
+   empty
+   error.log
+  }
+  sessions=sessions {
+   empty
+  }
+  tests=tests {
+   empty
+  }
+ }
+ webroot=webroot {
+  favicon.ico
+  index.php
+  test.php
+  css=css {
+   cake.generic.css
+   layout.css
+  }
+  files=files {
+   empty
+  }
+  img=img {
+   cake.icon.png
+   cake.power.gif
+   test-error-icon.png
+   test-fail-icon.png
+   test-pass-icon.png
+   test-skip-icon.png
+  }
+  js=js {
+   empty
+  }
+ }
+}
+zbd=~/Sites/zhuangbeidian CD=. filter="*" {
+ create_db.sql
+ data.php
+ index.php
+ test.php
+ zbd.conf
+ create_db.sql.bak
+ Config=Config {
+  acl.ini.php
+  acl.php
+  bootstrap.php
+  core.php
+  database.php
+  database.php.default
+  email.php.default
+  routes.php
+  Schema=Schema {
+   db_acl.php
+   db_acl.sql
+   i18n.php
+   i18n.sql
+   sessions.php
+   sessions.sql
+  }
+ }
+ Console=Console {
+  cake
+  cake.bat
+  cake.php
+  Command=Command {
+   AppShell.php
+   Task=Task {
+    empty
+   }
+  }
+  Templates=Templates {
+   empty
+  }
+ }
+ Controller=Controller {
+  AdminController.php
+  AdsController.php
+  AppController.php
+  GroupsController.php
+  IndexController.php
+  ItemRecommendsController.php
+  ItemsController.php
+  PagesController.php
+  SpiderController.php
+  TagItemController.php
+  TagsController.php
+  TaobaoController.php
+  UsersController.php
+  Component=Component {
+   TaobaoComponent.php
+   empty
+  }
+ }
+ Lib=Lib {
+  empty
+  top=top{
+   RequestCheckUtil.php
+   TopClient.php
+  }
+ }
+ Locale=Locale {
+  eng=eng {
+   LC_MESSAGES=LC_MESSAGES {
+    empty
+   }
+  }
+ }
+ Model=Model {
+  Ad.php
+  AppModel.php
+  Group.php
+  Item.php
+  ItemRecommend.php
+  Tag.php
+  TagItem.php
+  User.php
+  Behavior=Behavior {
+   empty
+  }
+  Datasource=Datasource {
+   empty
+  }
+ }
+ Plugin=Plugin {
+  empty
+ }
+ Test=Test {
+  Case=Case {
+   Controller=Controller {
+    AdsControllerTest.php
+    GroupsControllerTest.php
+    ItemRecommendsControllerTest.php
+    ItemsControllerTest.php
+    TagsControllerTest.php
+    UsersControllerTest.php
+    Component=Component {
+     empty
+    }
+   }
+   Model=Model {
+    GroupTest.php
+    ItemRecommendTest.php
+    ItemTest.php
+    UserTest.php
+    Behavior=Behavior {
+     empty
+    }
+   }
+   View=View {
+    Helper=Helper {
+     empty
+    }
+   }
+  }
+  Fixture=Fixture {
+   GroupFixture.php
+   ItemFixture.php
+   ItemRecommendFixture.php
+   UserFixture.php
+   empty
+  }
+ }
+ Vendor=Vendor {
+  empty
+ }
+ View=View {
+  Taobao=Taobao{
+  }
+  Elements=Elements {
+   empty
+   item.html
+   leftnav.html
+  }
+  Emails=Emails {
+   html=html {
+    default.ctp
+   }
+   text=text {
+    default.ctp
+   }
+  }
+  Errors=Errors {
+   error400.ctp
+   error500.ctp
+  }
+  Helper=Helper {
+   AppHelper.php
+  }
+  Layouts=Layouts {
+   ajax.ctp
+   default.ctp
+   error.ctp
+   flash.ctp
+   index.ctp
+   Emails=Emails {
+    html=html {
+     default.ctp
+    }
+    text=text {
+     default.ctp
+    }
+   }
+   js=js {
+    default.ctp
+   }
+   rss=rss {
+    default.ctp
+   }
+   xml=xml {
+    default.ctp
+   }
+  }
+  Pages=Pages {
+   home.ctp
+  }
+  Scaffolds=Scaffolds {
+   empty
+  }
+  Index=Index{
+   index.html
+   tag.html
+  }
+  Items=Items{
+   add.ctp
+   admin_add.ctp
+   admin_edit.ctp
+   admin_index.ctp
+   admin_view.ctp
+   edit.ctp
+   index.ctp
+   view.ctp
+  }
+  ad=ad {
+  }
+  Spider=Spider{
+   add.ctp
+   edit.ctp
+   index.ctp
+   request.ctp
+   shop.ctp
+   view.ctp
+  }
+  Tags=Tags{
+   add.ctp
+   edit.ctp
+   index.ctp
+   view.ctp
+  }
+ }
+ tmp=tmp {
+  cache=cache {
+   models=models {
+    empty
+    myapp_cake_model_default_zhuangbeidian_acos
+    myapp_cake_model_default_zhuangbeidian_ad
+    myapp_cake_model_default_zhuangbeidian_aros
+    myapp_cake_model_default_zhuangbeidian_aros_acos
+    myapp_cake_model_default_zhuangbeidian_groups
+    myapp_cake_model_default_zhuangbeidian_item
+    myapp_cake_model_default_zhuangbeidian_item_tag
+    myapp_cake_model_default_zhuangbeidian_list
+    myapp_cake_model_default_zhuangbeidian_tag
+    myapp_cake_model_default_zhuangbeidian_users
+   }
+   persistent=persistent {
+    empty
+    myapp_cake_core_cake_console_
+    myapp_cake_core_cake_dev_zh-cn
+    myapp_cake_core_cake_zh-cn
+    myapp_cake_core_default_zh-cn
+    myapp_cake_core_file_map
+    myapp_cake_core_method_cache
+    myapp_cake_core_object_map
+   }
+   views=views {
+   }
+  }
+  logs=logs {
+   debug.log
+   empty
+   error.log
+  }
+  sessions=sessions {
+   empty
+  }
+  tests=tests {
+   empty
+  }
+ }
+ webroot=webroot {
+  favicon.ico
+  index.php
+  test.php
+  xtaoAuth.txt
+  css=css {
+   cake.generic.css
+   layout.css
+  }
+  files=files {
+   empty
+  }
+  img=img {
+   cake.icon.png
+   cake.power.gif
+   test-error-icon.png
+   test-fail-icon.png
+   test-pass-icon.png
+   test-skip-icon.png
+  }
+  js=js {
+   empty
+  }
+ }
+}
