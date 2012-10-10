@@ -10,7 +10,7 @@ class SpiderController extends AppController
     //public $helper = array('Html');
 	public $components = array('Taobao');
 
-    public $uses = array('Item', 'Tag');
+    public $uses = array('Item', 'Tag', 'Shop');
     
     private $tags = array();
     private $game = array();
@@ -49,8 +49,9 @@ class SpiderController extends AppController
             $this->Item->create();
 			try{
             	if($this->Item->save($item)){
+                    $this->redirect(array('action'=>'js_getother', $this->Item->id, $num_iid, $nick));
 					//保存成功后直接添加tag标记
-					$this->redirect(array('controller'=>'tagitem', 'action' => 'add', $this->Item->id));
+					//$this->redirect(array('controller'=>'tagitem', 'action' => 'add', $this->Item->id));
 	            }else{
 	                debug($this->Item->validationErrors);
 	                exit;
@@ -75,7 +76,6 @@ class SpiderController extends AppController
             //var_export($item, $shop);exit;
         }
     }
-
 
     private function prepareItem($item)
     {
@@ -106,10 +106,32 @@ class SpiderController extends AppController
     }
     
 
-    public function shop( $nick )
+    public function js_getother( $numiid, $nick ) {}
+
+    public function shop()
     {
-        //$nick = $this->request->nick;
-        $this->set('nick', $nick);
+        if (!$this->request->is('post')){
+            exit('0');
+        } 
+    /*
+     * {"taobaoke_shops":{"taobaoke_shop":[{"auction_count":"301","click_url":"http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB04MQzdgG69RGcaJPb63yl1mhTdjPgsro5sLEzTdlUjmtJ3pgL%2B551VN4LnW4B7LFeB2egIham6k%2FHBiJHdmWpw%2B87SCRbN0wVXDXsdIpbAaVkL2zT0aAbtrGAV3XPyDdPkMrjawy4%3D&pid=mm_17531361_0_0","commission_rate":"5.38","seller_credit":"11","seller_nick":"清若彤","shop_id":11436017,"shop_title":"miss2蜜s兔-淘宝服饰频道官方合作店铺","shop_type":"C","total_auction":"3895","user_id":20737888}]}}
+     */
+        if(!isset($this->request->taobaoke_shops,$this->request->taobaoke_shops['taobaoke_shop'])){
+            exit('0');
+        }
+        $shop = $this->request->taobaoke_shops['taobaoke_shop'][0];
+        $this->Shop->create();
+        if($this->Shop->save(array('Shop'=>$shop))){
+            exit('1');
+        }
+        exit('0');
+    }
+
+    public function item()
+    {
+        if (!$this->request->is('post')){
+            exit('0');
+        } 
     }
     
     private function translate($tagid)

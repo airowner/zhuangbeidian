@@ -2236,6 +2236,7 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
   ad=ad {
   }
   Spider=Spider{
+   js_getother.ctp
    add.ctp
    edit.ctp
    index.ctp
@@ -2312,6 +2313,7 @@ zbd=~/Sites/zhuangbeidian CD=. filter="*" {
   }
   js=js {
    empty
+   taobao.js
   }
  }
 }

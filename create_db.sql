@@ -127,6 +127,22 @@ CREATE TABLE `item`
     KEY `seller_credit_score` (`seller_credit_score`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+DROP TABLE IF EXISTS `item_ext`;
+CREATE TABLE `item_ext`
+(
+    `id` int(11) unsigned not null,
+    `num_iid` bigint unsigned not null comment 'taobao详情页 item.htm 对应id item.htm?id=xxx',
+    `commisson` decimal(2) not null default 0 comment '淘宝客佣金',
+    `commisson_volume` decimal(2) not null default 0 comment '累计总支出佣金量',
+    `commisson_rate` int(11) not null default 0 comment '淘宝客佣金率',
+    `commisson_num` int(11) not null default 0 comment '累计成交量.注：返回的数据是30天内累计推广量',
+    `coupon_price` decimal(2) not null default 0 comment '折扣价格',
+    `coupon_rate` decimal(2) not null default 0 comment '折扣比率',
+    `coupon_start_time` int(11) not null default 0 comment '折扣活动开始时间',
+    `coupon_end_time` int(11) not null default 0 comment '折扣活动结束时间',
+    `volume` int(11) unsigned not null default 0 comment '30天内交易量',
+) ENGINE=innodb DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `shop`;
 CREATE TABLE `shop`
