@@ -101,7 +101,9 @@ class TaobaoComponent extends Component
 			include(WWW_ROOT . '../Lib/top/request/TaobaokeItemsDetailGetRequest.php');
             $request = new TaobaokeItemsDetailGetRequest();	
 //            $request->setFields("click_url,shop_click_url,seller_credit_score,detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
-            $request->setFields("num_iid,title,click_url,shop_click_url,seller_credit,pic_url,item_imgs,num,track_iid,cid,list_time,delist_time,modified,price,nick,desc,volume,prop_img,props,props_name,property_alias,auction_point,approve_status,detail_url,ems_fee,express_fee,post_fee,freight_payer,has_discount,has_invoice,has_warranty,has_showcase,is_virtual,stuff_status,seller_cids,input_pids,input_str,type,valid_thru,postage_id,outer_id,skus");
+//,increment,product_id,seller_credit_score,location => diff with below
+            $request->setFields("num_iid,title,click_url,shop_click_url,seller_credit,pic_url,item_imgs,num,track_iid,cid,list_time,delist_time,modified,price,nick,desc,volume,prop_img,props,props_name,property_alias,auction_point,approve_status,detail_url,ems_fee,express_fee,post_fee,freight_payer,has_discount,has_invoice,has_warranty,has_showcase,is_virtual,stuff_status,seller_cids,input_pids,input_str,type,valid_thru,postage_id,outer_id,skus,increment,product_id,seller_credit_score,location");
+//item_imgs,,track_iid,volume,props_name,skus
 		}
         if(is_array($num_iids)){
             $num_iids = implode(',', $num_iids);
@@ -114,6 +116,7 @@ class TaobaoComponent extends Component
 			$this->Session->setFlash('抓取失败!');
 			$this->redirct(array('controller' => 'spider', 'action'=>'request'));
 		}
+        var_dump($result);exit;
         return $result;
 	}
 
