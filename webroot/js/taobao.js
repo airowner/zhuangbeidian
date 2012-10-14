@@ -12,6 +12,7 @@ TB.basecallback = function(resp)
 
 TB.basefetch = function(http_method, data, callback)
 {
+	if(!TB.inited) TB.init();
     http_method = http_method || 'get';
     var request = {
         //method: data.method,
@@ -31,6 +32,16 @@ TB.get = function(data, callback)
 TB.post = function(data, callback)
 {
     TB.basefetch('post', data, callback);
+}
+
+TB.inited = false;
+TB.init = function()
+{
+	TOP.init({
+	    appKey: 21181372,
+	    channelUrl: '/channel.html'
+	});
+	TB.inited = true;
 }
 
 TB.getShop = function(seller_nick, callback)

@@ -11,13 +11,17 @@ var itemid = '<?php echo $itemid; ?>';
 var nick = '<?php echo $nick; ?>';
 TB.getShop(nick, function(resp){
     $.post('/Spider/shop', resp, function(result){
+		alert('shop');
+		alert(JSON.stringify(resp));
         getshop = result;
     });
 });
 
 var num_iid = '<?php echo $num_iid; ?>';
-TB.getItem(num_iid, function(resp){
+TB.getItems(num_iid, function(resp){
     $.post('/Spider/item', resp, function(result){
+		alert('item');
+		alert(JSON.stringify(resp));
         getitem = result;
     });
 });
@@ -25,6 +29,7 @@ TB.getItem(num_iid, function(resp){
 var t = 0;
 function check(){
     if(getshop && getitem){
+		return;
         window.location = '/tagitem/add/' + itemid;
     }else{
         if( t > 30000 ){

@@ -320,16 +320,16 @@ class Item extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'seller_cids' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+		// 'seller_cids' => array(
+		// 			'notempty' => array(
+		// 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+			// ),
+			// 	),
 		//'input_pids' => array(
 		//	'notempty' => array(
 		//		'rule' => array('notempty'),

@@ -63,8 +63,8 @@ class AppController extends Controller {
         $timestamp=time()."000";
         $message = $secret.'app_key'.$app_key.'timestamp'.$timestamp.$secret;
         $mysign=strtoupper(hash_hmac("md5",$message,$secret));
-        setcookie("timestamp",$timestamp);
-        setcookie("sign",$mysign);
+        setcookie("timestamp",$timestamp, time() + 300, '/', 'zhuangbeidian.com');
+        setcookie("sign",$mysign, time() + 300, '/', 'zhuangbeidian.com');
     }
 
 }
