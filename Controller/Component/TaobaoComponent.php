@@ -271,6 +271,35 @@ class TaobaoComponent extends Component
 		return self::request($request, 'shop');
 	}
 
+    //搜索打折信息
+    public function SearchCoupon($keyword, $page, $pagecount=100)
+    {
+	    static $request = null;
+	    if(!$request){
+	        include(WWW_ROOT . '../Lib/top/request/TaobaokeItemsCouponGetRequest.php');
+	        $request = new TaobaokeItemsCouponGetRequest();
+            $request->setFields('num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume,coupon_price,coupon_rate,coupon_start_time,coupon_end_time,shop_type');
+        }
+        $request->setKeyword($keyword);
+        $request->setPageNo($page);
+        $request->setPageSize($pagecount);
+		return self::request($request);
+    }
+
+    public function Search($keyword, $page, $pagecount=100)
+    {
+	    static $request = null;
+	    if(!$request){
+	        include(WWW_ROOT . '../Lib/top/request/TaobaokeItemsGetRequest.php');
+	        $request = new TaobaokeItemsGetRequest();
+            $request->setFields('num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume,coupon_price,coupon_rate,coupon_start_time,coupon_end_time,shop_type');
+        }
+        $request->setKeyword($keyword);
+        $request->setPageNo($page);
+        $request->setPageSize($pagecount);
+		return self::request($request);
+    }
+
 	private static function ins($widget=false)
 	{
 		static $client = null;

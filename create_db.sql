@@ -123,9 +123,12 @@ CREATE TABLE `item`
     `skus` text not null default '' comment '类似套餐的商品选择',
     PRIMARY KEY `id` (`id`),
     UNIQUE KEY `num_iid` (`num_iid`),
-    UNIQUE KEY `track_iid` (`track_iid`),
     KEY `seller_credit_score` (`seller_credit_score`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+/*
+{"taobaoke_items":{"taobaoke_item":[{"click_url":"http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB07S4%2FK0CFcRfH0G7DbPkiN9MMPecybwDdQGyQGNWpa%2FrqL810trhFZxYWgEd6cOg%2FnidoGpioMeUCXAD9J2kZ4FKD3nSisZO6nYxiwLZgtlwp1esdL9CUSQKB%2BvLatQDG2j0DfaAUKzPD%2BGJDlkOXO9%2FkBzpP7AVY6chwCRfsY5kpSB5Qw08Mv&spm=2014.21181372.1.0","commission":"36.00","commission_num":"233","commission_rate":"1250.00","commission_volume":"3373.92","item_location":"广东 中山","nick":"gainreel内衣旗舰店","num_iid":12427061690,"pic_url":"http://img01.taobaocdn.com/bao/uploaded/i1/T18QbOXgJeXXbRAd70_034715.jpg","price":"288.00","seller_credit_score":18,"shop_click_url":"http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB04MQzdgG3VSuWRIvnJbEpKV5PVD2lUYrHAPqQnJnJMUFuskL3QoyiFpXf6o%2F7vmancvd0ORLyZG8r3C93ddF3m6xV54JsfFCHJDoTEpcKx82ABn6xsv2mYoAlb83N02UjzWIPRnTSKPPwJGUnVF5uFWlwRhDsddURFsg%3D%3D&spm=2014.21181372.1.0","title":"歌瑞尔正品时尚芭蕾黑天鹅收副乳调整型深V性感蕾丝聚拢内衣文胸","volume":957}]},"total_results":1}
+*/
 
 DROP TABLE IF EXISTS `item_ext`;
 CREATE TABLE `item_ext`
@@ -141,6 +144,9 @@ CREATE TABLE `item_ext`
     `coupon_start_time` int(11) not null default 0 comment '折扣活动开始时间',
     `coupon_end_time` int(11) not null default 0 comment '折扣活动结束时间',
     `volume` int(11) unsigned not null default 0 comment '30天内交易量',
+    PRIMARY KEY `id` (`id`),
+    UNIQUE KEY `num_iid` (`num_iid`),
+    KEY `volume` (`volume`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8;
 
 
@@ -148,7 +154,7 @@ DROP TABLE IF EXISTS `shop`;
 CREATE TABLE `shop`
 (
     `id` int(11) unsigned not null auto_increment,
-    `shop_id` int(11) unsigned not null,
+    `shop_id` int(11) unsigned not null default 0 comment 'maybe not exists',
     `seller_nick` varchar(255) not null,
 	`user_id` int unsigned not null comment 'taobao user_id',
     `shop_title` varchar(255) not null comment 'taobao shop_title',
