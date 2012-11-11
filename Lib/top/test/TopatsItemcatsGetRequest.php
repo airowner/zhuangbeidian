@@ -1,6 +1,11 @@
 <?php
 require "../RequestCheckUtil.php";
 require "../TopClient.php";
+class CakeLog
+{
+	public function __call($name, $params){}
+	public function __callStatic($name, $params){}
+}
 /**
  * TOP API: taobao.topats.itemcats.get request
  * 
@@ -77,7 +82,7 @@ class TopatsItemcatsGetRequest
 	}
 }
 $request = new TopatsItemcatsGetRequest();
-$request->setCids('50011699');
+$request->setCids('289');
 //$request->setSellerType('B'); //or C 卖家类型
 $request->setOutputFormat("json");
 $tc = new TopClient();

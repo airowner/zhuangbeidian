@@ -155,18 +155,25 @@ class SpiderController extends AppController
 
     public function search()
     {
-        $keyword = trim($this->request->data['keyword']);
-        $sort = $this->request->data['sort'];
-        $page_no = intval($this->request->data['page_no']);
-        $page_no = $page_no ? $page_no : 1;
-        $page_size = intval($this->request->data['page_size']);
-        $page_size = $page_size ? $page_size : 100;
+    	$cids = $this->Taobao->AllCids();
+    	var_dump($cids);exit;
+    	$cids = $this->Taobao->TaobaoCids();
+    	var_dump($cids);exit;
+    	if($this->request->is('post')){
+			$keyword = trim($this->request->data['keyword']);
+			$sort = $this->request->data['sort'];
+			$page_no = intval($this->request->data['page_no']);
+			$page_no = $page_no ? $page_no : 1;
+			$page_size = intval($this->request->data['page_size']);
+			$page_size = $page_size ? $page_size : 100;
 
-        $items = $this->Taobao->Search($keyword, $sort, $page_no, $page_size);
-        $total = $items->total_result;
-        $total_page = ceil($total/$page_size)
+			$items = $this->Taobao->Search($keyword, $sort, $page_no, $page_size);
+			var_dump($items);exit;
+			$total = $items->total_result;
+			$total_page = ceil($total/$page_size);
 
-        $this->set(compact('keyword', 'sort', 'page_no', 'page_size', 'total_page'));
+			$this->set(compact('keyword', 'sort', 'page_no', 'page_size', 'total_page'));
+        }
     }
 
 

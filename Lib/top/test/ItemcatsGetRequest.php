@@ -1,6 +1,11 @@
 <?php
 require "../RequestCheckUtil.php";
 require "../TopClient.php";
+class CakeLog
+{
+	public function __call($name, $params){}
+	public function __callStatic($name, $params){}
+}
 /**
  * TOP API: taobao.itemcats.get request
  * 
