@@ -155,6 +155,26 @@ class SpiderController extends AppController
 
     public function search()
     {
+    	$stime = microtime(true);
+    	$keyword = "穿越火线";
+    	//price_desc(价格从高到低) 
+    	//price_asc(价格从低到高) 
+    	//credit_desc(信用等级从高到低) 
+    	//commissionRate_desc(佣金比率从高到低) 
+    	//commissionRate_asc(佣金比率从低到高) 
+    	//commissionNum_desc(成交量成高到低) 
+    	//commissionNum_asc(成交量从低到高) 
+    	//commissionVolume_desc(总支出佣金从高到低) 
+    	//commissionVolume_asc(总支出佣金从低到高) 
+    	//delistTime_desc(商品下架时间从高到低) 
+    	//delistTime_asc(商品下架时间从低到高)
+    	$sort = "price_desc"; 
+    	$page_no = 1;
+    	$page_size = 20;
+
+		$items = $this->Taobao->Search($keyword, $page_no, $page_size);
+		echo "cost time " . (microtime(true) - $stime) . " seconds\n";
+		var_dump($items);exit;
     	$cids = $this->Taobao->AllCids();
     	var_dump($cids);exit;
     	$cids = $this->Taobao->TaobaoCids();
