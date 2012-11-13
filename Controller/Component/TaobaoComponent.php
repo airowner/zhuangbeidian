@@ -286,6 +286,10 @@ class TaobaoComponent extends Component
 		return self::request($request);
 	}
 
+	/*
+	* taobaoCids 和 Allcids 调用返回没有权限
+	*/
+
 	public function TaobaoCids()
 	{
 		static $request = null;
@@ -310,6 +314,10 @@ class TaobaoComponent extends Component
 		}
 		return self::request($request);
 	}
+
+	/*
+	* end 
+	*/
 
 	public function Search($keyword, $page, $pagecount=100)
 	{

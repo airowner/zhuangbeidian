@@ -155,46 +155,19 @@ class SpiderController extends AppController
 
     public function search()
     {
-    	$stime = microtime(true);
-    	$keyword = "穿越火线";
-    	//price_desc(价格从高到低) 
-    	//price_asc(价格从低到高) 
-    	//credit_desc(信用等级从高到低) 
-    	//commissionRate_desc(佣金比率从高到低) 
-    	//commissionRate_asc(佣金比率从低到高) 
-    	//commissionNum_desc(成交量成高到低) 
-    	//commissionNum_asc(成交量从低到高) 
-    	//commissionVolume_desc(总支出佣金从高到低) 
-    	//commissionVolume_asc(总支出佣金从低到高) 
-    	//delistTime_desc(商品下架时间从高到低) 
-    	//delistTime_asc(商品下架时间从低到高)
-    	$sort = "price_desc"; 
-    	$page_no = 1;
-    	$page_size = 20;
+		$kw = trim($this->request->query['kw']);
+		$page_no = intval($this->request->query['page_no']);
+		$page_no = $page_no ? $page_no : 1;
+		$page_size = intval($this->request->query['page_size']);
+		$page_size = $page_size ? $page_size : 100;
 
-		$items = $this->Taobao->Search($keyword, $page_no, $page_size);
-		echo "cost time " . (microtime(true) - $stime) . " seconds\n";
-		var_dump($items);exit;
-    	$cids = $this->Taobao->AllCids();
-    	var_dump($cids);exit;
-    	$cids = $this->Taobao->TaobaoCids();
-    	var_dump($cids);exit;
-    	if($this->request->is('post')){
-			$keyword = trim($this->request->data['keyword']);
-			$sort = $this->request->data['sort'];
-			$page_no = intval($this->request->data['page_no']);
-			$page_no = $page_no ? $page_no : 1;
-			$page_size = intval($this->request->data['page_size']);
-			$page_size = $page_size ? $page_size : 100;
+		$items = $this->Taobao->Search($kw, $page_no, $page_size);
+		$total = $items->total_results;
+		$total_page = ceil($total/$page_size);
 
-			$items = $this->Taobao->Search($keyword, $sort, $page_no, $page_size);
-			var_dump($items);exit;
-			$total = $items->total_result;
-			$total_page = ceil($total/$page_size);
-
-			$this->set(compact('keyword', 'sort', 'page_no', 'page_size', 'total_page'));
-        }
+		$this->set(compact('kw', 'items', 'page_no', 'page_size', 'total', 'total_page'));
     }
+
 
 
 /**
@@ -202,14 +175,7 @@ class SpiderController extends AppController
  *
  * @return void
  */
-    public function index() {
-        $this->Item->recursive = 0;
-        $result = $this->paginate();
-        foreach($result as &$r){
-            $this->translateItem($r);
-        }
-        $this->set('spiders', $result);
-    }
+    public function index() {}
 
 /**
  * view method

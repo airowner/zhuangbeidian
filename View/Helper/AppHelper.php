@@ -134,4 +134,50 @@ class AppHelper extends Helper {
             </span>
           </span>';
     }
+
+    public function seller_heart($heart)
+    {
+    	switch($heart){
+    		case '1':
+    			return "s_red_1.gif";
+    		case '2':
+    			return "s_red_1.gif";
+    		case '3':
+    			return "s_red_1.gif";
+    		case '4':
+    			return "s_red_1.gif";
+    		case '5':
+    			return "s_red_1.gif";
+    		case '6':
+    			return "s_blue_1.gif";
+    		case '7':
+    			return "s_blue_2.gif";
+    		case '8':
+    			return "s_blue_3.gif";
+    		case '9':
+    			return "s_blue_4.gif";
+    		case '10':
+    			return "s_blue_5.gif";
+    		case '11':
+    			return "s_cap_1.gif";
+    		case '12':
+    			return "s_cap_2.gif";
+    		case '13':
+    			return "s_cap_3.gif";
+    		case '14':
+    			return "s_cap_4.gif";
+    		case '15':
+    			return "s_cap_5.gif";
+    		case '16':
+    			return "s_crown_1.gif";
+    		case '17':
+    			return "s_crown_2.gif";
+    		case '18':
+    			return "s_crown_3.gif";
+    		case '19':
+    			return "s_crown_4.gif";
+    		case '20':
+    			return "s_crown_5.gif";
+    	}
+    }
 }
