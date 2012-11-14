@@ -69,10 +69,33 @@ foreach($items->taobaoke_items->taobaoke_item as $key => $item) :
 <?php endforeach; ?>
 
 <p id="page">
+<?php
+if($page_no != 1){
+?>
+<a href="/spider/search?kw=<?php echo urlencode($kw); ?>&page_no=<?php echo ($page_no - 1); ?>&page_size=<?php echo $page_size;?>" class="n">上一页&gt;</a>
+<?php
+}
+if($page_no < 5){
+	$start = 1;
+	$end = 10;
+}else if($total_page - $page_no < 5){
+	$start = ($total_page - $page_no) > 0 ? 
+	$end = 10;
+}else{
+	$start = $page_no - 4;
+	$end = $page_no + 6;
+}
+if($page_no != $total_page){
+?>
+<a href="/spider/search?kw=<?php echo urlencode($kw); ?>&page_no=<?php echo ($page_no + 1); ?>&page_size=<?php echo $page_size;?>" class="n">下一页&gt;</a>
+<?php
+}
+?>
 <strong><span class="pc">1</span></strong>
 <a href="/s?wd=iphone&pn=10&ie=utf-8&usm=7"><span class="pc">2</span></a>
 <a href="/s?wd=iphone&pn=10&ie=utf-8&usm=7&rsv_page=1" class="n">下一页&gt;</a>
-<span class="nums"  style="margin-left:120px" >百度为您找到相关结果约100,000,000个</span></p>
+<span class="nums"  style="margin-left:120px" >百度为您找到相关结果约<?php echo $total; ?>个</span>
+</p>
 </div>
 	   <div id="search"><form name="f2" action="/spider/search"><input style="width:520px" type="text" name="kw" value="<?php echo $kw?>"><span class="s_btn_wr"><input type="submit" value="百度一下" class="s_btn" onmouseout="this.className='s_btn'" onmousedown="this.className='s_btn s_btn_h'"></span></form></div>
 </div>
