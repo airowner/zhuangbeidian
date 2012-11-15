@@ -21,39 +21,37 @@ class SpiderController extends AppController
     //添加淘宝url
     public function request()
     {
-         if ($this->request->is('post') || $this->request->is('put')) {
-            $url = $this->request->data['Spider']['url'];
-			//~ http://detail.tmall.com/item.htm?spm=a2106.m874.1000384.d11&id=12399021577&source=dou&scm=1029.0.1.1
-			$item = $this->Taobao->TKItemByUrl($url);
-			if(!$item){
-				$this->Session->setFlash('抓取不成功!');
+		$url = $this->request->query['url'];
+		//~ http://detail.tmall.com/item.htm?spm=a2106.m874.1000384.d11&id=12399021577&source=dou&scm=1029.0.1.1
+		$item = $this->Taobao->TKItemByUrl($url);
+		if(!$item){
+			$this->Session->setFlash('抓取不成功!');
+			$this->redirect(array('action'=>'request'));
+		}
+		$item = $this->prepareItem($item);
+		// var_dump($item);exit;
+		$num_iid = $item['num_iid'];
+		$nick = $item['nick'];
+
+		$item = array('Item'=>$item);
+		$this->Item->create();
+		try{
+			if($this->Item->save($item)){
+				$this->redirect(array('action'=>'js_getother', $this->Item->id, $num_iid, $nick));
+				//保存成功后直接添加tag标记
+			}else{
+				debug($this->Item->validationErrors);
+				exit;
+				//$this->Session->setFlash('保存数据不成功!');
+				//$this->redirect(array('action'=>'request'));
+			}
+		}catch(Exception $e){
+			if($e->getCode() == '23000'){
+				$this->Session->setFlash('此商品已经被抓取过!');
 				$this->redirect(array('action'=>'request'));
 			}
-            $item = $this->prepareItem($item);
-			// var_dump($item);exit;
-			$num_iid = $item['num_iid'];
-			$nick = $item['nick'];
-
-            $item = array('Item'=>$item);
-            $this->Item->create();
-			try{
-            	if($this->Item->save($item)){
-                    $this->redirect(array('action'=>'js_getother', $this->Item->id, $num_iid, $nick));
-					//保存成功后直接添加tag标记
-	            }else{
-	                debug($this->Item->validationErrors);
-	                exit;
-					//$this->Session->setFlash('保存数据不成功!');
-					//$this->redirect(array('action'=>'request'));
-	            }
-			}catch(Exception $e){
-				if($e->getCode() == '23000'){
-					$this->Session->setFlash('此商品已经被抓取过!');
-					$this->redirect(array('action'=>'request'));
-				}
-				var_dump($e);exit;
-			}
-        }
+			var_dump($e);exit;
+		}
     }
 
     private function prepareItem($item)
@@ -156,6 +154,9 @@ class SpiderController extends AppController
     public function search()
     {
 		$kw = trim($this->request->query['kw']);
+		if(!$kw){
+			$this->redirect('/spider', 200, true);
+		}
 		$page_no = intval($this->request->query['page_no']);
 		$page_no = $page_no ? $page_no : 1;
 		$page_size = intval($this->request->query['page_size']);
