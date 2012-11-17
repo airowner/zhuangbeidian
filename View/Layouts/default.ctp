@@ -51,7 +51,7 @@ $cakeDescription = __d('cake_dev', '管理后台');
 			<?php if(!($this->request->params['controller']=='users' && $this->request->params['action']=='login')): ?>
 			<div class="actions">
 				<ul>
-					<li><a href="/spider/request">抓取商品</a> </li>
+					<li><a href="/spider">抓取商品</a> </li>
 					<li><a href="/tags">标签管理</a> </li>
 					<li><a href="/tagitem">商品标签关联</a> </li>
 					<li><a href="/ads">广告管理</a> </li>
