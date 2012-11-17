@@ -157,10 +157,8 @@ class SpiderController extends AppController
 		if(!$kw){
 			$this->redirect('/spider', 200, true);
 		}
-		$page_no = intval($this->request->query['page_no']);
-		$page_no = $page_no ? $page_no : 1;
-		$page_size = intval($this->request->query['page_size']);
-		$page_size = $page_size ? $page_size : 100;
+		$page_no = isset($this->request->query['page_no']) && intval($this->request->query['page_no'])  ? intval($this->request->query['page_no']) : 1;
+		$page_size = isset($this->request->query['page_size']) && intval($this->request->query['page_size'])  ? intval($this->request->query['page_size']) : 100;
 
 		$items = $this->Taobao->Search($kw, $page_no, $page_size);
 		$total = $items->total_results;

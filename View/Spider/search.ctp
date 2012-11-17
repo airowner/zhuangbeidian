@@ -9,6 +9,7 @@
 
 <?php 
 $i = 0;
+if($total) :
 foreach($items->taobaoke_items->taobaoke_item as $key => $item) : 
 ?>
 <table cellpadding="0" cellspacing="0" class="result<?php if($i) echo "-op"; ?>" id="<?php echo $key; ?>"><tr>
@@ -66,7 +67,10 @@ foreach($items->taobaoke_items->taobaoke_item as $key => $item) :
 </font>
 </td></tr></table>
 <br>
-<?php endforeach; ?>
+<?php 
+endforeach;
+endif;
+?>
 
 <p id="page">
 <?php
