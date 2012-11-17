@@ -2,9 +2,61 @@
 <div class="index">
 <div id="head"> <div class="s_nav"> <img src="/images/baidu_jgylogo3.gif" width="117" height="38" border="0" alt="到百度首页" title="到百度首页"></div>
 
-<form name="f" action="/spider/search" class="fm"><input  style="width:520px" type="text" name="kw" value="<?php echo $kw; ?>"><span class="s_btn_wr"><input type="submit" id="su" value="百度一下" class="s_btn" onmousedown="this.className='s_btn s_btn_h'" onmouseout="this.className='s_btn'"></span></form>
+<form name="f" action="/spider/search" class="fm">
+<input  style="width:520px" type="text" name="kw" value="<?php echo $kw; ?>">
+<span class="s_btn_wr"><input type="submit" id="su" value="百度一下" class="s_btn" onmousedown="this.className='s_btn s_btn_h'" onmouseout="this.className='s_btn'"></span>
+</form>
 
 </div><br>
+
+<div id="extend">
+<select name="start_credit">
+	<option value="1">一心</option>
+	<option value="2">两心</option>
+	<option value="3">三心</option>
+	<option value="4">四心</option>
+	<option value="5">五心</option>
+	<option value="6">一钻</option>
+	<option value="7">两钻</option>
+	<option value="8">三钻</option>
+	<option value="9">四钻</option>
+	<option value="10">五钻</option>
+	<option value="11">一冠</option>
+	<option value="12">两冠</option>
+	<option value="13">三冠</option>
+	<option value="14">四冠</option>
+	<option value="15">五冠</option>
+	<option value="16">一皇冠</option>
+	<option value="17">两皇冠</option>
+	<option value="18">三皇冠</option>
+	<option value="19">四皇冠</option>
+	<option value="20">五皇冠</option>
+</select>
+&nbsp;-&nbsp;
+<select name="end_credit">
+	<option value="1">一心</option>
+	<option value="2">两心</option>
+	<option value="3">三心</option>
+	<option value="4">四心</option>
+	<option value="5">五心</option>
+	<option value="6">一钻</option>
+	<option value="7">两钻</option>
+	<option value="8">三钻</option>
+	<option value="9">四钻</option>
+	<option value="10">五钻</option>
+	<option value="11">一冠</option>
+	<option value="12">两冠</option>
+	<option value="13">三冠</option>
+	<option value="14">四冠</option>
+	<option value="15">五冠</option>
+	<option value="16">一皇冠</option>
+	<option value="17">两皇冠</option>
+	<option value="18">三皇冠</option>
+	<option value="19">四皇冠</option>
+	<option value="20">五皇冠</option>
+</select>
+</div>
+
 <div id="container">
 
 <?php 
