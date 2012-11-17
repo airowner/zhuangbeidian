@@ -79,11 +79,11 @@ CREATE TABLE `item`
 (
     `id` int(11) unsigned not null auto_increment,
     `num_iid` bigint unsigned not null comment 'taobao详情页 item.htm 对应id item.htm?id=xxx',
-	`title` varchar(255) not null comment '商品名称',
-	`click_url` text not null comment '转换后的淘宝链接url',
-	`shop_click_url` text not null comment '店铺url',
-	`seller_credit_score` tinyint unsigned not null comment '卖家信用等级',
-	`pic_url` varchar(255) not null comment '商品图片url',
+    `title` varchar(255) not null comment '商品名称',
+    `click_url` text not null comment '转换后的淘宝链接url',
+    `shop_click_url` text not null comment '店铺url',
+    `seller_credit_score` tinyint unsigned not null comment '卖家信用等级',
+    `pic_url` varchar(255) not null comment '商品图片url',
     `item_imgs` text not null comment '需要序列化，为多个宝贝的图片',
     `num` int(11) unsigned not null comment '商品数量',
     `track_iid` varchar(255) not null default '',
@@ -97,9 +97,9 @@ CREATE TABLE `item`
     `state` varchar(255) not null comment '省份',
     `desc` text not null comment '宝贝描述',
     `volume` int(11) unsigned not null comment '对应搜索商品列表页的最近成交量',
-	`prop_img` text not null default '' comment '宝贝详情属性多图',
-	`props` text not null default '' comment '宝贝详情属性部分',
-	`property_alias` text not null default '' comment '属性值别名,比如颜色的自定义名称',
+    `prop_img` text not null default '' comment '宝贝详情属性多图',
+    `props` text not null default '' comment '宝贝详情属性部分',
+    `property_alias` text not null default '' comment '属性值别名,比如颜色的自定义名称',
     `auction_point` tinyint(3) unsigned not null comment '商城返点比例，为5的倍数，最低0.5%',
     `approve_status` varchar(255) not null comment '商品上传后的状态。onsale出售中，instock库中',
     `detail_url` varchar(255) not null comment '商品taobao地址',
@@ -121,6 +121,7 @@ CREATE TABLE `item`
     `postage_id` int(11) unsigned not null comment '宝贝所属的运费模板ID',
     `outer_id` varchar(255) not null default '商家外部编码(可与商家外部系统对接)',
     `skus` text not null default '' comment '类似套餐的商品选择',
+    `update_time` datetime not null,
     PRIMARY KEY `id` (`id`),
     UNIQUE KEY `num_iid` (`num_iid`),
     KEY `seller_credit_score` (`seller_credit_score`)
@@ -133,7 +134,7 @@ CREATE TABLE `item`
 DROP TABLE IF EXISTS `item_ext`;
 CREATE TABLE `item_ext`
 (
-    `id` int(11) unsigned not null,
+    `id` int(11) unsigned not null auto_increment,
     `num_iid` bigint unsigned not null comment 'taobao详情页 item.htm 对应id item.htm?id=xxx',
     `commisson` decimal(2) not null default 0 comment '淘宝客佣金',
     `commisson_volume` decimal(2) not null default 0 comment '累计总支出佣金量',
@@ -144,10 +145,11 @@ CREATE TABLE `item_ext`
     `coupon_start_time` int(11) not null default 0 comment '折扣活动开始时间',
     `coupon_end_time` int(11) not null default 0 comment '折扣活动结束时间',
     `volume` int(11) unsigned not null default 0 comment '30天内交易量',
+    `update_time` datetime not null,
     PRIMARY KEY `id` (`id`),
     UNIQUE KEY `num_iid` (`num_iid`),
     KEY `volume` (`volume`)
-) ENGINE=innodb DEFAULT CHARSET=utf8;
+) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
 DROP TABLE IF EXISTS `shop`;

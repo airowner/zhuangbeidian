@@ -15,7 +15,9 @@ TB.getShop(nick, function(resp){
     $.post('/Spider/shop', resp, function(result){
 		//alert('shop');
 		//alert(JSON.stringify(resp));
+		if(result == '1'){
         getshop = result;
+	}
     });
 });
 
@@ -24,7 +26,9 @@ TB.getItems(num_iid, function(resp){
     $.post('/Spider/item', resp, function(result){
 		//alert('item');
 		//alert(JSON.stringify(resp));
+	if(result == '1'){
         getitem = result;
+	}
     });
 });
 
@@ -34,9 +38,9 @@ function check(){
         window.location = '/tagItem/add/' + itemid;
     }else{
         if( t > 30000 ){
-            if(getshop === false){
+            if(getshop !== '1'){
                 $('#result').html('商店信息获取出错!');
-            }else if(getitem === false){
+            }else if(getitem !== '1'){
                 $('#result').html('商品信息获取出错!');
             }else{
                 $('#result').html('信息保存出错!');

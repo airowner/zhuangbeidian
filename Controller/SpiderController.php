@@ -1,6 +1,7 @@
 <?php
 
 App::uses('AppController', 'Controller');
+App::uses('Sanitize', 'Utility');
 
 class SpiderController extends AppController 
 {
@@ -8,7 +9,7 @@ class SpiderController extends AppController
 
     public $name = 'Spider';
     //public $helper = array('Html');
-	public $components = array('Taobao');
+	public $components = array('Taobao', 'Curl');
 
     public $uses = array('Item', 'Tag', 'Shop', 'ItemExt');
     
@@ -17,16 +18,19 @@ class SpiderController extends AppController
         parent::beforeFilter();
         $this->Auth->allow('*');
     }
+
+    public function request_error(){}
     
     //添加淘宝url
-    public function request()
+    public function request($num_iid)
     {
-	    $url = $this->request->data['Spider']['dst'];
+	    $url = 'http://item.taobao.com/item.htm?id=' . $num_iid;
+
 	    //~ http://detail.tmall.com/item.htm?spm=a2106.m874.1000384.d11&id=12399021577&source=dou&scm=1029.0.1.1
 	    $item = $this->Taobao->TKItemByUrl($url);
 	    if(!$item){
 		    $this->Session->setFlash('抓取不成功!');
-		    $this->redirect(array('action'=>'request'));
+		    $this->redirect(array('action'=>'request_error'));
 	    }
 	    $item = $this->prepareItem($item);
 	    // var_dump($item);exit;
@@ -34,23 +38,19 @@ class SpiderController extends AppController
 	    $nick = $item['nick'];
 
 	    $item = array('Item'=>$item);
+
+	    $old_item = $this->Item->findByNumIid($num_iid);
 	    $this->Item->create();
+	    if($old_item){
+	    	$this->Item->id = $old_item['Item']['id'];
+	    }
 	    try{
-		    if($this->Item->save($item)){
-			    $this->redirect(array('action'=>'js_getother', $this->Item->id, $num_iid, $nick));
-			    //保存成功后直接添加tag标记
-		    }else{
-			    debug($this->Item->validationErrors);
-			    exit;
-			    //$this->Session->setFlash('保存数据不成功!');
-			    //$this->redirect(array('action'=>'request'));
-		    }
+		$this->Item->save(array('Item'=>$item));
+		$this->redirect(array('action'=>'js_getother', $this->Item->id, $num_iid, $nick));
 	    }catch(Exception $e){
-		    if($e->getCode() == '23000'){
-			    $this->Session->setFlash('此商品已经被抓取过!');
-			    $this->redirect(array('action'=>'request'));
-		    }
-		    var_dump($e);exit;
+	        CakeLog::error($e->getMessage());
+		    $this->Session->setFlash('保存不成功!');
+		    $this->redirect(array('action'=>'request_error'));
 	    }
     }
 
@@ -79,6 +79,7 @@ class SpiderController extends AppController
                 $return_item[$key] = $value;
             }
         }
+	$return_item['updatetime'] = date('Y-m-d H:i:s');
         return $return_item;
     }
     
@@ -108,17 +109,17 @@ class SpiderController extends AppController
             $shop['shop_type'] = 1;
         }
         $old_shop = $this->Shop->findByUserId($shop['user_id']);
-        if(!$old_shop){
-            $this->Shop->create();
-        }else{
+        $this->Shop->create();
+        if($old_shop){
             $this->Shop->id = $old_shop['Shop']['id'];
         }
-        if($this->Shop->save(array('Shop'=>$shop))){
+	$shop['updatetime'] = date('Y-m-d H:i:s');
+        try{
+	    $this->Shop->save(array('Shop'=>$shop));
             exit('1');
-        }else{
-            debug($this->Shop->validationErrors);
-            CakeLog::info(__METHOD__ . " name save error");
-		}
+        }catch(Exception $e){
+            CakeLog::error($e->getMessage());
+	}
         exit('0');
     }
 
@@ -137,17 +138,17 @@ class SpiderController extends AppController
         }
         $item_ext = $this->request->data['taobaoke_items']['taobaoke_item'][0];
         $old_item_ext = $this->ItemExt->findByNumIid($item_ext['num_iid']);
-        if(!$old_item_ext){
-            $this->ItemExt->create();
-        }else{
+        $this->ItemExt->create();
+        if($old_item_ext){
             $this->ItemExt->id = $old_item_ext['ItemExt']['id'];
         }
-        if($this->ItemExt->save(array('ItemExt'=>$item_ext))){
+	$item_ext['updatetime'] = date('Y-m-d H:i:s');
+	try{
+            $this->ItemExt->save(array('ItemExt'=>$item_ext));
             exit('1');
-        }else{
-            debug($this->ItemExt->validationErrors);
-            CakeLog::info(__METHOD__ . " name save error");
-		}
+        }catch(Exception $e){
+            CakeLog::error($e->getMessage());
+	}
         exit('0');
     }
 
@@ -219,12 +220,6 @@ class SpiderController extends AppController
  * @return void
  */
     public function index() {}
-
-    public function display() {
-    	$this->layout = '';
-	$dst = $this->request->query['dst'];
-	$this->set(compact('dst'));
-    }
 
 /**
  * view method

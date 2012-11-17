@@ -161,11 +161,9 @@ foreach($items->taobaoke_items->taobaoke_item as $key => $item) :
 			</tr>
 		</tbody></table> 
 	</div>
-	<?php /*
 	<div class="op_foreignu_links">  
-		<span><a target="_blank" href="/Spider/display?dst=<?php echo urlencode($item->click_url); ?>" click="add_numiid(<?php echo $item->num_iid;?>);"><font color="red">添加到后台</font></a></span>
+		<span><a target="_blank" href="/Spider/request/<?php echo $item->num_iid; ?>"><font color="red">收录到后台</font></a></span>
 	</div>
-	*/ ?>
 	</td> </tr> </tbody></table></div>
 </font>
 </td></tr></table>
