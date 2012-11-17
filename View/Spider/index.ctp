@@ -4,7 +4,7 @@
 
 <div id="m"><p id="lg"><img src="/images/baidu_sylogo1.gif" width="270" height="129" ></p>
 <p id="nv"><a href="http://news.baidu.com">新&nbsp;闻</a>　<b>网&nbsp;页</b>　<a href="http://tieba.baidu.com">贴&nbsp;吧</a>　<a href="http://zhidao.baidu.com">知&nbsp;道</a>　<a href="http://music.baidu.com">音&nbsp;乐</a>　<a href="http://image.baidu.com">图&nbsp;片</a>　<a href="http://video.baidu.com">视&nbsp;频</a>　<a href="http://map.baidu.com">地&nbsp;图</a></p><div id="fm">
-<form onsubmit="return check();" name="f" action="/Spider/search"><span class="s_ipt_wr"><input type="text" name="kw" id="kw" maxlength="100" class="s_ipt"></span><input type="hidden" name="page_no" value="1"><input type="hidden" name="page_size" value="100"><span class="s_btn_wr"><input type="submit" value="百度一下" id="su" class="s_btn" onmousedown="this.className='s_btn s_btn_h'" onmouseout="this.className='s_btn'"></span></form>
+<form onsubmit="return check();" name="f" method="post" action="/Spider/search"><span class="s_ipt_wr"><input type="text" name="kw" id="kw" maxlength="100" class="s_ipt"></span><input type="hidden" name="page_no" value="1"><input type="hidden" name="page_size" value="40"><span class="s_btn_wr"><input type="submit" value="百度一下" id="su" class="s_btn" onmousedown="this.className='s_btn s_btn_h'" onmouseout="this.className='s_btn'"></span></form>
 </div></div></div>
 
 <script>

@@ -153,18 +153,62 @@ class SpiderController extends AppController
 
     public function search()
     {
-		$kw = trim($this->request->query['kw']);
+		$query = $_POST;
+		$kw = isset($query['kw']) ? trim($query['kw']) : '';
 		if(!$kw){
 			$this->redirect('/spider', 200, true);
 		}
-		$page_no = isset($this->request->query['page_no']) && intval($this->request->query['page_no'])  ? intval($this->request->query['page_no']) : 1;
-		$page_size = isset($this->request->query['page_size']) && ($p = intval($this->request->query['page_size']) && $p <= 40 && $p > 0)  ? $p : 40;
 
-		$items = $this->Taobao->Search($kw, $page_no, $page_size);
+		$page_no = isset($query['page_no']) && intval($query['page_no'])  ? intval($query['page_no']) : 1;
+		$page_size = isset($query['page_size']) ? intval($query['page_size']) : 40;
+		if($page_size > 40 || $page_size <= 0){
+			$page_size = 40;
+		}
+		
+		$start_credit = isset($query['start_credit']) ? intval($query['start_credit']) : 0;
+		$end_credit = isset($query['end_credit']) ? intval($query['end_credit']) : 0;
+		$start_price = isset($query['start_price']) ? intval($query['start_price']) : 0;
+		$end_price = isset($query['end_price']) ? intval($query['end_price']) : 0;
+		$start_commissionRate = isset($query['start_commissionRate']) ? intval($query['start_commissionRate']) : 0;
+		$end_commissionRate = isset($query['end_commissionRate']) ? intval($query['end_commissionRate']) : 0;
+
+		$sort_enum = array(
+		    'price_desc' => 1,
+		    'price_asc' => 1,
+		    'credit_desc' => 1,
+		    'credit_asc' => 1,
+		    'commissionRate_desc' => 1,
+		    'commissionRate_asc' => 1,
+		    'commissionNum_desc' => 1,
+		    'commissionNum_asc' => 1,
+		    'commissionVolume_desc' => 1,
+		    'commissionVolume_asc' => 1,
+		    'delistTime_desc' => 1,
+		    'delistTime_asc' => 1,
+	        );
+		$credits = array(
+			'', 
+			'1heart', '2heart', '3heart', '4heart', '5heart',
+			'1diamond', '2diamond', '3diamond', '4diamond', '5diamond',
+			'1crown', '2crown', '3crown', '4crown', '5crown',
+			'1goldencrown', '2goldencrown', '3goldencrown', '4goldencrown', '5goldencrown',
+		);
+		$sort = isset($query['sort']) && isset($sort_enum[$query['sort']]) ? $query['sort'] : 'default';
+
+		$options['sort'] = $sort;
+		if($start_credit){ $options['startCredit'] = $credits[$start_credit]; }
+		if($end_credit)  { $options['endCredit'] = $credits[$end_credit]; }
+		if($start_price){ $options['startPrice'] = $start_price; }
+		if($end_price){ $options['endPrice'] = $end_price; }
+		if($start_commissionRate){ $options['startCommissionRate'] = $start_commissionRate; }
+		if($end_commissionRate){ $options['endCommissionRate'] = $end_commissionRate; }
+
+
+		$items = $this->Taobao->Search($kw, $page_no, $page_size, $options);
 		$total = $items->total_results;
 		$total_page = ceil($total/$page_size);
 
-		$this->set(compact('kw', 'items', 'page_no', 'page_size', 'total', 'total_page'));
+		$this->set(compact('kw', 'items', 'page_no', 'page_size', 'total', 'total_page', 'start_credit', 'end_credit', 'start_price', 'end_price', 'start_commissionRate', 'end_commissionRate', 'sort'));
     }
 
 

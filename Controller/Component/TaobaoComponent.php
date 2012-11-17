@@ -319,7 +319,7 @@ class TaobaoComponent extends Component
 	* end 
 	*/
 
-	public function Search($keyword, $page, $pagecount=100)
+	public function Search($keyword, $page, $pagecount=40, $options=array())
 	{
 		static $request = null;
 		if(!$request){
@@ -330,6 +330,10 @@ class TaobaoComponent extends Component
 		$request->setKeyword($keyword);
 		$request->setPageNo($page);
 		$request->setPageSize($pagecount);
+		foreach($options as $key => $value){
+			$method = 'set' . ucfirst($key);
+			$request->$method($value);
+		}
 		return self::request($request);
 	}
 
