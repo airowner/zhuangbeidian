@@ -9,7 +9,7 @@ class SpiderController extends AppController
 
     public $name = 'Spider';
     //public $helper = array('Html');
-	public $components = array('Taobao', 'Curl');
+	public $components = array('Taobao', 'Sphinx');
 
     public $uses = array('Item', 'Tag', 'Shop', 'ItemExt');
     

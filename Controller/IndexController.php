@@ -7,6 +7,7 @@ class IndexController extends AppController
     public $name = 'Index';
 
     //public $helper = array('Html');
+    public $components = array('Sphinx');
 
     public $uses = array('Ad', 'Tag', 'Item', 'TagItem');
     
@@ -75,7 +76,7 @@ class IndexController extends AppController
 			'contain' => array('Item'),
 			'order' => array('price asc'),
 			'page' => 1,
-			'limit' => 12,
+			'limit' = 12,
 		));
 		$this->set('items_count', $this->TagItem->find('count', array('conditions'=>array('TagItem.tag_id'=>$tags))));
 		$items = Hash::extract($items, '{n}.Item');
