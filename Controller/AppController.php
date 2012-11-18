@@ -55,7 +55,7 @@ class AppController extends Controller {
     function beforeFilter() {
         //Configure AuthComponent
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
-        $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'home');
+        $this->Auth->loginRedirect = array('controller' => 'spider', 'action' => 'index');
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
 
         $app_key = '21181372';/*填写appkey */

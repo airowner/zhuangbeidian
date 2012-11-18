@@ -13,8 +13,8 @@ class UsersController extends AppController {
     {
         parent::beforeFilter(); 
         $this->Auth->deny('initDB', 'build_acl');
-        //$this->Auth->allow('login', 'logout');
-		$this->Auth->allow('*');
+        $this->Auth->allow('login', 'logout');
+	//$this->Auth->allow('*');
     }
     
     public function login()

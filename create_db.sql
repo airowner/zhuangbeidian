@@ -289,7 +289,7 @@ insert into `tag` (`id`, `tag`, `parent_id`, `display_html`, `lft`, `rght`) valu
 DROP TABLE IF EXISTS `item_tag`;
 CREATE TABLE `item_tag`
 (
-    `id` int(11) unsigned not null auto_increment,
+    `id` bigint(20) unsigned not null auto_increment,
     `item_id` int(11) unsigned not null,
     `tag_id` int(11) unsigned not null,
     PRIMARY KEY `id` (`id`),
