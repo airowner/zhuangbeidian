@@ -204,10 +204,14 @@ class SpiderController extends AppController
 		if($start_commissionRate){ $options['startCommissionRate'] = $start_commissionRate; }
 		if($end_commissionRate){ $options['endCommissionRate'] = $end_commissionRate; }
 
-
 		$items = $this->Taobao->Search($kw, $page_no, $page_size, $options);
-		$total = $items->total_results;
-		$total_page = ceil($total/$page_size);
+		if($items){
+			$total = $items->total_results;
+			$total_page = ceil($total/$page_size);
+		}else{
+			$total = 0;
+			$total_page = 0;
+		}
 
 		$this->set(compact('kw', 'items', 'page_no', 'page_size', 'total', 'total_page', 'start_credit', 'end_credit', 'start_price', 'end_price', 'start_commissionRate', 'end_commissionRate', 'sort'));
     }

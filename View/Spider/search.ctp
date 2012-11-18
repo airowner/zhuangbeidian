@@ -15,8 +15,8 @@ var change_page = function(i){
 <a href="javascript:void(0)" onclick="$('#extend').toggle();">高级搜索</a>
 
 <div id="extend" style="display:none">
-<input type="hidden" name="page_no" value="<?php echo $page_no; ?>">
-<input type="hidden" name="page_size" value="<?php echo $page_size; ?>">
+<input type="hidden" name="page_no" value="">
+<input type="hidden" name="page_size" value="">
 
 <div>
 排序:<select name="sort">
@@ -206,8 +206,8 @@ if($page_no != $total_page){
 	   <form name="f2" method="post" action="/spider/search"><input style="width:520px" type="text" name="kw" value="<?php echo $kw?>"><span class="s_btn_wr"><input type="submit" value="百度一下" class="s_btn" onmouseout="this.className='s_btn'" onmousedown="this.className='s_btn s_btn_h'"></span>
 <a href="javascript:void(0)" onclick="$('#extend2').toggle();">高级搜索</a>
 	   <div id="extend2" style="display:none">
-<input type="hidden" name="page_no" value="<?php echo $page_no; ?>">
-<input type="hidden" name="page_size" value="<?php echo $page_size; ?>">
+<input type="hidden" name="page_no" value="">
+<input type="hidden" name="page_size" value="">
 <div>
 排序:<select name="sort">
 <option value="">默认</option>
