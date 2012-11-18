@@ -116,11 +116,11 @@ foreach($items->taobaoke_items->taobaoke_item as $key => $item) :
 <table cellpadding="0" cellspacing="0" class="result<?php if($i) echo "-op"; ?>" id="<?php echo $key; ?>"><tr>
 <td class=f>
 <h3 class="t">
-	<a href="/spider/display?dst=<?php echo urlencode($item->click_url); ?>" target="_blank" ><font color=#CC0000><?php echo $item->title;?></font></a>
+	<a href="<?php echo $item->click_url; ?>" target="_blank" ><font color=#CC0000><?php echo $item->title;?></font></a>
 </h3>
 <font size=-1>
 	<div class="op_foreignu_main"> <table cellspacing="0" cellpadding="0"> <tbody><tr> 
-	<td valign="top" class="op_uni_left"><a target="_blank" href="/spider/display?dst=<?php echo urlencode($item->click_url); ?>"><img class="op_foreignu_img" alt="图片" src="<?php echo $item->pic_url;?>_310x310.jpg"></a></td> <td class="op_uni_right">
+	<td valign="top" class="op_uni_left"><a target="_blank" href="<?php echo $item->click_url; ?>"><img class="op_foreignu_img" alt="图片" src="<?php echo $item->pic_url;?>_310x310.jpg"></a></td> <td class="op_uni_right">
 	<div class="op_foreignu_span"> 
 		<table cellspacing="0" cellpadding="0" class="op_foreignu_tb">  <tbody>
 			<tr> 
