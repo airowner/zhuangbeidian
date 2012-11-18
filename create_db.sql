@@ -119,7 +119,7 @@ CREATE TABLE `item`
     `type` varchar(255) not null comment '商品类型(fixed:一口价;auction:拍卖)',
     `valid_thru` int(11) unsigned not null default 14 comment '有效期,7或者14（默认是14天）',
     `postage_id` int(11) unsigned not null comment '宝贝所属的运费模板ID',
-    `outer_id` varchar(255) not null default '商家外部编码(可与商家外部系统对接)',
+    `outer_id` varchar(255) not null default '' comment '商家外部编码(可与商家外部系统对接)',
     `skus` text not null default '' comment '类似套餐的商品选择',
     `update_time` datetime not null,
     PRIMARY KEY `id` (`id`),
@@ -136,10 +136,10 @@ CREATE TABLE `item_ext`
 (
     `id` int(11) unsigned not null auto_increment,
     `num_iid` bigint unsigned not null comment 'taobao详情页 item.htm 对应id item.htm?id=xxx',
-    `commisson` decimal(2) not null default 0 comment '淘宝客佣金',
-    `commisson_volume` decimal(2) not null default 0 comment '累计总支出佣金量',
-    `commisson_rate` int(11) not null default 0 comment '淘宝客佣金率',
-    `commisson_num` int(11) not null default 0 comment '累计成交量.注：返回的数据是30天内累计推广量',
+    `commission` decimal(2) not null default 0 comment '淘宝客佣金',
+    `commission_volume` decimal(2) not null default 0 comment '累计总支出佣金量',
+    `commission_rate` int(11) not null default 0 comment '淘宝客佣金率',
+    `commission_num` int(11) not null default 0 comment '累计成交量.注：返回的数据是30天内累计推广量',
     `coupon_price` decimal(2) not null default 0 comment '折扣价格',
     `coupon_rate` decimal(2) not null default 0 comment '折扣比率',
     `coupon_start_time` int(11) not null default 0 comment '折扣活动开始时间',
@@ -289,7 +289,7 @@ insert into `tag` (`id`, `tag`, `parent_id`, `display_html`, `lft`, `rght`) valu
 DROP TABLE IF EXISTS `item_tag`;
 CREATE TABLE `item_tag`
 (
-    `id` int(11) unsigned not null auto_increment,
+    `id` bigint(20) unsigned not null auto_increment,
     `item_id` int(11) unsigned not null,
     `tag_id` int(11) unsigned not null,
     PRIMARY KEY `id` (`id`),

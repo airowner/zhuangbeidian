@@ -53,11 +53,12 @@ $cakeDescription = __d('cake_dev', '管理后台');
 				<ul>
 					<li><a href="/spider">抓取商品</a> </li>
 					<li><a href="/tags">标签管理</a> </li>
-					<li><a href="/tagitem">商品标签关联</a> </li>
+					<li><a href="/tagItem">商品标签关联</a> </li>
 					<li><a href="/ads">广告管理</a> </li>
-					<li><a href="/itemrecommend">商品推荐管理</a> </li>
+					<li><a href="#">商品推荐管理</a> </li>
 					<li><a href="#">店铺推荐管理</a> </li>
 					<li><a href="/users">用户管理</a> </li>
+					<li><a href="/users/logout">退出</a> </li>
 				</ul>
 			</div>
 			<?php endif; ?>

@@ -37,13 +37,12 @@ class SpiderController extends AppController
 	    $num_iid = $item['num_iid'];
 	    $nick = $item['nick'];
 
-	    $item = array('Item'=>$item);
-
 	    $old_item = $this->Item->findByNumIid($num_iid);
 	    $this->Item->create();
 	    if($old_item){
 	    	$this->Item->id = $old_item['Item']['id'];
 	    }
+	    //var_dump($item);exit;
 	    try{
 		$this->Item->save(array('Item'=>$item));
 		$this->redirect(array('action'=>'js_getother', $this->Item->id, $num_iid, $nick));
@@ -79,7 +78,7 @@ class SpiderController extends AppController
                 $return_item[$key] = $value;
             }
         }
-	$return_item['updatetime'] = date('Y-m-d H:i:s');
+	$return_item['update_time'] = date('Y-m-d H:i:s');
         return $return_item;
     }
     
@@ -113,7 +112,7 @@ class SpiderController extends AppController
         if($old_shop){
             $this->Shop->id = $old_shop['Shop']['id'];
         }
-	$shop['updatetime'] = date('Y-m-d H:i:s');
+	$shop['update_time'] = date('Y-m-d H:i:s');
         try{
 	    $this->Shop->save(array('Shop'=>$shop));
             exit('1');
@@ -142,7 +141,8 @@ class SpiderController extends AppController
         if($old_item_ext){
             $this->ItemExt->id = $old_item_ext['ItemExt']['id'];
         }
-	$item_ext['updatetime'] = date('Y-m-d H:i:s');
+	$item_ext['update_time'] = date('Y-m-d H:i:s');
+	//var_dump(array('ItemExt'=>$item_ext));exit;
 	try{
             $this->ItemExt->save(array('ItemExt'=>$item_ext));
             exit('1');
