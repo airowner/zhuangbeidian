@@ -131,7 +131,7 @@ class SpiderController extends AppController
         if (!$this->request->is('post')){
             exit('0');
         }
-        if(!isset($this->request->data['taobaoke_items'],$this->request->data['taobaoke_items']['taobaoke_item'])){
+        if(!isset($this->request->data['taobaoke_items'], $this->request->data['taobaoke_items']['taobaoke_item'])){
             CakeLog::info(__CLASS__ . " " . __METHOD__ . " name post params error");
             exit('0');
         }
@@ -141,14 +141,14 @@ class SpiderController extends AppController
         if($old_item_ext){
             $this->ItemExt->id = $old_item_ext['ItemExt']['id'];
         }
-	$item_ext['update_time'] = date('Y-m-d H:i:s');
-	//var_dump(array('ItemExt'=>$item_ext));exit;
-	try{
-            $this->ItemExt->save(array('ItemExt'=>$item_ext));
-            exit('1');
-        }catch(Exception $e){
-            CakeLog::error($e->getMessage());
-	}
+    	$item_ext['update_time'] = date('Y-m-d H:i:s');
+    	// var_dump(array('ItemExt'=>$item_ext));exit;
+    	try{
+                $this->ItemExt->save(array('ItemExt'=>$item_ext));
+                exit('1');
+            }catch(Exception $e){
+                CakeLog::error($e->getMessage());
+    	}
         exit('0');
     }
 

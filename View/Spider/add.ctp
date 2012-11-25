@@ -16,6 +16,11 @@ var changeCate = function(cate){
         <legend><?php echo __('添加商品'); ?></legend>
     <?php
         echo $this->Form->input('url', array('label'=>'淘宝商品链接'));
+        echo $this->Form->input('name', array(
+            'label'=>'商品名称',
+            'type' => 'input',
+            'value' => '1',
+        ));
         echo $this->Form->input('game', array(
             'type' => 'select',
             'label' => '游戏',

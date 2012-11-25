@@ -79,6 +79,7 @@ CREATE TABLE `item`
 (
     `id` int(11) unsigned not null auto_increment,
     `num_iid` bigint unsigned not null comment 'taobao详情页 item.htm 对应id item.htm?id=xxx',
+    `name` varchar(255) not null comment '自定义商品名称',
     `title` varchar(255) not null comment '商品名称',
     `click_url` text not null comment '转换后的淘宝链接url',
     `shop_click_url` text not null comment '店铺url',

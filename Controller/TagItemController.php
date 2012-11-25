@@ -65,9 +65,13 @@ class TagItemController extends AppController {
         }
 		if($this->request->is('post') || $this->request->is('put')){
 			$obj = $this->request->data['TagItem'];
-			$tags = array(
-				$obj['game'], $obj['price']
-			);
+			foreach($obj['game'] as $k => $value){
+				if($value == 'all'){
+					unset($obj['game'][$k]);
+				}
+			}
+			$tags = array_values($obj['game']);
+			$tags[] = $obj['price'];
 
 			//分类
 			if(!$obj['product']){
@@ -129,6 +133,9 @@ class TagItemController extends AppController {
 				$data[] = array('tag_id'=>$tag, 'item_id'=>$item_id);
 			}
 			$this->TagItem->deleteAll(array('item_id'=>$item_id), false);
+			$this->Item->read(null, $item_id);
+			$this->Item->set('name', $this->request->data['name']);
+			$this->Item->save();
 			if($this->TagItem->saveMany($data)){		
 				/*
 				首页推荐暂时添加到这里,　在设置tag时直接添加,　默认按添加时间排列

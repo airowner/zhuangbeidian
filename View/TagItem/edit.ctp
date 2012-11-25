@@ -29,6 +29,10 @@ div.checkbox{clear:none;display:inline-block;}
 			unset($_form_options['empty']);
 			$_form_options += array('multiple' => 'checkbox');
 			//var_dump($_form_options);
+		}elseif($t['tag'] == '#game'){
+			unset($_form_options['empty']);
+			$_form_options['options']['all'] = '全选';
+			$_form_options += array('multiple' => 'checkbox');
 		}
 		$t_tag = substr($t['tag'], 1);
 		$top[$t_tag] = $_form_options;
@@ -51,7 +55,7 @@ var changeProduct = function(v){
 }
 
 var init = function(){
-	$('select[name="data[TagItem][game]"] option, select[name="data[TagItem][product_parent]"] option, select[name="data[TagItem][price]"] option, input[name="data[TagItem][user][]"]').each(function(){
+	$('input[name="data[TagItem][game][]"], select[name="data[TagItem][product_parent]"] option, select[name="data[TagItem][price]"] option, input[name="data[TagItem][user][]"]').each(function(){
 		if(this.value in checked){
 			if(this.getAttribute('type') == 'checkbox'){
 				this.checked = true;
@@ -60,9 +64,39 @@ var init = function(){
 				$(this).parent().change();
 			}
 		}
-	})
+	});
+	var o = $('input[name="data[TagItem][game][]"]');
+	var all = true;
+	o.each(function(i){
+		if(i == o.length-1) return;
+		if(!$(this).attr('checked')) all = false;
+	});
+	if(all){
+		$('input[name="data[TagItem][game][]"]').last().attr('checked', true);
+	}
 }
-$(function(){init();})
+var allchoose = function(){
+	var o = $('input[name="data[TagItem][game][]"]');
+	var l = o.length;
+	var _click = function(){
+		var all = true;
+		o.each(function(i){
+			if(i == l-1) return;
+			if(!$(this).attr('checked')) all = false;
+		});
+		if(all){
+			o.each(function(){$(this).attr('checked', false);})
+		}else{
+			o.each(function(){$(this).attr('checked', true);})
+		}
+	}
+	_click();
+	return _click;
+}
+$(function(){
+	init();
+	$('input[name="data[TagItem][game][]"]').last().bind('click', allchoose);
+})
 </script>
 <div class="users form">
 <?php echo $this->Form->create('TagItem'); ?>
@@ -78,6 +112,11 @@ $(function(){init();})
 		</div>
 		<?php 
 		echo $this->Form->hidden('item_id', array('value'=>$item['id']));
+		echo $this->Form->input('name', array(
+            'type' => 'text',
+            'label' => '商品名称',
+            'value' => $item['name'],
+        ));
 		foreach($top as $k => $v){
 			echo $this->Form->input($k, $v);
 		}
