@@ -28,7 +28,7 @@ class TagsController extends AppController {
 	public function index( $parent_id=null ) {
         $path = array();
         if($parent_id !== null){
-            $path = $this->Tag->getPath($parent_id);
+            $path = $this->Tag->get_Path($parent_id);
             $path = $path[$parent_id];
         }
         $this->set('path', $path);
