@@ -2,29 +2,25 @@
 
 class SphinxComponent extends Component
 {
-    static public function ins()
-    {   
-        static $svc = null;
-        if($svc == null){
-	       $svc = new self();
-        }   
-        return $svc;
-    }
 
+    private $inited = false;
     private $svc;
     private $index;
 
-    private function __construct()
+    private function init()
     {
+        if($this->inited) return;
         require dirname(__FILE__) . '/sphinxapi.php';
         $this->svc = new SphinxClient();
         $this->svc->setServer('127.0.0.1', 9312);
-        $this->index = 'zbd_index,zbd_delta';
+        $this->index = 'zbd_index,zbd_index_delta';
+        $this->inited = true;
     }
 
     private function clean()
     {
-        $this->svc->ConnectTimeout(300); //300ms
+        $this->init();
+        $this->svc->SetConnectTimeout(300); //300ms
         $this->svc->SetRetries(2, 1000); //retry_count , retry_separate
         $this->SetArrayResult(true); //结果已数组形式返回， 对mva分组可能包括重复的文档
         $this->svc->ResetFilters();
