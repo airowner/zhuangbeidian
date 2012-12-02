@@ -22,7 +22,7 @@ class SphinxComponent extends Component
         $this->init();
         $this->svc->SetConnectTimeout(300); //300ms
         $this->svc->SetRetries(2, 1000); //retry_count , retry_separate
-        $this->SetArrayResult(true); //结果已数组形式返回， 对mva分组可能包括重复的文档
+        // $this->SetArrayResult(true); //结果已数组形式返回， 对mva分组可能包括重复的文档
         $this->svc->ResetFilters();
         $this->svc->ResetGroupBy();
     }

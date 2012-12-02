@@ -89,7 +89,11 @@ class IndexController extends AppController
     public function search($name)
     {
         $name = preg_split('/[\s\n]/', $name);
-        $result = $this->Sphinx->query($name);
+        try{
+            $result = $this->Sphinx->query($name);
+        }catch(Exception $e){
+            var_dump($e);
+        }
         var_dump($result);exit;
         echo "unimplements<br>\n";
         var_dump($name);
