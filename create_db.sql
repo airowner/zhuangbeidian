@@ -217,6 +217,7 @@ CREATE TABLE `tag_increment`
     `posttime` datetime not null,
     UNIQUE KEY `id` (`id`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+replace `tag_increment` select 1, now(), now();
 
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag`

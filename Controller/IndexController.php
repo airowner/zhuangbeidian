@@ -89,6 +89,8 @@ class IndexController extends AppController
     public function search($name)
     {
         $name = preg_split('/[\s\n]/', $name);
+        $result = $this->Sphinx->query($name);
+        var_dump($result);exit;
         echo "unimplements<br>\n";
         var_dump($name);
         exit;
@@ -136,45 +138,7 @@ class IndexController extends AppController
                 break;
             }
         }
-        var_dump($active);
         $this->set('active', $active);
-        return;
-        // return ;
-		// var_dump($path);exit;
-        $active_path = array();
-        $return_path = array();
-        foreach($path as $k => $p){
-            $tag = array_shift($p);
-            $tag = $tag['tag'];
-            $active = $p[count($p)-1]['id'];
-            $_styles = $this->Tag->getCategory($tag);
-            $_back = $_styles;
-            foreach($p as $_p){
-                if(!$_styles){
-                    break;
-                }
-                foreach($_styles as $s){
-                    if($s['id'] == $_p['id']){
-                        $_back = $_styles;
-                        $_styles = $this->Tag->getCategory($s['id']);
-                        break;
-                    }
-                    
-                }
-            }
-            $return_path[$tag] = $_back;
-            $active_path[$tag] = $k;
-        }
-        foreach(array('#game', '#price', '#product') as $t){
-            if(isset($return_path[$t])){
-                continue;
-            }
-            $return_path[$t] = $this->Tag->getCategory($t);
-            $active_path[$t] = null;
-        }
-        // var_dump($return_path, $active_path);exit;
-        $this->set('path', $return_path);
-        $this->set('active', $active_path);
     }
 
 }
