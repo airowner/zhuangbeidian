@@ -121,7 +121,7 @@ class AppHelper extends Helper {
         if($id){
             $params[] = $id;
         }
-        $params = array_unique($params)
+        $params = array_unique($params);
         sort($params);
         return "/tag/" . implode('_', $params);
     }
