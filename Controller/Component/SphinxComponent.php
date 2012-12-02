@@ -89,7 +89,7 @@ class SphinxComponent extends Component
         }
 
         $warings = $this->svc->GetLastWarning();
-        GLogFinder::bizLogger()->error(json_encode($warings));
+        CakeLog::error(json_encode($warings));
 
         //$fields = $result['fields']; //查询依据字段
         //$attrs = $result['attrs']; //查询返回字段属性
