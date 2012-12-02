@@ -88,16 +88,24 @@ class IndexController extends AppController
 
     public function search($name)
     {
+        $ret = array(
+            'errmsg' => '',
+            'data' => array(),
+        );
         $name = preg_split('/[\s\n]/', $name);
         try{
             $result = $this->Sphinx->query($name);
         }catch(Exception $e){
-            var_dump($e);
+            $ret['errmsg'] = $e->getMessage();
         }
         var_dump($result);exit;
-        echo "unimplements<br>\n";
-        var_dump($name);
-        exit;
+        if($ret['errmsg']){
+            echo json_encode($ret);
+            exit();
+        }
+        $ret['data'] = $data;
+        echo json_encode($ret);
+        exit();
     }
 
 	public function topcallback()
