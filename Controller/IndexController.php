@@ -17,6 +17,19 @@ class IndexController extends AppController
         $this->Auth->allowedActions = array('*');
         $this->set('baseurl', '/');
         
+        $this->ads();
+
+        $this->tree = $this->Tag->getTree();
+        $this->set('tree', $this->tree);
+        $this->game = $this->Tag->getCategory('#game');
+        $this->set('game', $this->game);
+        $this->cates = $this->Tag->getCategory('#product');
+        $this->set('cates', $this->cates);
+        $this->set('price', $this->Tag->getCategory('#price'));
+    }
+
+    private function ads()
+    {
         $_ads = $this->Ad->find('all', array(
             //'conditions' => array('id' => '<5'),
         ));
@@ -25,15 +38,6 @@ class IndexController extends AppController
             $ads[$ad['id']] = $ad;
         }
         $this->set('ads', $ads);
-
-        $game = $this->Tag->getCategory('#game');
-        $this->game = array();
-        foreach($game as $g){
-            $this->game[$g['id']] = $g;
-        }
-        $this->set('game', $this->game);
-        $this->cates = $this->Tag->getCategory('#product');
-        $this->set('cates', $this->cates);
     }
 
     public function index()
@@ -60,9 +64,7 @@ class IndexController extends AppController
             return $this->setAction('index');
         }
 
-        $tags = explode('_', $mt[2]);
-        $tags = $this->changeTags($tags);
-
+        $tags = array_unique(explode('_', $mt[2]));
         $this->_tag($tags);
 		
 		//items
@@ -78,6 +80,7 @@ class IndexController extends AppController
 			'page' => 1,
 			'limit' => 12,
 		));
+
 		$this->set('items_count', $this->TagItem->find('count', array('conditions'=>array('TagItem.tag_id'=>$tags))));
 		$items = Hash::extract($items, '{n}.Item');
 		$this->set('items', $items);
@@ -124,13 +127,20 @@ class IndexController extends AppController
 
     private function _tag($tags)
     {
-        //总tag标记
-        $top = $this->Tag->getTop();
-        $this->set('root', $this->top);
-
         //path
-        $path = $this->Tag->get_Path($tags);
-		//var_dump($path);exit;
+        $tags = $this->Tag->get_Path($tags);
+        $active = array();
+        foreach($tags as $tag){
+            foreach($tag as $_t){
+                $active[$_t['id']] = $tag;
+                break;
+            }
+        }
+        var_dump($active);
+        $this->set('active', $active);
+        return;
+        // return ;
+		// var_dump($path);exit;
         $active_path = array();
         $return_path = array();
         foreach($path as $k => $p){
@@ -162,21 +172,9 @@ class IndexController extends AppController
             $return_path[$t] = $this->Tag->getCategory($t);
             $active_path[$t] = null;
         }
-        //~ var_dump($return_path, $active_path);exit;
+        // var_dump($return_path, $active_path);exit;
         $this->set('path', $return_path);
         $this->set('active', $active_path);
-    }
-
-    private function changeTags($tags)
-    {
-        $tids = array();
-        foreach((array)$tags as $tag){
-            $tag = intval($tag);
-            if($tag > 0 && !isset($tids[$tag])){
-                $tids[$tag] = '';
-            }
-        }
-        return array_keys($tids);
     }
 
 }

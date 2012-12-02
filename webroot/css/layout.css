@@ -126,7 +126,7 @@ img{display:block; border:0px;}
 .product .productPoster .sold em{color:#cbcfd2;}
 .product .rside{float:right; width:729px;}
 .product h1{font-size:14px; font-weight:bold; margin-top:12px;}
-.product .info{margin-top:12px;}
+.product .info{margin:12px 0 9px;}
 .product .info img{float:left; border:1px solid #cdcdcd;}
 .product .info ul{padding:17px 0px 0px 347px; line-height:30px;}
 .product .info ul em{font-weight:bold; text-decoration:line-through;}
@@ -137,9 +137,12 @@ img{display:block; border:0px;}
 .product .info .btn a{width:125px; height:36px; text-indent:-9999px; margin-right:22px; display:inline;}
 .product .info .btn .btn_buy{background-position:0px -108px}
 .product .info .btn .btn_plan{background-position:0px -149px}
-.product .filter{margin-top:9px; border:1px solid #d6d6d6; background-color:#f3f3f3; padding:11px 25px 24px;}
+.product .filter{border:1px solid #d6d6d6; background-color:#f3f3f3; padding:11px 25px 24px;}
 .product .filter li{padding-top:16px;}
 .product .filter li *{display:inline-block; margin-top:2px; vertical-align:top;}
+.product ul.subfilter{border:1px solid #d6d6d6; background-color:#eee;padding:0;margin:10px 0 0 30px;display: block;}
+.product .subfilter li{padding:0;}
+.product .subfilter li *{margin:0;}
 .product .filter a{padding:0px 5px; margin:2px 2px 0px;}
 .product .filter a:hover, .product .filter a.on{color:#FFF; background-color:#cb0000;}
 .product .list{margin-top:9px;}

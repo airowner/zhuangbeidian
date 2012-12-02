@@ -1,18 +1,19 @@
-	    <h1>淘客帝国女香/男香 Boitown/香港冰希黎 3ml试管香水（含喷头） 专柜正品</h1>
+	    <h1><?php echo $item['name']; ?></h1>
 		<div class="info clearfix">
-		  <img src="temp/product.jpg"/>
+		  <img src="<?php echo $item['pic_url'];?>"/>
 		  <ul>
-		    <li>淘宝价：<em>458.00元</em></li>
-			<li>限时促销&nbsp;<b>368.00</b>&nbsp;元</li>
-			<li>掌柜名片：冰希黎旗舰店&nbsp;<a href="">点击进入掌柜商店</a></li>
-			<li>30天售出：54件</li>
-			<li>卖家信用：</li>
-			<li>所在地：上海</li>
-			<li>宝贝运费：平邮：5.00元&nbsp;&nbsp;快递：10.00元&nbsp;&nbsp;EMS：18.00元</li>
-			<li>宝贝类型：全新&nbsp;&nbsp;1581次浏览</li>
+		    <li>淘宝价：<em><?php echo $item['price'];?>元</em></li>
+			<?php /*<li>限时促销&nbsp;<b>368.00</b>&nbsp;元</li>*/ ?>
+			<li>掌柜名片：<?php echo $item['nick'];?>&nbsp;<a href="<?php echo $item['shop_click_url'];?>">点击进入掌柜商店</a></li>
+			<li>30天售出：<?php echo $item['volume'];?>件</li>
+			<li>卖家信用：<img src="/images/<?php echo $this->Html->seller_heart($item['seller_credit_score']); ?>" /></li>
+			<li>所在地：<?php echo $item['state']; ?></li>
+			<li>宝贝运费：平邮：<?php echo $item['post_fee'];?>元&nbsp;&nbsp;快递：<?php echo $item['express_fee'];?>元&nbsp;&nbsp;EMS：<?php echo $item['ems_fee'];?>元</li>
+			<li>宝贝库存：<?php echo $item['num']; ?></li>
 		  </ul>
 		  <div class="btn">
-		    <a class="icons btn_buy" href="">立刻购买</a><a class="icons btn_plan" href="">加入购物车</a>
+		    <a class="icons btn_buy" href="<?php echo $item['click_url'];?>">立刻购买</a>
+		    <?php /*<a class="icons btn_plan" href="">加入购物车</a>*/?>
 			<div class="clear"></div>
 		  </div>
 		</div>

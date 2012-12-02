@@ -209,6 +209,15 @@ CREATE TABLE `item_recommend`
 	key `modify_time` (`modify_time`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+DROP TABLE IF EXISTS `tag_increment`;
+CREATE TABLE `tag_increment`
+(
+    `id` int(11) not null,
+    `lasttime` datetime not null,
+    `posttime` datetime not null,
+    UNIQUE KEY `id` (`id`)
+) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag`
 (

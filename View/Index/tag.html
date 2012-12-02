@@ -1,8 +1,5 @@
 
     <?php echo $this->Html->ad($ads[9], array('class'=>'poster', 'baseurl'=>$baseurl)); ?>
-    <?php 
-    $this->Html->root_path = $root; 
-    ?>
     
     <div class="body product clearfix">
       <div class="lside">
@@ -15,21 +12,9 @@
           <?php 
           if($item){
               echo $this->element('item', array('item'=>$item));
-          } 
+          }
+          echo $this->Html->createLink($tree, $active);
           ?>
-
-          <ul class="filter"<?php if(!$item){echo " style=\"margin:0\"";} ?>>
-
-          <li><b>商品分类：</b>
-          <?php echo $this->Html->createLink('#product', $path, $active);?>
-          </li>
-          <li><b>所属游戏：</b>
-          <?php echo $this->Html->createLink('#game', $path, $active);?>
-          </li>
-          <li><b>价格区间：</b>
-          <?php echo $this->Html->createLink('#price', $path, $active);?>
-          </li>
-        </ul>
         <div class="list">
           <div class="tit">
             <ul>

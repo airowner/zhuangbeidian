@@ -8,7 +8,7 @@
               <?php foreach($cates as $cate){ ?>
               <li>
               <div><?php echo $cate['tag']?></div>
-                <?php foreach($cate['children'] as $sub){ ?>
+                <?php foreach($this->Html->sortCate($tree[$cate['id']]) as $sub){ ?>
                 <a<?php
                     if (isset($product_active) && $product_active == $sub['id']):
                         echo " class=\"on\"";
@@ -22,8 +22,12 @@
               <?php foreach($cates as $cate){ ?>
               <li>
               <div><?php echo $cate['tag']?></div>
-                <?php foreach($cate['children'] as $sub){ ?>
-                 <a href="/tag/<?php echo $sub['id']?>"><?php echo $sub['tag'] ?></a>
+                <?php foreach($this->Html->sortCate($tree[$cate['id']]) as $sub){ ?>
+                <a<?php
+                    if (isset($product_active) && $product_active == $sub['id']):
+                        echo " class=\"on\"";
+                    endif;
+                    ?> href="/tag/<?php echo $sub['id']?>"><?php echo $sub['tag'] ?></a>
                 <?php } ?>
               </li>
               <?php } ?>

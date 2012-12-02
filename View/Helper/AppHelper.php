@@ -31,50 +31,97 @@ App::uses('Helper', 'View');
  * @package       app.View.Helper
  */
 class AppHelper extends Helper {
-    /*
-     * cur_path = array(
-     *  '#product' => array(0=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx'), 1=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx')),
-     *  '#price' => array(0=>array('id'=>'xx', tag=>'xx', 'pid'=>'xx')),
-     *  ...
-     * );
-     *
-     */
-    public $root_path;
-    public function createLink($tag, array $path, array $active_path)
+
+    public function sortCate($cates)
     {
-        $param = array();
-        $active = $active_path[$tag];
-        //获取其他不变量
-        foreach(array_keys($path) as $key){
-            if($key == $tag) continue;
-            if($active_path[$key]){
-                $param[] = $active_path[$key];
+        usort($cates, array('AppHelper', '_sortCate'));
+        return $cates;
+    }
+    private static function _sortCate($a, $b)
+    {
+        return $a['order'] > $b['order'];
+    }
+
+    public function createLink($tree, $actives)
+    {
+        $html = array();
+        $html[] = '<ul class="filter">';
+        foreach($this->sortCate($tree[0]) as $t){
+            if($t['display_html']){
+                $html[] = '<li><b></b>';
+                $html[] = $this->getNav($tree, $actives, $t['id']);
+                $html[] = '</li>';
             }
         }
-        
-        $html = array();   
-        if($active){
-            $html[] = "<a href=\"" . $this->getLink($param) . "\">全部</a>";
+        $html[] = '</ul>';
+        return implode('', $html);
+    }
+
+    public function getSubNav($params, $cates, $active)
+    {
+        $html = array();
+        $allactive = true;
+        foreach($cates as $cate){
+            $id = $cate['id'];
+            $pid = $cate['parent_id'];
+            if(isset($active[$id])){
+                $allactive = false;
+                $html[] = "<a class=\"on\" href=\"" . $this->getLink($params, $id) ."\">{$cate['tag']}</a>";
+            }else{
+                $html[] = "<a href=\"" . $this->getLink($params, $id) ."\">{$cate['tag']}</a>";               
+            }
+        }
+        if(!$allactive || isset($active[$pid])){
+            array_unshift($html, '<ul class="subfilter"><li>');
+        }else{
+            array_unshift($html, '<ul class="subfilter" style="display:none;"><li>');
+        }
+        $html[] = '</li></ul>';
+        return implode('', $html);
+    }
+
+    public function getNav($tree, $actives, $id)
+    {
+        $cates = $tree[$id];
+        $active = isset($actives[$id]) ? $actives[$id] : array();
+        $params = array();
+        foreach ($actives as $key => $value) {
+            if($id == $key) continue;
+            $value = array_keys($value);
+            $params[] = $value[count($value)-1];
+        }
+
+        $allactive = true;
+        $html = array();
+        $sub = array();
+        foreach($this->sortCate($cates) as $cate){
+            $id = $cate['id'];
+            if(isset($active[$id])){
+                $allactive = false;
+                $html[] = "<a class=\"on\" href=\"" . $this->getLink($params, $id) ."\">{$cate['tag']}</a>";
+            }else{
+                $html[] = "<a href=\"" . $this->getLink($params, $id) ."\">{$cate['tag']}</a>";
+            }
+            if(isset($tree[$id])){
+                $sub[] = $this->getSubNav($params, $tree[$id], $active);
+            }
+        }
+        $html[] = implode('', $sub);
+        if(!$allactive){
+            array_unshift($html, "<a href=\"" . $this->getLink($params) . "\">全部</a>");
         }else{
             // 激活全部
-            $html[] = "<a class=\"on\" href=\"" . $this->getLink($param) ."\">全部</a>";
-        }
-        foreach($path[$tag] as $p){
-            if($p['id'] == $active){
-                $html[] = "<a class=\"on\" href=\"" . $this->getLink($param, $p) ."\">{$p['tag']}</a>";
-            }else{
-                $html[] = "<a href=\"" . $this->getLink($param, $p) . "\">{$p['tag']}</a>";
-            }
+            array_unshift($html, "<a class=\"on\" href=\"" . $this->getLink($params) ."\">全部</a>");
         }
         return implode('', $html);
     }
     
-    private function getLink($params, $path=null)
+    private function getLink($params, $id=null)
     {
-        if($path){
-            $params[] = $path['id'];
+        if($id){
+            $params[] = $id;
         }
-        sort($params);
+        sort(array_unique($params));
         return "/tag/" . implode('_', $params);
     }
   
