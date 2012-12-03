@@ -67,6 +67,8 @@ class IndexController extends AppController
         $tags = array_unique(explode('_', $mt[2]));
         $this->_tag($tags);
 		
+        $items = $this->_search();
+        var_dump($items);
 		//items
 		$items = $this->TagItem->find('all', array(
 			'fields' => array(
@@ -86,26 +88,94 @@ class IndexController extends AppController
 		$this->set('items', $items);
     }
 
-    public function search($name)
+    public function search()
     {
         $ret = array(
             'errmsg' => '',
             'data' => array(),
         );
-        $name = preg_split('/[\s\n]/', $name);
         try{
-            $result = $this->Sphinx->query($name);
+            $ths->_search();
         }catch(Exception $e){
             $ret['errmsg'] = $e->getMessage();
         }
         var_dump($result);exit;
-        if($ret['errmsg']){
-            echo json_encode($ret);
-            exit();
+        if(!$ret['errmsg']){
+            $ret['data'] = $result;
         }
-        $ret['data'] = $data;
         echo json_encode($ret);
         exit();
+    }
+
+    private function _search()
+    {
+        $kw = trim($this->get('kw'));
+        $page = intval($this->get('page', 1));
+        $limit = intval($this->get('limit', 12));
+        $new_order = $this->getOrder();
+        $new_filter = $this->getFilter();
+        $options = array(
+            'limit' => array(($page-1)*$limit, $limit),
+            'order' => $new_order,
+            'filter ' => $new_filter,
+        );
+        $result = $this->Sphinx->query($kw, $options);
+        return $result;
+    }
+
+    private function get($p, $default='')
+    {
+        if(isset($this->request->query[$p])){
+            return $this->request->query[$p];
+        }
+        return $default;
+    }
+
+    private function getOrder()
+    {
+        $order = trim($this->get('order'));
+        $_order_mode = array('delist_time'=>1, 'price'=>1, 'seller_credit_score'=>1, 'volume'=>1);
+        $_order_type = array('asc'=>1, 'desc'=>1);
+        $new_order = array();
+        if($order){
+            $order = explode(',', $order);
+            foreach($order as $o){
+                $o = explode(' ', $o, 2);
+                $o = array_map('trim', $o);
+                if(!isset($_order_mode[$o[0]]) || !isset($_order_type[$o[1]])) continue;
+                $new_order[$o[0]] = $o[1];
+            }
+        }else{
+            $new_order['price'] = 'asc';
+        }
+        return $new_order;
+    }
+
+    // filter=a:0,100;b:100,200,1 // dimension:start|value[, end[, exinclude]]
+    private function getFilter()
+    {
+        $filter = trim($this->get('filter'));
+        $new_filter = array();
+        if($filter){
+            $filter = explode(';', $filter);
+            foreach($filter as $f){
+                $f = trim($f);
+                if(!$f) continue;
+                $f = explode(':', $f, 2);
+                if(count($f) < 2) continue;
+                $fk = trim($f[0]);
+                $fv = explode(',', $f[1]);
+                if(count($fv)>3) continue;
+                $tmp = array();
+                foreach($fv as $v){
+                    if(!is_numeric($v)) continue 2;
+                    $v = intval($v);
+                    $tmp[] = $v;
+                }
+                $new_filter[$fk] = $tmp;
+            }
+        }
+        return $new_filter;
     }
 
 	public function topcallback()

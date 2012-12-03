@@ -61,23 +61,34 @@ class SphinxComponent extends Component
      * todo
      * group 关键词的加入 , 进行分组的查询
      */
-    public function query($kw, $filter=array(), $sort=array())
+    public function query($kw, $options=array())
     {
         $this->clean();
         $keywords = $this->make_keywords($kw);
-        $this->make_filter($filter);
-        $this->make_sort($sort);
+        $this->make_options($options);
         return $this->_query($keywords);
     }
 
-    public function fuzzyQuery($kw, $filter=array(), $sort=array())
+    public function fuzzyQuery($kw, $options=array())
     {
         $this->clean();
         $keywords = $this->make_keywords($kw);
-        $this->make_filter($filter);
-        $this->make_sort($sort);
+        $this->make_options($options);
         $this->svc->SetMatchMode( SPH_MATCH_ANY );
         return $this->_query($keywords);
+    }
+
+    public function make_options($options)
+    {
+        if(isset($options['filter'])){
+            $this->make_filter($options['filter']);
+        }
+        if(isset($options['sort'])){
+            $this->make_sort($sort);
+        }
+        if(isset($options['limit'])){
+            $this->svc->SetLimits(intval($options['limit'][0]), intval($options['limit'][1]) ? intval($options['limit'][1]) : 20);
+        }
     }
 
     private function _query($keywords)
@@ -89,7 +100,9 @@ class SphinxComponent extends Component
         }
 
         $warings = $this->svc->GetLastWarning();
-        CakeLog::error(json_encode($warings));
+        if($warings){
+            CakeLog::error(json_encode($warings));
+        }
 
         //$fields = $result['fields']; //查询依据字段
         //$attrs = $result['attrs']; //查询返回字段属性
@@ -168,6 +181,21 @@ class SphinxComponent extends Component
                     $this->svc->SetFilter($key, $value);
                 }
             }
+        }
+    }
+
+    /*
+    * filter => array(
+    *   'key' => 'filter_key',
+    *   'value' => array(1,2,3,4,5), //must be array
+    *   'exclude' => false(default),
+    * )
+    */
+    private function make_mva_filter($filters)
+    {
+        foreach($filters as $filter){
+            $exclude = isset($filter['exclude']) ? $filter['exclude'] : false;
+            $this->svc->setFilter($filter['key'], $filter['value'], $exclude);
         }
     }
 
