@@ -47,9 +47,6 @@ class IndexController extends AppController
 
     public function tag()
     {
-        /*
-         * 含有推广itemid
-         */
         $item = array();
         if(isset($this->request->query['item'])){
             $itemid = intval($this->request->query['item']);
@@ -59,18 +56,25 @@ class IndexController extends AppController
         }
         $this->set('item', $item);
 
-        //实现路由
-        // if(!preg_match('~^([a-zA-Z]+)/([\d_]+)/?$~', $this->request->url, $mt)){
-        //     return $this->setAction('index');
-        // }
         $tags = trim($this->get('tags'));
         $tags = array_unique(explode('_', $tags));
         
         $active = $this->getActive($tags);
         $this->set('active', $active);
 		
-        $items = $this->_search();
-        var_dump($items);
+        $result = $this->_search();
+	$items_count = 0;
+	$items = array();
+	if(isset($result['total'], $result['items'])){
+		$items_count = $result['total'];
+		$items = $result['items'];
+	}
+	foreach($items as &$item){
+		unset($item['desc'], $item['tags_id']);
+	}
+	$this->set('items_count', $items_count);
+	$this->set('items', $items);
+	/*
 		//items
 		$items = $this->TagItem->find('all', array(
 			'fields' => array(
@@ -88,6 +92,7 @@ class IndexController extends AppController
 		$this->set('items_count', $this->TagItem->find('count', array('conditions'=>array('TagItem.tag_id'=>$tags))));
 		$items = Hash::extract($items, '{n}.Item');
 		$this->set('items', $items);
+		*/
     }
 
     public function search()
@@ -113,7 +118,7 @@ class IndexController extends AppController
     {
         $kw = trim($this->get('kw'));
         $page = intval($this->get('page', 1));
-        $limit = intval($this->get('limit', 12));
+        $limit = intval($this->get('limit', 16));
         $this->set(compact('kw', 'page', 'limit'));
         $new_order = $this->getOrder();
         $new_filter = $this->getFilter();
@@ -155,7 +160,7 @@ class IndexController extends AppController
         return $new_order;
     }
 
-    private function getFilter($tags)
+    private function getFilter()
     {
         $tags = trim($this->get('tags'));
         $new_filter = array();
