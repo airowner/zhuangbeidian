@@ -47,6 +47,49 @@ class IndexController extends AppController
 
     public function tag()
     {
+        $this->setItem();
+
+        $pageurl = array();
+        $tags = trim($this->get('tags'));
+        $pageurl[] = "tags={$tags}";
+        $tags = array_unique(explode('_', $tags));
+
+        $order = $this->getOrder();
+        $order = trim($this->get('order'));
+        if($order){
+            if(preg_match('/desc$/', $order)){
+                $pageurl[] = preg_replace('/desc$/', 'asc', $order);
+            }else{
+                $pageurl[] = preg_replace('/asc$/', 'desc', $order);
+            }
+        }
+
+        $kw = trim($this->get('kw'));
+        if($kw){
+            $pageurl[] = "kw=".urlencode($kw);
+        }
+        $this->set(compact('kw', 'tags', 'order', 'pageurl'));
+
+        
+        $active = $this->getActive($tags);
+        $this->set('active', $active);
+		
+        $result = $this->_search($kw, $tags, $order);
+    	$items_count = 0;
+    	$items = array();
+    	if(isset($result['total'], $result['items'])){
+    		$items_count = $result['total'];
+    		$items = $result['items'];
+    	}
+    	foreach($items as &$item){
+    		unset($item['desc'], $item['tags_id']);
+    	}
+    	$this->set('items_count', $items_count);
+    	$this->set('items', $items);
+    }
+
+    private function setItem()
+    {
         $item = array();
         if(isset($this->request->query['item'])){
             $itemid = intval($this->request->query['item']);
@@ -55,44 +98,6 @@ class IndexController extends AppController
             }
         }
         $this->set('item', $item);
-
-        $tags = trim($this->get('tags'));
-        $tags = array_unique(explode('_', $tags));
-        
-        $active = $this->getActive($tags);
-        $this->set('active', $active);
-		
-        $result = $this->_search();
-	$items_count = 0;
-	$items = array();
-	if(isset($result['total'], $result['items'])){
-		$items_count = $result['total'];
-		$items = $result['items'];
-	}
-	foreach($items as &$item){
-		unset($item['desc'], $item['tags_id']);
-	}
-	$this->set('items_count', $items_count);
-	$this->set('items', $items);
-	/*
-		//items
-		$items = $this->TagItem->find('all', array(
-			'fields' => array(
-				'Item.id, Item.title, Item.pic_url, Item.price, Item.click_url, Item.shop_click_url, Item.nick, Item.num',
-			),
-			'conditions' => array(
-				'TagItem.tag_id' => $tags,
-			),
-			'contain' => array('Item'),
-			'order' => array('price asc'),
-			'page' => 1,
-			'limit' => 12,
-		));
-
-		$this->set('items_count', $this->TagItem->find('count', array('conditions'=>array('TagItem.tag_id'=>$tags))));
-		$items = Hash::extract($items, '{n}.Item');
-		$this->set('items', $items);
-		*/
     }
 
     public function search()
@@ -114,14 +119,13 @@ class IndexController extends AppController
         exit();
     }
 
-    private function _search()
+    private function _search($kw, $tags, $order)
     {
-        $kw = trim($this->get('kw'));
         $page = intval($this->get('page', 1));
         $limit = intval($this->get('limit', 16));
-        $this->set(compact('kw', 'page', 'limit'));
-        $new_order = $this->getOrder();
-        $new_filter = $this->getFilter();
+        $this->set(compact('page', 'limit'));
+        
+        $new_filter = $this->getFilter($tags);
         $options = array(
             'limit' => array(($page-1)*$limit, $limit),
             'order' => $new_order,
@@ -156,13 +160,11 @@ class IndexController extends AppController
         }else{
             $new_order['price'] = 'asc';
         }
-        $this->set('order', $order);
         return $new_order;
     }
 
-    private function getFilter()
+    private function getFilter($tags)
     {
-        $tags = trim($this->get('tags'));
         $new_filter = array();
         if(!$tags) return $new_filter;
         $tags = array_unique(explode('_', $tags));
@@ -244,4 +246,25 @@ class IndexController extends AppController
         return $active;
     }
 
+
+    private function old_tag()
+    {
+        //items
+        $items = $this->TagItem->find('all', array(
+            'fields' => array(
+                'Item.id, Item.title, Item.pic_url, Item.price, Item.click_url, Item.shop_click_url, Item.nick, Item.num',
+            ),
+            'conditions' => array(
+                'TagItem.tag_id' => $tags,
+            ),
+            'contain' => array('Item'),
+            'order' => array('price asc'),
+            'page' => 1,
+            'limit' => 12,
+        ));
+
+        $this->set('items_count', $this->TagItem->find('count', array('conditions'=>array('TagItem.tag_id'=>$tags))));
+        $items = Hash::extract($items, '{n}.Item');
+        $this->set('items', $items);
+    }
 }

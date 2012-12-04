@@ -126,6 +126,14 @@ class AppHelper extends Helper {
         sort($params);
         return "/s?tags=" . implode('_', $params);
     }
+
+    public function pageLink($baseurl, $newparam)
+    {
+        if($newparam){
+            $baseurl[] = $newparam;
+        }
+        return "/?" . implode('&', $baseurl);
+    }
   
     public function ad($data, $options=array())
     {
