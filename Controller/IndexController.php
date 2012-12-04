@@ -60,12 +60,14 @@ class IndexController extends AppController
         $this->set('item', $item);
 
         //实现路由
-        if(!preg_match('~^([a-zA-Z]+)/([\d_]+)/?$~', $this->request->url, $mt)){
-            return $this->setAction('index');
-        }
-
-        $tags = array_unique(explode('_', $mt[2]));
-        $this->_tag($tags);
+        // if(!preg_match('~^([a-zA-Z]+)/([\d_]+)/?$~', $this->request->url, $mt)){
+        //     return $this->setAction('index');
+        // }
+        $tags = trim($this->get('tags'));
+        $tags = array_unique(explode('_', $tags));
+        
+        $active = $this->getActive($tags);
+        $this->set('active', $active);
 		
         $items = $this->_search();
         var_dump($items);
@@ -112,6 +114,7 @@ class IndexController extends AppController
         $kw = trim($this->get('kw'));
         $page = intval($this->get('page', 1));
         $limit = intval($this->get('limit', 12));
+        $this->set(compact('kw', 'page', 'limit'));
         $new_order = $this->getOrder();
         $new_filter = $this->getFilter();
         $options = array(
@@ -148,11 +151,24 @@ class IndexController extends AppController
         }else{
             $new_order['price'] = 'asc';
         }
+        $this->set('order', $order);
         return $new_order;
     }
 
+    private function getFilter($tags)
+    {
+        $tags = trim($this->get('tags'));
+        $new_filter = array();
+        if(!$tags) return $new_filter;
+        $tags = array_unique(explode('_', $tags));
+        foreach($tags as $tag){
+            $new_filter[] = array('key'=>'tag_ids', 'value'=>array($tag));
+        }
+        return $new_filter;
+    }
+
     // filter=a:0,100;b:100,200,1 // dimension:start|value[, end[, exinclude]]
-    private function getFilter()
+    private function getFilterScope()
     {
         $filter = trim($this->get('filter'));
         $new_filter = array();
@@ -209,7 +225,7 @@ class IndexController extends AppController
 		echo "welcome {$parameters['visitor_nick']}."; 
 	}
 
-    private function _tag($tags)
+    private function getActive($tags)
     {
         //path
         $tags = $this->Tag->get_Path($tags);
@@ -220,7 +236,7 @@ class IndexController extends AppController
                 break;
             }
         }
-        $this->set('active', $active);
+        return $active;
     }
 
 }

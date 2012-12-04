@@ -56,7 +56,7 @@
             foreach($game as $g){ 
                 if($i==5)break;
             ?>
-            <li<?php if(isset($active['#game']) && $active['#game'] == $g['id']):?> class="cur"<?php endif; ?>><a href="/game/<?php echo $g['id']?>"><span><em><?php echo ($g['tag']); ?></em></span></a></li>
+            <li<?php if(isset($active['#game']) && $active['#game'] == $g['id']):?> class="cur"<?php endif; ?>><a href="<?php echo $this->Html->getLink($g['id']); ?>"><span><em><?php echo ($g['tag']); ?></em></span></a></li>
             <?php $i++; } ?>
           </ul>
           <div class="clear"></div>

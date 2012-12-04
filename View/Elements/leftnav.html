@@ -13,7 +13,7 @@
                     if (isset($product_active) && $product_active == $sub['id']):
                         echo " class=\"on\"";
                     endif;
-                    ?> href="/tag/<?php echo $sub['id']?>"><?php echo $sub['tag'] ?></a>
+                    ?> href="<?php echo $this->Html->getLink($sub['id']) ?>"><?php echo $sub['tag'] ?></a>
                 <?php } ?>
               </li>
               <?php } ?>
@@ -27,7 +27,7 @@
                     if (isset($product_active) && $product_active == $sub['id']):
                         echo " class=\"on\"";
                     endif;
-                    ?> href="/tag/<?php echo $sub['id']?>"><?php echo $sub['tag'] ?></a>
+                    ?> href="<?php echo $this->Html->getLink($sub['id']); ?>"><?php echo $sub['tag'] ?></a>
                 <?php } ?>
               </li>
               <?php } ?>

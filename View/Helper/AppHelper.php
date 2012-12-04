@@ -116,14 +116,15 @@ class AppHelper extends Helper {
         return implode('', $html);
     }
     
-    private function getLink($params, $id=null)
+    public function getLink($params, $id=null)
     {
+        $params = (array)$params;
         if($id){
             $params[] = $id;
         }
         $params = array_unique($params);
         sort($params);
-        return "/tag/" . implode('_', $params);
+        return "/s?tags=" . implode('_', $params);
     }
   
     public function ad($data, $options=array())

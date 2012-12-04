@@ -27,8 +27,7 @@
  */
     Router::connect('/', array('controller' => 'index', 'action' => 'index'));
 
-    Router::connect('/tag/*', array('controller' => 'index', 'action' => 'tag'));
-    Router::connect('/game/*', array('controller' => 'index', 'action' => 'tag'));
+    Router::connect('/s/*', array('controller' => 'index', 'action' => 'tag'));
     Router::connect('/spider/getShop/nick:*', array('controller' => 'index', 'action' => 'tag'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
