@@ -12,7 +12,7 @@ class SphinxComponent extends Component
         if($this->inited) return;
         require dirname(__FILE__) . '/sphinxapi.php';
         $this->svc = new SphinxClient();
-        $this->svc->setServer('118.244.170.29', 9312);
+        $this->svc->setServer('127.0.0.1', 9312);
         $this->index = 'zbd_index,zbd_index_delta';
         $this->inited = true;
     }

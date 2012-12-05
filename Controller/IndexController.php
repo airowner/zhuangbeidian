@@ -48,44 +48,54 @@ class IndexController extends AppController
     public function tag()
     {
         $this->setItem();
-
-        $pageurl = array();
-        $tags = trim($this->get('tags'));
-        $pageurl[] = "tags={$tags}";
-        $tags = array_unique(explode('_', $tags));
-
-        $order = $this->getOrder();
-        $order = trim($this->get('order'));
-        if($order){
-            if(preg_match('/desc$/', $order)){
-                $pageurl[] = preg_replace('/desc$/', 'asc', $order);
-            }else{
-                $pageurl[] = preg_replace('/asc$/', 'desc', $order);
-            }
-        }
-
-        $kw = trim($this->get('kw'));
-        if($kw){
-            $pageurl[] = "kw=".urlencode($kw);
-        }
-        $this->set(compact('kw', 'tags', 'order', 'pageurl'));
-
-        
+        $this->search();
         $active = $this->getActive($tags);
         $this->set('active', $active);
-		
-        $result = $this->_search($kw, $tags, $order);
-    	$items_count = 0;
-    	$items = array();
-    	if(isset($result['total'], $result['items'])){
-    		$items_count = $result['total'];
-    		$items = $result['items'];
-    	}
-    	foreach($items as &$item){
-    		unset($item['desc'], $item['tags_id']);
-    	}
-    	$this->set('items_count', $items_count);
-    	$this->set('items', $items);
+    }
+
+    public function search()
+    {
+        $kw = trim($this->get('kw'));
+        $tags = trim($this->get('tags'));
+        $order = trim($this->get('order'));
+        $page = intval($this->get('page', 1));
+        $limit = intval($this->get('limit', 16));
+
+        $url = array(
+            'kw' => urlencode($kw),
+            'tags' => urlencode($tags),
+            'order' => urlencode($order),
+            'page' => $page,
+            'limit' => $limit,
+        );
+
+        $ret = array(
+            'errmsg' => '',
+            'data' => array(),
+        );
+        $search_result = array();
+        try{
+            $options = array(
+                'limit' => array(($page-1)*$limit, $limit),
+                'order' => $this->getOrder($order),
+                'filter ' => $this->getFilter($filter),
+            );
+            $search_result = $this->Sphinx->query($kw, $options);
+            foreach($search_result['items'] as &$item){
+                unset($item['desc'], $item['tags_id']);
+            }
+        }catch(Exception $e){
+            $ret['errmsg'] = $e->getMessage();
+        }
+
+        if($this->request->is('ajax')){
+            if(!$ret['errmsg']){
+                $ret['data'] = $search_result;
+            }
+            echo json_encode($ret);
+            die();
+        }
+        $this->set(compact('kw','tags', 'order', 'page', 'limit', 'url', 'search_result'));
     }
 
     private function setItem()
@@ -100,41 +110,6 @@ class IndexController extends AppController
         $this->set('item', $item);
     }
 
-    public function search()
-    {
-        $ret = array(
-            'errmsg' => '',
-            'data' => array(),
-        );
-        try{
-            $ths->_search();
-        }catch(Exception $e){
-            $ret['errmsg'] = $e->getMessage();
-        }
-        var_dump($result);exit;
-        if(!$ret['errmsg']){
-            $ret['data'] = $result;
-        }
-        echo json_encode($ret);
-        exit();
-    }
-
-    private function _search($kw, $tags, $order)
-    {
-        $page = intval($this->get('page', 1));
-        $limit = intval($this->get('limit', 16));
-        $this->set(compact('page', 'limit'));
-        
-        $new_filter = $this->getFilter($tags);
-        $options = array(
-            'limit' => array(($page-1)*$limit, $limit),
-            'order' => $new_order,
-            'filter ' => $new_filter,
-        );
-        $result = $this->Sphinx->query($kw, $options);
-        return $result;
-    }
-
     private function get($p, $default='')
     {
         if(isset($this->request->query[$p])){
@@ -143,9 +118,8 @@ class IndexController extends AppController
         return $default;
     }
 
-    private function getOrder()
+    private function getOrder($order)
     {
-        $order = trim($this->get('order'));
         $_order_mode = array('delist_time'=>1, 'price'=>1, 'seller_credit_score'=>1, 'volume'=>1);
         $_order_type = array('asc'=>1, 'desc'=>1);
         $new_order = array();
