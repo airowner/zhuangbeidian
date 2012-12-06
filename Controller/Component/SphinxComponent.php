@@ -220,9 +220,9 @@ class SphinxComponent extends Component
 
     public function __call($name, $params)
     {
-    	$svc = self::ins();
-        if(method_exists($svc, $name)){
-            return call_user_func_array(array($svc, $name), $params);
+    	$this->init();
+        if(method_exists($this->svc, $name)){
+            return call_user_func_array(array($this->svc, $name), $params);
         }
         throw new Exception('undefined function');
     }
