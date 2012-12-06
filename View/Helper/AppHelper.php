@@ -124,7 +124,7 @@ class AppHelper extends Helper {
         }
         $params = array_unique($params);
         sort($params);
-        return "/s?tags=" . implode('_', $params);
+        return "/s/tags=" . implode('_', $params);
     }
 
     public function pageLink($baseurl, $newparam)

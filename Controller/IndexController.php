@@ -20,6 +20,7 @@ class IndexController extends AppController
         $this->ads();
 
         $this->tree = $this->Tag->getTree();
+        // var_dump($this->tree);exit;
         $this->set('tree', $this->tree);
         $this->game = $this->Tag->getCategory('#game');
         $this->set('game', $this->game);
@@ -49,6 +50,8 @@ class IndexController extends AppController
     {
         $this->setItem();
         $this->search();
+        $tags = trim($this->get('tags'));
+        $tags = array_unique(explode('_', $tags));
         $active = $this->getActive($tags);
         $this->set('active', $active);
     }
@@ -74,14 +77,17 @@ class IndexController extends AppController
             'data' => array(),
         );
         $search_result = array();
+        $search_count = 0;
         try{
             $options = array(
                 'limit' => array(($page-1)*$limit, $limit),
                 'order' => $this->getOrder($order),
-                'filter ' => $this->getFilter($filter),
+                'filter ' => $this->getFilter($tags),
             );
             $search_result = $this->Sphinx->query($kw, $options);
-            foreach($search_result['items'] as &$item){
+            $search_count = $search_result['total'];
+            $search_result = $search_result['items'];
+            foreach($search_result as &$item){
                 unset($item['desc'], $item['tags_id']);
             }
         }catch(Exception $e){
@@ -95,7 +101,7 @@ class IndexController extends AppController
             echo json_encode($ret);
             die();
         }
-        $this->set(compact('kw','tags', 'order', 'page', 'limit', 'url', 'search_result'));
+        $this->set(compact('kw','tags', 'order', 'page', 'limit', 'url', 'search_result', 'search_count'));
     }
 
     private function setItem()
@@ -208,7 +214,6 @@ class IndexController extends AppController
 
     private function getActive($tags)
     {
-        //path
         $tags = $this->Tag->get_Path($tags);
         $active = array();
         foreach($tags as $tag){
@@ -221,7 +226,7 @@ class IndexController extends AppController
     }
 
 
-    private function old_tag()
+    private function mysql_tag()
     {
         //items
         $items = $this->TagItem->find('all', array(
