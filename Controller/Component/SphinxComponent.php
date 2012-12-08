@@ -3,26 +3,29 @@
 class SphinxComponent extends Component
 {
 
-    private $inited = false;
     private $svc;
     private $index;
 
+
+    public function __construct(ComponentCollection $collection, $settings = array())
+    {
+    	parent::__construct($collection, $settings);
+	$this->init();
+    }
+
     private function init()
     {
-        if($this->inited) return;
         require dirname(__FILE__) . '/sphinxapi.php';
         $this->svc = new SphinxClient();
         $this->svc->setServer('127.0.0.1', 9312);
         $this->index = 'zbd_index,zbd_index_delta';
-        $this->inited = true;
-    }
-
-    private function clean()
-    {
-        $this->init();
         $this->svc->SetConnectTimeout(300); //300ms
         $this->svc->SetRetries(2, 1000); //retry_count , retry_separate
         // $this->SetArrayResult(true); //结果已数组形式返回， 对mva分组可能包括重复的文档
+    }
+
+    private function reset()
+    {
         $this->svc->ResetFilters();
         $this->svc->ResetGroupBy();
     }
@@ -63,7 +66,6 @@ class SphinxComponent extends Component
      */
     public function query($kw, $options=array())
     {
-        $this->clean();
         $keywords = $this->make_keywords($kw);
         $this->make_options($options);
         return $this->_query($keywords);
@@ -71,7 +73,6 @@ class SphinxComponent extends Component
 
     public function fuzzyQuery($kw, $options=array())
     {
-        $this->clean();
         $keywords = $this->make_keywords($kw);
         $this->make_options($options);
         $this->svc->SetMatchMode( SPH_MATCH_ANY );
@@ -84,7 +85,7 @@ class SphinxComponent extends Component
             $this->make_mva_filter($options['filter']);
         }
         if(isset($options['sort'])){
-            $this->make_sort($sort);
+            $this->make_sort($options['sort']);
         }
         if(isset($options['limit'])){
             $this->svc->SetLimits(intval($options['limit'][0]), intval($options['limit'][1]) ? intval($options['limit'][1]) : 20);
@@ -113,16 +114,18 @@ class SphinxComponent extends Component
         /*
          *  ["matches"]=> array(1) { [5599342]=> array(2) { ["weight"]=> string(1) "1" ["attrs"]=> array(3) { ["uid"]=> string(16) "1792383540063741" ["
          */
-        $result = is_array($result['matches']) ? $result['matches'] : array();
         $ret = array();
-        foreach($result as $docid => $value){
-            $tmp = array(
-                'id' => $docid,
-                'weight' => $value['weight'],
-            );
-            $tmp += $value['attrs'];
-            $ret[] = $tmp;
-        }
+	if($total){
+		$result = is_array($result['matches']) ? $result['matches'] : array();
+		foreach($result as $docid => $value){
+		    $tmp = array(
+			'id' => $docid,
+			'weight' => $value['weight'],
+		    );
+		    $tmp += $value['attrs'];
+		    $ret[] = $tmp;
+		}
+	}
         return array(
             'total' => $total,
             'cost_time' => $cost_time,
@@ -139,7 +142,7 @@ class SphinxComponent extends Component
             if(is_numeric($key)){
                 $keywords[] = $this->svc->EscapeString($value);
             }else{
-                $keywords[] = "@{$key} " . $this->svc->EscapeString($value);
+                $keywords[] = "@{$key} \"" . $this->svc->EscapeString($value) . "\"";
                 $extend = true;
             }
         }
@@ -211,6 +214,7 @@ class SphinxComponent extends Component
         }
         if($end_sort){
             $end_sort[] = "@relevance DESC";
+	    var_dump(implode(",", $end_sort));
             $this->svc->SetSortMode( SPH_SORT_EXTENDED, implode(",", $end_sort) );
         }else{
             $this->svc->SetSortMode( SPH_SORT_RELEVANCE );
@@ -220,7 +224,6 @@ class SphinxComponent extends Component
 
     public function __call($name, $params)
     {
-    	$this->init();
         if(method_exists($this->svc, $name)){
             return call_user_func_array(array($this->svc, $name), $params);
         }

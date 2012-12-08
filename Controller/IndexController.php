@@ -60,14 +60,14 @@ class IndexController extends AppController
     {
         $kw = trim($this->get('kw'));
         $tags = trim($this->get('tags'));
-        $order = trim($this->get('order'));
+        $sort = trim($this->get('sort'));
         $page = intval($this->get('page', 1));
         $limit = intval($this->get('limit', 16));
 
         $url = array(
             'kw' => urlencode($kw),
             'tags' => urlencode($tags),
-            'order' => urlencode($order),
+            'sort' => urlencode($sort),
             'page' => $page,
             'limit' => $limit,
         );
@@ -81,9 +81,10 @@ class IndexController extends AppController
         try{
             $options = array(
                 'limit' => array(($page-1)*$limit, $limit),
-                'order' => $this->getOrder($order),
-                'filter ' => $this->getFilter($tags),
+                'sort' => $this->getSort($sort),
+                'filter' => $this->getFilter($tags),
             );
+	    var_dump($options);
             $search_result = $this->Sphinx->query($kw, $options);
             $search_count = $search_result['total'];
             $search_result = $search_result['items'];
@@ -124,23 +125,23 @@ class IndexController extends AppController
         return $default;
     }
 
-    private function getOrder($order)
+    private function getSort($sort)
     {
-        $_order_mode = array('delist_time'=>1, 'price'=>1, 'seller_credit_score'=>1, 'volume'=>1);
-        $_order_type = array('asc'=>1, 'desc'=>1);
-        $new_order = array();
-        if($order){
-            $order = explode(',', $order);
-            foreach($order as $o){
+        $_sort_mode = array('delist_time'=>1, 'price'=>1, 'seller_credit_score'=>1, 'volume'=>1);
+        $_sort_type = array('asc'=>1, 'desc'=>1);
+        $new_sort = array();
+        if($sort){
+            $sort = explode(',', $sort);
+            foreach($sort as $o){
                 $o = explode(' ', $o, 2);
                 $o = array_map('trim', $o);
-                if(!isset($_order_mode[$o[0]]) || !isset($_order_type[$o[1]])) continue;
-                $new_order[$o[0]] = $o[1];
+                if(!isset($_sort_mode[$o[0]]) || !isset($_sort_type[$o[1]])) continue;
+                $new_sort[$o[0]] = $o[1];
             }
         }else{
-            $new_order['price'] = 'asc';
+            $new_sort['price'] = 'asc';
         }
-        return $new_order;
+        return $new_sort;
     }
 
     private function getFilter($tags)
