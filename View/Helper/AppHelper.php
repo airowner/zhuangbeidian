@@ -134,6 +134,44 @@ class AppHelper extends Helper {
         }
         return "/?" . implode('&', $baseurl);
     }
+
+    public function page($current_page, $total_page, $urlobj=null)
+    {
+        $display_page = 9; #必须为单数，页面对称显示
+        $sep_page = ceil($display_page/2) - 1;
+        $htm = '';
+        if($current_page <= 0) $current_page = 1;
+
+        $start = $current_page - $sep_page;
+        $end = $current_page + $sep_page;
+        if($start < 1){
+            $start = 1;
+            $end = $display_page;
+            if($end > $total_page){
+                $end = $total_page;
+            }
+        }elseif($end > $total_page){
+            $end = $total_page;
+            $start = $end - $display_page;
+            if($start < 1){
+                $start = 1;
+            }
+        }
+        if($start > 1){
+            $htm .= "<a href=\"\">首页</a>";
+        }
+        for($i=$start; $i<=$end; $i++){
+            if($i != $current_page){
+                $htm .= "<a href=\"\">{$i}</a>"; 
+            }else{
+                $htm .= "<span class=\"current\">{$i}</span>";
+            }
+        }
+        if($end < $total_page){
+            $htm .= "<a href=\"\">末页</a>";
+        }
+        return $htm;
+    }
   
     public function ad($data, $options=array())
     {

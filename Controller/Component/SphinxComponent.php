@@ -17,7 +17,8 @@ class SphinxComponent extends Component
     {
         require dirname(__FILE__) . '/sphinxapi.php';
         $this->svc = new SphinxClient();
-        $this->svc->setServer('127.0.0.1', 9312);
+        // $this->svc->setServer('127.0.0.1', 9312);
+        $this->svc->setServer('118.244.170.29', 9312);
         $this->index = 'zbd_index,zbd_index_delta';
         $this->svc->SetConnectTimeout(300); //300ms
         $this->svc->SetRetries(2, 1000); //retry_count , retry_separate
@@ -68,6 +69,7 @@ class SphinxComponent extends Component
     {
         $keywords = $this->make_keywords($kw);
         $this->make_options($options);
+        $this->svc->SetMatchMode( SPH_MATCH_EXTENDED2 );
         return $this->_query($keywords);
     }
 
@@ -115,17 +117,17 @@ class SphinxComponent extends Component
          *  ["matches"]=> array(1) { [5599342]=> array(2) { ["weight"]=> string(1) "1" ["attrs"]=> array(3) { ["uid"]=> string(16) "1792383540063741" ["
          */
         $ret = array();
-	if($total){
-		$result = is_array($result['matches']) ? $result['matches'] : array();
-		foreach($result as $docid => $value){
-		    $tmp = array(
-			'id' => $docid,
-			'weight' => $value['weight'],
-		    );
-		    $tmp += $value['attrs'];
-		    $ret[] = $tmp;
-		}
-	}
+    	if($total){
+    		$result = is_array($result['matches']) ? $result['matches'] : array();
+    		foreach($result as $docid => $value){
+    		    $tmp = array(
+    			'id' => $docid,
+    			'weight' => $value['weight'],
+    		    );
+    		    $tmp += $value['attrs'];
+    		    $ret[] = $tmp;
+    		}
+    	}
         return array(
             'total' => $total,
             'cost_time' => $cost_time,
@@ -214,7 +216,6 @@ class SphinxComponent extends Component
         }
         if($end_sort){
             $end_sort[] = "@relevance DESC";
-	    var_dump(implode(",", $end_sort));
             $this->svc->SetSortMode( SPH_SORT_EXTENDED, implode(",", $end_sort) );
         }else{
             $this->svc->SetSortMode( SPH_SORT_RELEVANCE );

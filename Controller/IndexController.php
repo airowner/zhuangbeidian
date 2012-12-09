@@ -84,7 +84,6 @@ class IndexController extends AppController
                 'sort' => $this->getSort($sort),
                 'filter' => $this->getFilter($tags),
             );
-	    var_dump($options);
             $search_result = $this->Sphinx->query($kw, $options);
             $search_count = $search_result['total'];
             $search_result = $search_result['items'];
