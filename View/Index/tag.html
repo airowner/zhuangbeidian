@@ -18,10 +18,40 @@
         <div class="list">
           <div class="tit">
             <ul>
-              <li><a class="cur" href="<?php echo $this->Html->pageLink($url, ''); ?>">价格<b class="icons up"></b></a></li>
-              <li><a href="">销量<b class="icons down"></b></a></li>
-              <li><a href="">信用<b class="icons down"></b></a></li>
-              <li><a href="">时间<b class="icons up"></b></a></li>
+              <?php
+              if($url['sort'] == 'price asc'){
+                $_url = array('sort'=>'price desc') + $url;
+                echo '<li><a class="cur" href="'. $this->Html->getLink($_url) . '">价格<b class="icons up"></b></a></li>';
+              }else{
+                $cur = strpos($url['sort'], 'price') === false ? "" : " class=\"cur\"";
+                $_url = array('sort'=>'price asc') + $url;
+                echo '<li><a' . $cur . ' href="'. $this->Html->getLink($_url) . '">价格<b class="icons up"></b></a></li>';
+              }
+              if($url['sort'] == 'volume desc'){
+                $_url = array('sort'=>'volume asc') + $url;
+                echo '<li><a class="cur" href="'. $this->Html->getLink($_url) . '">销量<b class="icons down"></b></a></li>';
+              }else{
+                $cur = strpos($url['sort'], 'volume') === false ? "" : " class=\"cur\"";
+                $_url = array('sort'=>'volume desc') + $url;
+                echo '<li><a' . $cur . ' href="'. $this->Html->getLink($_url) . '">销量<b class="icons up"></b></a></li>';
+              }
+              if($url['sort'] == 'seller_credit_score desc'){
+                $_url = array('sort'=>'seller_credit_score asc') + $url;
+                echo '<li><a class="cur" href="'. $this->Html->getLink($_url) . '">信用<b class="icons down"></b></a></li>';
+              }else{
+                $cur = strpos($url['sort'], 'seller_credit_score') === false ? "" : " class=\"cur\"";
+                $_url = array('sort'=>'seller_credit_score desc') + $url;
+                  echo '<li><a' . $cur . ' href="'. $this->Html->getLink($_url) . '">信用<b class="icons up"></b></a></li>';
+              }
+              if($url['sort'] == 'delist_time desc'){
+                $_url = array('sort'=>'delist_time asc') + $url;
+                echo '<li><a class="cur" href="'. $this->Html->getLink($_url) . '">时间<b class="icons down"></b></a></li>';
+              }else{
+                $cur = strpos($url['sort'], 'delist_time') === false ? "" : " class=\"cur\"";
+                $_url = array('sort'=>'delist_time desc') + $url;
+                echo '<li><a' . $cur . ' href="'. $this->Html->getLink($_url) . '">时间<b class="icons up"></b></a></li>';
+              }
+              ?>
             </ul>
             <div>共有&nbsp;<?php echo $search_count; ?>件商品</div>
           </div>
@@ -43,7 +73,7 @@
             </li>
 			<?php endforeach; ?>
           </ul>
-          <div class="page"><?php echo $this->Html->page($page, ceil($search_count/16));?></div>
+          <div class="page"><?php echo $this->Html->page($page, ceil($search_count/16), $url);?></div>
         </div>
       </div>
     </div>

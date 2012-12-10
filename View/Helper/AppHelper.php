@@ -64,11 +64,16 @@ class AppHelper extends Helper {
         foreach($cates as $cate){
             $id = $cate['id'];
             $pid = $cate['parent_id'];
+            $tags = array($id);
+            foreach($params as $p){
+                $tags[] = $p;
+            }
+            $tags = array('tags'=>$tags);
             if(isset($active[$id])){
                 $allactive = false;
-                $html[] = "<a class=\"on\" href=\"" . $this->getLink($params, $id) ."\">{$cate['tag']}</a>";
+                $html[] = "<a class=\"on\" href=\"" . $this->getLink($tags) ."\">{$cate['tag']}</a>";
             }else{
-                $html[] = "<a href=\"" . $this->getLink($params, $id) ."\">{$cate['tag']}</a>";               
+                $html[] = "<a href=\"" . $this->getLink($tags) ."\">{$cate['tag']}</a>";               
             }
         }
         if(!$allactive || isset($active[$pid])){
@@ -95,12 +100,15 @@ class AppHelper extends Helper {
         $html = array();
         $sub = array();
         foreach($this->sortCate($cates) as $cate){
+            $tags = array_slice($params, 0);
             $id = $cate['id'];
+            $tags[] = $id;
+            $tags = array('tags'=> $tags);
             if(isset($active[$id])){
                 $allactive = false;
-                $html[] = "<a class=\"on\" href=\"" . $this->getLink($params, $id) ."\">{$cate['tag']}</a>";
+                $html[] = "<a class=\"on\" href=\"" . $this->getLink($tags) ."\">{$cate['tag']}</a>";
             }else{
-                $html[] = "<a href=\"" . $this->getLink($params, $id) ."\">{$cate['tag']}</a>";
+                $html[] = "<a href=\"" . $this->getLink($tags) ."\">{$cate['tag']}</a>";
             }
             if(isset($tree[$id])){
                 $sub[] = $this->getSubNav($params, $tree[$id], $active);
@@ -108,34 +116,32 @@ class AppHelper extends Helper {
         }
         $html[] = implode('', $sub);
         if(!$allactive){
-            array_unshift($html, "<a href=\"" . $this->getLink($params) . "\">全部</a>");
+            array_unshift($html, "<a href=\"" . $this->getLink(array('tags'=>$params)) . "\">全部</a>");
         }else{
             // 激活全部
-            array_unshift($html, "<a class=\"on\" href=\"" . $this->getLink($params) ."\">全部</a>");
+            array_unshift($html, "<a class=\"on\" href=\"" . $this->getLink(array('tags'=>$params)) ."\">全部</a>");
         }
         return implode('', $html);
     }
     
-    public function getLink($params, $id=null)
+    public function getLink($params)
     {
         $params = (array)$params;
-        if($id){
-            $params[] = $id;
+        foreach($params as $k => $p){
+            if(is_array($p)){
+                if(count($p)==1){
+                    $params[$k] = $p[0];
+                }else{
+                    $p = array_unique($p);
+                    sort($p);
+                    $params[$k] = implode('_', $p);
+                }
+            }
         }
-        $params = array_unique($params);
-        sort($params);
-        return "/s/tags=" . implode('_', $params);
+        return "/s/" . http_build_query($params);
     }
 
-    public function pageLink($baseurl, $newparam)
-    {
-        if($newparam){
-            $baseurl[] = $newparam;
-        }
-        return "/?" . implode('&', $baseurl);
-    }
-
-    public function page($current_page, $total_page, $urlobj=null)
+    public function page($current_page, $total_page, $url)
     {
         $display_page = 9; #必须为单数，页面对称显示
         $sep_page = ceil($display_page/2) - 1;
@@ -158,17 +164,20 @@ class AppHelper extends Helper {
             }
         }
         if($start > 1){
-            $htm .= "<a href=\"\">首页</a>";
+            $_url = array('page'=>1) + $url;
+            $htm .= "<a href=\"". $this->getLink($_url) ."\">首页</a>";
         }
         for($i=$start; $i<=$end; $i++){
             if($i != $current_page){
-                $htm .= "<a href=\"\">{$i}</a>"; 
+                $_url = array('page'=>$i) + $url;
+                $htm .= "<a href=\"". $this->getLink($_url)  ."\">{$i}</a>"; 
             }else{
                 $htm .= "<span class=\"current\">{$i}</span>";
             }
         }
         if($end < $total_page){
-            $htm .= "<a href=\"\">末页</a>";
+            $_url = array('page'=>$total_page) + $url;
+            $htm .= "<a href=\"". $this->getLink($_url)  ."\">末页</a>";
         }
         return $htm;
     }

@@ -64,13 +64,18 @@ class IndexController extends AppController
         $page = intval($this->get('page', 1));
         $limit = intval($this->get('limit', 16));
 
+        if(!$sort){
+            $sort = 'price asc';
+        }
+
         $url = array(
-            'kw' => urlencode($kw),
-            'tags' => urlencode($tags),
-            'sort' => urlencode($sort),
+            'kw' => $kw,
+            'tags' => $tags,
+            'sort' => $sort,
             'page' => $page,
             'limit' => $limit,
         );
+                // var_dump($_GET, $this->request);exit;
 
         $ret = array(
             'errmsg' => '',
@@ -101,6 +106,7 @@ class IndexController extends AppController
             echo json_encode($ret);
             die();
         }
+
         $this->set(compact('kw','tags', 'order', 'page', 'limit', 'url', 'search_result', 'search_count'));
     }
 
@@ -129,16 +135,12 @@ class IndexController extends AppController
         $_sort_mode = array('delist_time'=>1, 'price'=>1, 'seller_credit_score'=>1, 'volume'=>1);
         $_sort_type = array('asc'=>1, 'desc'=>1);
         $new_sort = array();
-        if($sort){
-            $sort = explode(',', $sort);
-            foreach($sort as $o){
-                $o = explode(' ', $o, 2);
-                $o = array_map('trim', $o);
-                if(!isset($_sort_mode[$o[0]]) || !isset($_sort_type[$o[1]])) continue;
-                $new_sort[$o[0]] = $o[1];
-            }
-        }else{
-            $new_sort['price'] = 'asc';
+        $sort = explode(',', $sort);
+        foreach($sort as $o){
+            $o = explode(' ', $o, 2);
+            $o = array_map('trim', $o);
+            if(!isset($_sort_mode[$o[0]]) || !isset($_sort_type[$o[1]])) continue;
+            $new_sort[$o[0]] = $o[1];
         }
         return $new_sort;
     }
