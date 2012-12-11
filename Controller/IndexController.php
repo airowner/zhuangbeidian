@@ -46,7 +46,7 @@ class IndexController extends AppController
         $query_keywords = array_slice(array_unique(array_merge($query_keywords, $default_query_keywords)), 0, 6);
         $this->set('query_keywords', $query_keywords);
     }
-    
+
     private function ads()
     {
         $_ads = $this->Ad->find('all', array(
@@ -61,7 +61,8 @@ class IndexController extends AppController
 
     public function index()
     {
-        
+
+        $this->set('kw', '');
     }
 
     public function tag()
