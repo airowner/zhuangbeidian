@@ -18,6 +18,7 @@ class IndexController extends AppController
         $this->set('baseurl', '/');
         
         $this->ads();
+        $this->setTopQuery();
 
         $this->tree = $this->Tag->getTree();
         // var_dump($this->tree);exit;
@@ -29,6 +30,23 @@ class IndexController extends AppController
         $this->set('price', $this->Tag->getCategory('#price'));
     }
 
+    private function setTopQuery()
+    {      
+        $query_keywords = array();
+        if(file_exists('/tmp/query_log')){
+            $query_keywords = file_get_contents('/tmp/query_log');
+            $query_keywords = explode("\n", trim($query_keywords));
+            foreach($query_keywords as $k => $qk){
+                if(!$qk){
+                    unset($query_keywords[$k]);
+                }
+            }
+        }
+        $default_query_keywords = array('lol', '雷蛇', '马克杯', '手机壳', '钥匙坠', '韩版');
+        $query_keywords = array_slice(array_unique(array_merge($query_keywords, $default_query_keywords)), 0, 6);
+        $this->set('query_keywords', $query_keywords);
+    }
+    
     private function ads()
     {
         $_ads = $this->Ad->find('all', array(
@@ -75,7 +93,6 @@ class IndexController extends AppController
             'page' => $page,
             'limit' => $limit,
         );
-                // var_dump($_GET, $this->request);exit;
 
         $ret = array(
             'errmsg' => '',

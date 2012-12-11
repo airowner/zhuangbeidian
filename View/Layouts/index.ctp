@@ -25,18 +25,23 @@
     <div class="header clearfix">
       <div class="logo" title="<?php echo $this->Html->link($home, $home_url); ?></div>
       <div class="search">
-        <form action="">
+        <form action="/s/">
         <div class="sInput">
           <b class="icons rc lt"></b>
           <b class="icons rc rt"></b>
           <b class="icons rc lb"></b>
           <b class="icons rc rb"></b>
-          <input class="txt" type="text"/>
+          <input class="txt" type="text" name="kw" value="<?php echo $kw; ?>" onfocus="this.select();" />
           <input class="btn" type="submit" value="搜 索"/>
         </div>
         </form>
         <div class="sLabel">
-          热门搜索：<a title="" href="">香水</a><a title="" href="">数码相机</a><a title="" href="">led电视</a><a title="" href="">香水</a><a title="" href="">数码相机</a><a title="" href="">led电视</a>
+          热门搜索：
+          <?php
+          foreach($query_keywords as $qk){
+            echo '<a href="'.$this->Html->getLink(array('kw'=>urlencode($qk))) .'">' . $qk . '</a>';
+          }
+          ?>
         </div>
       </div>
     </div>
