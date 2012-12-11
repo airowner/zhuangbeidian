@@ -39,7 +39,7 @@
           热门搜索：
           <?php
           foreach($query_keywords as $qk){
-            echo '<a href="'.$this->Html->getLink(array('kw'=>trim($qk)) .'">' . $qk . '</a>';
+            echo '<a href="'.$this->Html->getLink(array('kw'=>trim($qk))) .'">' . $qk . '</a>';
           }
           ?>
         </div>
