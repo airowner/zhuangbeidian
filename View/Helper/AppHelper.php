@@ -138,7 +138,7 @@ class AppHelper extends Helper {
                 }
             }
         }
-        return "/s/" . http_build_query($params);
+        return "/s/?" . http_build_query($params);
     }
 
     public function page($current_page, $total_page, $url)

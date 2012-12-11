@@ -21,7 +21,7 @@
               <?php
               if($url['sort'] == 'price asc'){
                 $_url = array('sort'=>'price desc') + $url;
-                echo '<li><a class="cur" href="'. $this->Html->getLink($_url) . '">价格<b class="icons up"></b></a></li>';
+                echo '<li><a class="cur" href="'. $this->Html->getLink($_url) . '">价格<b class="icons down"></b></a></li>';
               }else{
                 $cur = strpos($url['sort'], 'price') === false ? "" : " class=\"cur\"";
                 $_url = array('sort'=>'price asc') + $url;
