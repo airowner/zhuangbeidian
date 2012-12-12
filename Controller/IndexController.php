@@ -39,7 +39,9 @@ class IndexController extends AppController
             foreach($query_keywords as $k => $qk){
                 if(!$qk){
                     unset($query_keywords[$k]);
+		    continue;
                 }
+		$query_keywords[$k] = trim(urldecode($qk));
             }
         }
         $default_query_keywords = array('lol', '雷蛇', '马克杯', '手机壳', '钥匙坠', '韩版');
