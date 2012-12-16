@@ -10,7 +10,7 @@ class SphinxComponent extends Component
     public function __construct(ComponentCollection $collection, $settings = array())
     {
     	parent::__construct($collection, $settings);
-	$this->init();
+        $this->init();
     }
 
     private function init()
@@ -25,7 +25,7 @@ class SphinxComponent extends Component
         // $this->SetArrayResult(true); //结果已数组形式返回， 对mva分组可能包括重复的文档
     }
 
-    private function reset()
+    public function reset()
     {
         $this->svc->ResetFilters();
         $this->svc->ResetGroupBy();

@@ -27,7 +27,7 @@ class IndexController extends AppController
         $this->set('game', $this->game);
         $this->cates = $this->Tag->getCategory('#product');
         $this->set('cates', $this->cates);
-        $this->set('price', $this->Tag->getCategory('#price'));
+        // $this->set('price', $this->Tag->getCategory('#price'));
     }
 
     private function setTopQuery()
@@ -39,9 +39,9 @@ class IndexController extends AppController
             foreach($query_keywords as $k => $qk){
                 if(!$qk){
                     unset($query_keywords[$k]);
-		    continue;
+                    continue;
                 }
-		$query_keywords[$k] = trim(urldecode($qk));
+                $query_keywords[$k] = trim(urldecode($qk));
             }
         }
         $default_query_keywords = array('lol', '雷蛇', '马克杯', '手机壳', '钥匙坠', '韩版');
@@ -63,8 +63,47 @@ class IndexController extends AppController
 
     public function index()
     {
-
         $this->set('kw', '');
+        $recommend_keys = array('衣服', '裤子', '鞋', '包', '手机壳');
+        $recommends = array();
+        foreach($recommend_keys as $k){
+            $recommends[] = $this->index_items($k);
+        }
+        $hot_keys = array('衣服', '裤子', '鞋', '包', '手机壳');
+        $hots = array();
+        foreach($hot_keys as $k){
+            $hots[] = $this->index_items($k, false);
+        }
+        $this->set(compact('recommend_keys', 'recommends', 'hot_keys', 'hots'));
+    }
+
+    private function index_items($cate, $gt500=true)
+    {
+        if($gt500){
+            $_t = array(array('key'=>'tag_ids', 'value'=>array(43,44,45,46,47)));
+        }else{
+            $_t = array(array('key'=>'tag_ids', 'value'=>array(41,42)));
+        }
+        $kw = '';
+        if($cate){
+            $kw = $cate;
+        }
+        try{
+            $this->Sphinx->reset();
+            $options = array(
+                'limit' => array(0, 8),
+                'filter' => $_t,
+            );
+            $search_result = $this->Sphinx->query($kw, $options);
+            $search_result = $search_result['items'];
+            foreach($search_result as &$item){
+                unset($item['desc'], $item['tags_id']);
+            }
+        }catch(Exception $e){
+            var_dump($e);
+            $search_result = array();
+        }
+        return $search_result;
     }
 
     public function tag()

@@ -239,6 +239,26 @@ class AppHelper extends Helper {
           </span>';
     }
 
+    public function product($i)
+    {
+        echo <<<HTML
+            <li>
+              <div>
+                <a href="{$i['click_url']}" target="_blank">
+                  <img src="{$i['pic_url']}" style="max-width:175px;">
+                </a>
+              </div>
+              <ul>
+                <li class="name"><a href="{$i['click_url']}" target="_blank" title="{$i['title']}" >{$i['title']}</a></li>
+                <li class="price">装备店价：<b>￥{$i['price']}</b></li>
+                <li class="sold">库存：<b>{$i['num']}</b>&nbsp;件</li>
+                <li class="owner">掌柜：<a href="{$i['shop_click_url']}" target="_blank">{$i['nick']}</a></li>
+              </ul>
+              <a class="btn" href="{$i['shop_click_url']}"  target="_blank">去店铺看看</a>
+            </li>
+HTML;
+    }
+
     public function seller_heart($heart)
     {
     	switch($heart){

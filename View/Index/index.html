@@ -24,120 +24,37 @@
       <?php echo $this->Html->ad($ads[6], array('class'=>'poster', 'baseurl'=>$baseurl)); ?>
       <div class="list clearfix">
         <div class="imgList">
-          <div class="section">
+          <div class="section" id="recommend">
             <div class="tit c_red clearfix">
               <div class="fr">
-                <a href="">衣服</a><span>|</span><a href="">裤子</a><span>|</span><a href="">鞋</a><span>|</span><a href="">包</a><span>|</span><a href="">手机套</a>
+                <?php foreach($recommend_keys as $k => $recommend){
+                  $recommend_keys[$k] = "<a href=\"javascript:void(0);\">$recommend</a>";
+                }
+                echo implode('<span>|</span>', $recommend_keys);
+                 ?>
               </div>
               <div class="inner_tit">
                 <b class="icons fl"></b>
-                <span>热门商品</span>
+                <span>推荐商品</span>
                 <b class="icons fr"></b>
               </div>
             </div>
-            <ul class="productCell clearfix">
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
+            <?php foreach($recommends as $recommend): ?>
+            <ul class="productCell clearfix" style="display:none;">
+              <?php foreach($recommend as $i): ?>
+                <?php $this->Html->product($i); ?>
+              <?php endforeach; ?>
             </ul>
+            <?php endforeach; ?>
           </div>
-          <div class="section">
+          <div class="section" id="hot">
             <div class="tit c_green clearfix">
               <div class="fr">
-                <a href="">衣服</a><span>|</span><a href="">裤子</a><span>|</span><a href="">鞋</a><span>|</span><a href="">包</a><span>|</span><a href="">手机套</a>
+                <?php foreach($hot_keys as $k => $hot){
+                  $hot_keys[$k] = "<a href=\"javascript:void(0);\">$hot</a>";
+                }
+                echo implode('<span>|</span>', $hot_keys);
+                 ?>
               </div>
               <div class="inner_tit">
                 <b class="icons fl"></b>
@@ -145,104 +62,13 @@
                 <b class="icons fr"></b>
               </div>
             </div>
-            <ul class="productCell clearfix">
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
-              <li>
-                <div>
-                  <a href="">
-                    <img src="temp/img_product.jpg"/>
-                  </a>
-                </div>
-                <ul>
-                  <li class="name"><a href="">三星S5380D接受挑战，将</a></li>
-                  <li class="price"><em>市场价：￥5869</em></li>
-                  <li class="price">装备店价：<b>￥2279.00</b></li>
-                </ul>
-              </li>
+            <?php foreach($hots as $k => $hot): ?>
+            <ul class="productCell clearfix" style="display:none;">
+              <?php foreach($hot as $i): ?>
+                <?php $this->Html->product($i); ?>
+              <?php endforeach; ?>
             </ul>
+            <?php endforeach; ?>
           </div>
         </div>
         <div class="txtList">
@@ -321,3 +147,24 @@
         </div>
       </div>
     </div>
+<script type="text/javascript">
+var tab = function(id){
+  var o = $('#'+id);
+  var selected = null;
+  var uls = o.children('ul');
+  o.find('div.fr>a').each(function(i, obj){
+    obj = $(obj);
+    obj.mouseover(function(e){
+      if(selected) selected.hide();
+      console.log(uls[i]);
+      selected = $(uls[i]);
+      selected.show();
+    });
+    if(!i) obj.mouseover();
+  });
+};
+$(document).ready(function(){
+  tab('recommend');
+  tab('hot');
+})
+</script>

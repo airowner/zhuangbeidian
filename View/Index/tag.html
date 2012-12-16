@@ -57,20 +57,7 @@
           </div>
           <ul class="productCell clearfix">
 			<?php foreach($search_result as $i): ?>
-            <li>
-              <div>
-                <a href="<?php echo $i['click_url']; ?>" target="_blank">
-                  <img src="<?php echo $i['pic_url']; ?>" style="max-width:175px;">
-                </a>
-              </div>
-              <ul>
-                <li class="name"><a href="<?php echo $i['click_url']; ?>" target="_blank" title="<?php echo $i['title'];?>" ><?php echo $i['title'];?></a></li>
-                <li class="price">装备店价：<b>￥<?php echo $i['price']?></b></li>
-                <li class="sold">库存：<b><?php echo $i['num']; ?></b>&nbsp;件</li>
-                <li class="owner">掌柜：<a href="<?php echo $i['shop_click_url'];?>" target="_blank"><?php echo $i['nick']; ?></a></li>
-              </ul>
-              <a class="btn" href="<?php echo $i['shop_click_url'];?>"  target="_blank">去店铺看看</a>
-            </li>
+        <?php $this->Html->product($i); ?>
 			<?php endforeach; ?>
           </ul>
           <div class="page"><?php echo $this->Html->page($page, ceil($search_count/16), $url);?></div>

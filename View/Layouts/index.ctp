@@ -19,6 +19,7 @@
         echo $this->fetch('css');
         echo $this->fetch('script');
     ?>
+    <script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -47,13 +48,19 @@
     </div>
     <div class="nav">
       <div class="inner1_nav">
-        <div class="inner2_nav">
+        <div class="inner2_nav" style="position:relative">
           <div class="more">
-            <a class="moreBtn" href="">
+            <a class="moreBtn" href="javascript:void(0);">
               <b class="icons"></b>
               更多
             </a>
           </div>
+          <?php /*
+          <ul style="position:absolute;top:37px;right:0;">
+            <li style="padding:0 40px;background:url('/images/bg_nav.gif') repeat-x scroll 0 -178px transparent 5px;"><a href=""><span><em>绝代双娇</em></span></a></li>
+            <li style="padding:0 40px;background:url('/images/bg_nav.gif') repeat-x scroll 0 -178px transparent"><a href=""><span><em>绝代双娇</em></span></a></li>
+          </ul>
+          */?>
           <ul class="main">
             
           <li<?php if(!isset($active['#game'])):?> class="cur"<?php endif; ?>><a href="/"><span><em>首页</em></span></a></li>
