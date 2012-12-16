@@ -17,8 +17,14 @@ class Tag extends AppModel
     {
     	static $tree = null;
     	if($tree !== null ) return $tree;
-		
-        $result = Hash::extract($this->children(null), '{n}.Tag');
+
+        $key = __CLASS__ . '|' . __METHOD__;
+        $result = Cache::read($key);
+        if(!$result){
+            $result = Hash::extract($this->children(null), '{n}.Tag');
+            Cache::write($key, $result);
+        }	
+        
         $tree = array();
         foreach($result as $r){
             if($r['parent_id'] === null) {
@@ -35,7 +41,6 @@ class Tag extends AppModel
 		foreach($tree as $pid => $t){
 			$tree[$pid] = $t;
 		}
-        // var_dump($tree);exit;
 		return $tree;
     }
     

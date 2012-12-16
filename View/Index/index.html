@@ -73,74 +73,30 @@
         </div>
         <div class="txtList">
           <div class="section">
-            <div class="tit">服装热门店铺</div>
+            <div class="tit">天猫店铺TOP10</div>
             <ul class="con">
+              <?php 
+              foreach($tmall_top10_shops as $shop):
+                $shop = $shop['Shop'];
+              ?>
               <li>
-                <b class="icons"></b><a href="">搜酷女包 女包排行第一</a><em class="icons yHat"></em><em class="icons yHat"></em>
+                <b class="icons"></b><a target="_blank" href="<?php echo $shop['click_url'];?>"><?php echo $shop['shop_title'];?></a><em class="icons" style="background-image:url('/images/<?php echo $this->Html->seller_heart($shop['seller_credit']); ?>');"></em>
               </li>
-              <li>
-                <b class="icons"></b><a href="">猫猫包袋 欧美日韩女包</a><em class="icons yHat"></em><em class="icons yHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">小丫晶晶 日韩箱包</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">麦包包 箱包专营店</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">优优良品 日韩美包</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">猫猫包袋 旗舰商城</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">搜酷女包 旗舰商城</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">简单奢华 外贸原单</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">品质生活 流行女包</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">日韩外贸 时尚前卫</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
+              <?php endforeach; ?>
             </ul>
           </div>
           <?php echo $this->Html->ad($ads[7], array('baseurl'=>$baseurl)); ?>
           <div class="section">
-            <div class="tit">服装热门店铺</div>
+            <div class="tit">Taobao店铺TOP10</div>
             <ul class="con">
+              <?php 
+              foreach($taobao_top10_shops as $shop):
+                $shop = $shop['Shop'];
+              ?>
               <li>
-                <b class="icons"></b><a href="">搜酷女包 女包排行第一</a><em class="icons yHat"></em><em class="icons yHat"></em>
+                <b class="icons"></b><a target="_blank" href="<?php echo $shop['click_url'];?>"><?php echo $shop['shop_title'];?></a><em class="icons" style="background-image:url('/images/<?php echo $this->Html->seller_heart($shop['seller_credit']); ?>');"></em>
               </li>
-              <li>
-                <b class="icons"></b><a href="">猫猫包袋 欧美日韩女包</a><em class="icons yHat"></em><em class="icons yHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">小丫晶晶 日韩箱包</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">麦包包 箱包专营店</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">优优良品 日韩美包</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">猫猫包袋 旗舰商城</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">搜酷女包 旗舰商城</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">简单奢华 外贸原单</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">品质生活 流行女包</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
-              <li>
-                <b class="icons"></b><a href="">日韩外贸 时尚前卫</a><em class="icons bHat"></em><em class="icons bHat"></em><em class="icons bHat"></em>
-              </li>
+              <?php endforeach; ?>
             </ul>
           </div>
           <?php echo $this->Html->ad($ads[8], array('baseurl'=>$baseurl)); ?>

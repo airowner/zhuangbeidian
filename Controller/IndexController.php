@@ -9,7 +9,7 @@ class IndexController extends AppController
     //public $helper = array('Html');
     public $components = array('Sphinx');
 
-    public $uses = array('Ad', 'Tag', 'Item', 'TagItem');
+    public $uses = array('Ad', 'Tag', 'Item', 'TagItem','Shop');
     
     function beforeFilter() 
     {
@@ -51,6 +51,12 @@ class IndexController extends AppController
 
     private function ads()
     {
+        $result = Cache::read('ads');
+        if($result){
+            $ads = $result;
+            $this->set('ads', $ads);
+            return true;
+        }
         $_ads = $this->Ad->find('all', array(
             //'conditions' => array('id' => '<5'),
         ));
@@ -58,6 +64,7 @@ class IndexController extends AppController
         foreach(Hash::extract($_ads, '{n}.Ad') as $ad){
             $ads[$ad['id']] = $ad;
         }
+        Cache::write('ads', $ads);
         $this->set('ads', $ads);
     }
 
@@ -75,6 +82,25 @@ class IndexController extends AppController
             $hots[] = $this->index_items($k, false);
         }
         $this->set(compact('recommend_keys', 'recommends', 'hot_keys', 'hots'));
+
+        if(!($tmall_top10_shops = Cache::read('tmall_top10_shops'))){
+            $tmall_top10_shops = $this->Shop->find('all', array(
+                'conditions' => array('shop_type'=>2),
+                'order'=>'seller_credit desc',
+                'limit'=>10,
+            ));
+            Cache::write('tmall_top10_shops', $tmall_top10_shops);
+        }
+        if(!($taobao_top10_shops = Cache::read('taobao_top10_shops'))){
+            $taobao_top10_shops = $this->Shop->find('all', array(
+                'conditions' => array('shop_type'=>1),
+                'order'=>'seller_credit desc',
+                'limit'=>10,
+            ));
+            Cache::write('taobao_top10_shops', $taobao_top10_shops);
+        }
+        // var_dump($credit_shops);exit;
+        $this->set(compact('tmall_top10_shops', 'taobao_top10_shops'));
     }
 
     private function index_items($cate, $gt500=true)
@@ -100,7 +126,7 @@ class IndexController extends AppController
                 unset($item['desc'], $item['tags_id']);
             }
         }catch(Exception $e){
-            var_dump($e);
+            // var_dump($e);
             $search_result = array();
         }
         return $search_result;
@@ -162,6 +188,7 @@ class IndexController extends AppController
             if(!$ret['errmsg']){
                 $ret['data'] = $search_result;
             }
+            $this->response->disableCache();
             echo json_encode($ret);
             die();
         }

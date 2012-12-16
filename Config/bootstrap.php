@@ -96,7 +96,16 @@
  *		'persistent' => true, // [optional] set this to false for non-persistent connections
  *	));
  */
-Cache::config('default', array('engine' => 'File'));
+Cache::config('default', array(
+		'engine' => 'File', //[required]
+		'duration'=> 300, //[optional]
+		'probability'=> 100, //[optional]
+ 		'path' => CACHE, //[optional] use system tmp directory - remember to use absolute path
+ 		'prefix' => 'custom_', //[optional]  prefix every cache file with this string
+ 		'lock' => false, //[optional]  use file locking
+ 		'serialize' => true, // [optional]
+ 		'mask' => 0666, // [optional] permission mask to use when creating cache files
+	));
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
