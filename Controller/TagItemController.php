@@ -134,7 +134,7 @@ class TagItemController extends AppController {
 			}
 			$this->TagItem->deleteAll(array('item_id'=>$item_id), false);
 			$this->Item->read(null, $item_id);
-			$this->Item->set('name', $this->request->data['name']);
+			$this->Item->set('name', $this->request->data['TagItem']['name']);
 			$this->Item->save();
 			if($this->TagItem->saveMany($data)){		
 				/*
