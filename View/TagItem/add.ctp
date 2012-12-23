@@ -6,14 +6,17 @@ div.checkbox{clear:none;display:inline-block;}
 
 	$top = array();
 	$product = array();
-	foreach($tree as $t){
-		if(!isset($t['children'])) continue;
-		$cates = $t['children'];
+	foreach($tree[0] as $k => $t){
+		if(!isset($tree[$k])) continue;
+		$cates = $tree[$k];
 		$tmp = array();
-		foreach($cates as $cate){
+		foreach($cates as $cateid => $cate){
 			$tmp[$cate['id']] = $cate['tag'];
-			if(isset($cate['children'])){
-				$product[$cate['id']] = $cate['children'];
+			if(isset($tree[$cateid])){
+				foreach($tree[$cateid] as $k => $v){
+					if(!isset($product[$cateid])) $product[$cateid] = array();
+					$product[$cateid][$k] = $v;
+				}
 			}
 		}
 		$_form_options = array(
@@ -36,6 +39,7 @@ div.checkbox{clear:none;display:inline-block;}
 		}
 		$top[substr($t['tag'], 1)] = $_form_options;
 	}
+
 ?>
 var products = <?php echo json_encode($product); ?>;
 var changeProduct = function(v){

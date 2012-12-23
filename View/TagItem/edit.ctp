@@ -5,14 +5,17 @@ div.checkbox{clear:none;display:inline-block;}
 <?php
 	$top = array();
 	$product = array();
-	foreach($tree as $t){
-		if(!isset($t['children'])) continue;
-		$cates = $t['children'];
+	foreach($tree[0] as $k => $t){
+		if(!isset($tree[$k])) continue;
+		$cates = $tree[$k];
 		$tmp = array();
-		foreach($cates as $cate){
+		foreach($cates as $cateid => $cate){
 			$tmp[$cate['id']] = $cate['tag'];
-			if(isset($cate['children'])){
-				$product[$cate['id']] = $cate['children'];
+			if(isset($tree[$cateid])){
+				foreach($tree[$cateid] as $k => $v){
+					if(!isset($product[$cateid])) $product[$cateid] = array();
+					$product[$cateid][$k] = $v;
+				}
 			}
 		}
 		$_form_options = array(
@@ -28,14 +31,12 @@ div.checkbox{clear:none;display:inline-block;}
 		}elseif($t['tag'] == '#user'){
 			unset($_form_options['empty']);
 			$_form_options += array('multiple' => 'checkbox');
-			//var_dump($_form_options);
 		}elseif($t['tag'] == '#game'){
 			unset($_form_options['empty']);
 			$_form_options['options']['all'] = '全选';
 			$_form_options += array('multiple' => 'checkbox');
 		}
-		$t_tag = substr($t['tag'], 1);
-		$top[$t_tag] = $_form_options;
+		$top[substr($t['tag'], 1)] = $_form_options;
 	}
 ?>
 var products = <?php echo json_encode($product); ?>;

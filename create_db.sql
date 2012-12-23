@@ -305,7 +305,8 @@ CREATE TABLE `item_tag`
     `tag_id` int(11) unsigned not null,
     PRIMARY KEY `id` (`id`),
     KEY `tag_id` (`tag_id`),
-    KEY `item_id` (`item_id`)
+    KEY `item_id` (`item_id`),
+    UNIQUE KEY `item_tag_id` (`item_id`, `tag_id`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
