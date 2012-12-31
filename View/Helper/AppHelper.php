@@ -219,7 +219,7 @@ class AppHelper extends Helper {
                 $data['a_js'], $data['before'], $data['txt'], $data['after']);
             break;
         case 'javascript':
-            $ad = "<script type='text/javascript'>{$data['other']}</script>";
+            $ad = $data['other'];
             break;
         case 'flash':
             $ad = '';

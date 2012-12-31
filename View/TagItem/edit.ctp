@@ -5,6 +5,7 @@ div.checkbox{clear:none;display:inline-block;}
 <?php
 	$top = array();
 	$product = array();
+	$tagids = array();
 	foreach($tree[0] as $k => $t){
 		if(!isset($tree[$k])) continue;
 		$cates = $tree[$k];
@@ -66,6 +67,7 @@ var init = function(){
 			}
 		}
 	});
+	checked = {};
 	var o = $('input[name="data[TagItem][game][]"]');
 	var all = true;
 	o.each(function(i){
