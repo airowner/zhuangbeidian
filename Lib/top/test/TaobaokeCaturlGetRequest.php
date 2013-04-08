@@ -108,6 +108,7 @@ class TaobaokeCaturlGetRequest
 		RequestCheckUtil::checkMinValue($this->cid,0,"cid");
 	}
 }
-$request = new;
+
+$request = new TaobaokeCaturlGetRequest();
 $tc = new TopClient();
 var_export(json_decode(json_encode($tc->execute($request)), true));
